@@ -1,0 +1,36 @@
+# Controlled vocabulary: drug modality. Versioned, extensible.
+version: "1"
+modalities:
+  - code: small_molecule
+    label: Small molecule
+    aliases: [small molecule, small-molecule, nce, chemical, oral small molecule]
+  - code: mab
+    label: Monoclonal antibody
+    aliases: [mab, monoclonal antibody, antibody, igg, humanized antibody, fully human antibody]
+  - code: bispecific
+    label: Bispecific antibody
+    aliases: [bispecific, bispecific antibody, bsab, bispecific t-cell engager, t-cell engager, tce]
+  - code: adc
+    label: Antibody-drug conjugate
+    aliases: [adc, antibody-drug conjugate, antibody drug conjugate]
+  - code: cell_therapy
+    label: Cell therapy
+    aliases: [cell therapy, car-t, car t, cart, tcr-t, til, nk cell, allogeneic, autologous]
+  - code: gene_therapy
+    label: Gene therapy
+    aliases: [gene therapy, aav, gene editing, crispr, in vivo gene therapy]
+  - code: rna
+    label: RNA / oligonucleotide
+    aliases: [rna, mrna, sirna, aso, antisense, oligonucleotide, rnai, sirna therapeutic]
+  - code: vaccine
+    label: Vaccine
+    aliases: [vaccine, immunization, mrna vaccine, prophylactic vaccine, therapeutic vaccine]
+  - code: protein
+    label: Protein / peptide
+    aliases: [protein, peptide, recombinant protein, fusion protein, enzyme, therapeutic protein]
+  - code: radioligand
+    label: Radioligand / radiopharmaceutical
+    aliases: [radioligand, radiopharmaceutical, radioconjugate, rlt, radiotherapeutic]
+  - code: other
+    label: Other / undisclosed
+    aliases: [other, undisclosed, not disclosed, n/a]

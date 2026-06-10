@@ -1,0 +1,172 @@
+# Company registry SEED. Loaded into the DB once; the DB (company / company_source
+# tables) is the source of truth thereafter. The seed is versioned config so the
+# initial universe is reproducible and reviewable.
+#
+# NOTE: pipeline URLs are best-effort anchors for the largest-cap pharma. They MUST
+# be verified during M1 rendering (sites move pages); fix in the DB or re-seed.
+# render_config overrides (waits, click-to-expand selectors, pagination) are added
+# per-site in M1 as we see how each page actually renders. Empty = Playwright defaults.
+#
+# Universe = top global pharma/biotech by market cap — the investing-relevant set.
+# Designed to grow to ~200 then 500+ without schema change.
+
+companies:
+  - name: Pfizer
+    ticker: PFE
+    exchange: NYSE
+    country: USA
+    website: https://www.pfizer.com
+    sources:
+      - url: https://www.pfizer.com/science/drug-product-pipeline
+
+  - name: Merck & Co.
+    ticker: MRK
+    exchange: NYSE
+    country: USA
+    website: https://www.merck.com
+    sources:
+      - url: https://www.merck.com/research/product-pipeline/
+
+  - name: Johnson & Johnson
+    ticker: JNJ
+    exchange: NYSE
+    country: USA
+    website: https://www.jnj.com
+    sources:
+      - url: https://www.investor.jnj.com/pipeline/default.aspx
+
+  - name: Roche
+    ticker: ROG
+    exchange: SIX
+    country: Switzerland
+    website: https://www.roche.com
+    sources:
+      - url: https://www.roche.com/solutions/pipeline
+
+  - name: Novartis
+    ticker: NVS
+    exchange: NYSE
+    country: Switzerland
+    website: https://www.novartis.com
+    sources:
+      - url: https://www.novartis.com/research-development/novartis-pipeline
+
+  - name: AstraZeneca
+    ticker: AZN
+    exchange: NASDAQ
+    country: UK
+    website: https://www.astrazeneca.com
+    sources:
+      - url: https://www.astrazeneca.com/our-therapy-areas/pipeline.html
+
+  - name: AbbVie
+    ticker: ABBV
+    exchange: NYSE
+    country: USA
+    website: https://www.abbvie.com
+    sources:
+      - url: https://www.abbvie.com/science/pipeline.html
+
+  - name: Bristol Myers Squibb
+    ticker: BMY
+    exchange: NYSE
+    country: USA
+    website: https://www.bms.com
+    sources:
+      - url: https://www.bms.com/researchers-and-partners/in-the-pipeline.html
+
+  - name: Eli Lilly
+    ticker: LLY
+    exchange: NYSE
+    country: USA
+    website: https://www.lilly.com
+    sources:
+      - url: https://www.lilly.com/discovery/clinical-development-pipeline
+
+  - name: GSK
+    ticker: GSK
+    exchange: NYSE
+    country: UK
+    website: https://www.gsk.com
+    sources:
+      - url: https://www.gsk.com/en-gb/innovation/pipeline/
+
+  - name: Sanofi
+    ticker: SNY
+    exchange: NASDAQ
+    country: France
+    website: https://www.sanofi.com
+    sources:
+      - url: https://www.sanofi.com/en/science-and-innovation/research-and-development/our-pipeline
+
+  - name: Amgen
+    ticker: AMGN
+    exchange: NASDAQ
+    country: USA
+    website: https://www.amgen.com
+    sources:
+      - url: https://www.amgen.com/science/pipeline
+
+  - name: Gilead Sciences
+    ticker: GILD
+    exchange: NASDAQ
+    country: USA
+    website: https://www.gilead.com
+    sources:
+      - url: https://www.gilead.com/science/pipeline
+
+  - name: Vertex Pharmaceuticals
+    ticker: VRTX
+    exchange: NASDAQ
+    country: USA
+    website: https://www.vrtx.com
+    sources:
+      - url: https://www.vrtx.com/our-science/pipeline/
+
+  - name: Regeneron
+    ticker: REGN
+    exchange: NASDAQ
+    country: USA
+    website: https://www.regeneron.com
+    sources:
+      - url: https://www.regeneron.com/pipeline-medicines
+
+  - name: Moderna
+    ticker: MRNA
+    exchange: NASDAQ
+    country: USA
+    website: https://www.modernatx.com
+    sources:
+      - url: https://www.modernatx.com/pipeline
+
+  - name: Biogen
+    ticker: BIIB
+    exchange: NASDAQ
+    country: USA
+    website: https://www.biogen.com
+    sources:
+      - url: https://www.biogen.com/our-science/pipeline.html
+
+  - name: Takeda
+    ticker: TAK
+    exchange: NYSE
+    country: Japan
+    website: https://www.takeda.com
+    sources:
+      - url: https://www.takeda.com/what-we-do/research-and-development/pipeline/
+
+  - name: Novo Nordisk
+    ticker: NVO
+    exchange: NYSE
+    country: Denmark
+    website: https://www.novonordisk.com
+    sources:
+      - url: https://www.novonordisk.com/science-and-technology/r-d-pipeline.html
+
+  - name: BioNTech
+    ticker: BNTX
+    exchange: NASDAQ
+    country: Germany
+    website: https://www.biontech.com
+    sources:
+      - url: https://www.biontech.com/int/en/home/pipeline-and-products/pipeline.html

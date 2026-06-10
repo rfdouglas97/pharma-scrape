@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: pipeline
+          POSTGRES_PASSWORD: pipeline
+          POSTGRES_DB: pipeline_intel
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U pipeline -d pipeline_intel"
+          --health-interval 2s --health-timeout 2s --health-retries 20
+    env:
+      DATABASE_URL: postgresql+psycopg://pipeline:pipeline@localhost:5433/pipeline_intel
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync
+      - name: Lint
+        run: uv run ruff check .
+      - name: Migrate
+        run: uv run alembic upgrade head
+      - name: Test
+        run: uv run pytest -q

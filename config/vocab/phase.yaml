@@ -1,0 +1,40 @@
+# Controlled vocabulary: development phase. Versioned, extensible.
+# `aliases` are the verbatim strings we map deterministically before any LLM fallback.
+version: "1"
+phases:
+  - code: preclinical
+    label: Preclinical
+    sort_order: 10
+    aliases: [preclinical, pre-clinical, pre clinical, discovery, research, ind-enabling, ind enabling]
+  - code: phase_1
+    label: Phase 1
+    sort_order: 20
+    aliases: [phase 1, phase i, phase-1, ph1, p1, phase 1a, phase 1b]
+  - code: phase_1_2
+    label: Phase 1/2
+    sort_order: 25
+    aliases: [phase 1/2, phase i/ii, phase 1-2, phase 1/2a]
+  - code: phase_2
+    label: Phase 2
+    sort_order: 30
+    aliases: [phase 2, phase ii, phase-2, ph2, p2, phase 2a, phase 2b]
+  - code: phase_2_3
+    label: Phase 2/3
+    sort_order: 35
+    aliases: [phase 2/3, phase ii/iii, phase 2-3]
+  - code: phase_3
+    label: Phase 3
+    sort_order: 40
+    aliases: [phase 3, phase iii, phase-3, ph3, p3, pivotal]
+  - code: filed
+    label: Filed / Registration
+    sort_order: 50
+    aliases: [filed, registration, submitted, under review, nda filed, bla filed, maa filed, regulatory review]
+  - code: approved
+    label: Approved / Marketed
+    sort_order: 60
+    aliases: [approved, marketed, commercial, launched, on market]
+  - code: discontinued
+    label: Discontinued
+    sort_order: 70
+    aliases: [discontinued, terminated, halted, withdrawn, deprioritized]
