@@ -6,7 +6,7 @@ in a run reuse the cached prefix. Per-page content (text + screenshots) goes in 
 user turn, after the cached prefix.
 """
 
-PROMPT_VERSION = "1"
+PROMPT_VERSION = "2"
 
 SYSTEM_PROMPT = """\
 You extract drug development pipeline data from a pharmaceutical company's public \
@@ -41,6 +41,16 @@ program entry.
 "ABC-123"), generic names, and brand names — in synonyms, with the clearest one as \
 preferred_name.
 6. PARTNERS. Capture collaborators/partners as shown, with role and territory only if stated.
+
+## Pipeline-changes sections
+Some pages include a separate "Pipeline changes", "Recently added", "Progressed", or \
+"Removed/Discontinued" section, distinct from the main active pipeline table. Handle it so \
+the active pipeline is not distorted:
+- The MAIN pipeline table/graphic is the source of active programs.
+- For an item shown as removed/discontinued, capture it with the program `status` set to \
+"discontinued" (or the page's exact word, e.g. "Removed") — do not leave it looking active.
+- Do NOT duplicate an item that already appears in the active table just because it is also \
+listed in a changes section; record it once.
 
 ## Data-quality signalling
 If the pipeline is shown only as an image you cannot fully read, if data clearly \

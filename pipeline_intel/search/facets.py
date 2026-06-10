@@ -68,10 +68,15 @@ def search_programs(
     modality: str | None = None,
     company_id: str | None = None,
     status: str | None = None,
+    active_only: bool = False,
     limit: int = 100,
     offset: int = 0,
 ) -> dict:
-    """Faceted program search. `q` matches asset name / indication / target (ILIKE)."""
+    """Faceted program search. `q` matches asset name / indication / target (ILIKE).
+
+    active_only excludes discontinued/removed programs — the default "active pipeline"
+    view investors expect, and the count that reconciles with company-stated totals
+    (e.g. GSK's 'Pipeline changes / Removed' items drop out)."""
     stmt = _current_program_query()
     if phase:
         stmt = stmt.where(ProgramVersion.phase_code == phase)
@@ -81,6 +86,8 @@ def search_programs(
         stmt = stmt.where(Program.company_id == company_id)
     if status:
         stmt = stmt.where(ProgramVersion.status == status)
+    elif active_only:
+        stmt = stmt.where(ProgramVersion.status != "discontinued")
     if q:
         like = f"%{q}%"
         target_assets = select(AssetTarget.asset_id).join(
@@ -115,7 +122,13 @@ def search_programs(
 def list_companies(s: Session) -> list[dict]:
     """Companies with program counts + freshness (companies with no programs still listed)."""
     prog_counts = (
-        select(Program.company_id, func.count().label("n_programs"))
+        select(
+            Program.company_id,
+            func.count().filter(ProgramVersion.status != "discontinued").label("n_programs"),
+            func.count().filter(ProgramVersion.status == "discontinued").label("n_discontinued"),
+        )
+        .join(ProgramVersion, ProgramVersion.program_id == Program.program_id)
+        .where(ProgramVersion.valid_to.is_(None))
         .group_by(Program.company_id)
         .subquery()
     )
@@ -129,6 +142,7 @@ def list_companies(s: Session) -> list[dict]:
         select(
             Company.company_id, Company.name, Company.ticker, Company.country,
             func.coalesce(prog_counts.c.n_programs, 0).label("n_programs"),
+            func.coalesce(prog_counts.c.n_discontinued, 0).label("n_discontinued"),
             last_fetch.c.last_fetched,
         )
         .outerjoin(prog_counts, prog_counts.c.company_id == Company.company_id)
@@ -142,18 +156,24 @@ def get_company(s: Session, company_id: str) -> dict | None:
     company = s.get(Company, company_id)
     if company is None:
         return None
-    progs = search_programs(s, company_id=company_id, limit=1000)["results"]
+    progs = search_programs(s, company_id=company_id, limit=2000)["results"]
     by_phase: dict[str, list] = {}
+    discontinued: list = []
     for p in progs:
-        by_phase.setdefault(p["phase_code"] or "unmapped", []).append(p)
+        if p["status"] == "discontinued":
+            discontinued.append(p)
+        else:
+            by_phase.setdefault(p["phase_code"] or "unmapped", []).append(p)
     return {
         "company_id": company.company_id,
         "name": company.name,
         "ticker": company.ticker,
         "country": company.country,
         "website": company.website,
-        "n_programs": len(progs),
+        "n_programs": sum(len(v) for v in by_phase.values()),
+        "n_discontinued": len(discontinued),
         "programs_by_phase": by_phase,
+        "discontinued": discontinued,
     }
 
 

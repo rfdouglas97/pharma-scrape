@@ -19,7 +19,7 @@ export default function CompaniesPage() {
       {err && <div className="notice err">{err}</div>}
       <table>
         <thead>
-          <tr><th>Company</th><th>Ticker</th><th>Country</th><th>Programs</th><th>Last fetched</th></tr>
+          <tr><th>Company</th><th>Ticker</th><th>Country</th><th>Active programs</th><th>Discontinued</th><th>Last fetched</th></tr>
         </thead>
         <tbody>
           {rows.map((c) => (
@@ -28,6 +28,7 @@ export default function CompaniesPage() {
               <td className="small">{c.ticker || "—"}</td>
               <td className="small">{c.country || "—"}</td>
               <td>{c.n_programs > 0 ? <span className="badge">{c.n_programs}</span> : <span className="badge gray">0</span>}</td>
+              <td>{c.n_discontinued > 0 ? <span className="badge discontinued">{c.n_discontinued}</span> : <span className="muted small">—</span>}</td>
               <td className="small muted">{c.last_fetched ? new Date(c.last_fetched).toISOString().slice(0, 10) : "—"}</td>
             </tr>
           ))}

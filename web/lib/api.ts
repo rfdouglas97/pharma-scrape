@@ -29,6 +29,7 @@ export type CompanyRow = {
   ticker: string | null;
   country: string | null;
   n_programs: number;
+  n_discontinued: number;
   last_fetched: string | null;
 };
 

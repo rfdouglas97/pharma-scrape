@@ -59,13 +59,14 @@ def programs(
     modality: str | None = None,
     company_id: str | None = None,
     status: str | None = None,
+    active_only: bool = False,
     limit: int = 100,
     offset: int = 0,
 ) -> dict:
     with session() as s:
         return facets.search_programs(
             s, q=q, phase=phase, modality=modality, company_id=company_id,
-            status=status, limit=min(limit, 500), offset=offset,
+            status=status, active_only=active_only, limit=min(limit, 500), offset=offset,
         )
 
 

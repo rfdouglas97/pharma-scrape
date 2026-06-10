@@ -12,6 +12,7 @@ export default function ExplorePage() {
   const [modality, setModality] = useState("");
   const [companyId, setCompanyId] = useState("");
   const [status, setStatus] = useState("");
+  const [includeDiscontinued, setIncludeDiscontinued] = useState(false);
   const [data, setData] = useState<ProgramSearch | null>(null);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -30,6 +31,7 @@ export default function ExplorePage() {
     if (modality) params.set("modality", modality);
     if (companyId) params.set("company_id", companyId);
     if (status) params.set("status", status);
+    if (!includeDiscontinued) params.set("active_only", "true");
     params.set("limit", "200");
     try {
       setData(await api<ProgramSearch>(`/v1/programs?${params.toString()}`));
@@ -74,8 +76,12 @@ export default function ExplorePage() {
           <option value="">Any status</option>
           {facets?.statuses.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
+        <label className="small" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <input type="checkbox" checked={includeDiscontinued} onChange={(e) => setIncludeDiscontinued(e.target.checked)} style={{ minWidth: "auto" }} />
+          Include discontinued/removed
+        </label>
         <button onClick={run}>Search</button>
-        <button className="ghost" onClick={() => { setQ(""); setPhase(""); setModality(""); setCompanyId(""); setStatus(""); }}>Clear</button>
+        <button className="ghost" onClick={() => { setQ(""); setPhase(""); setModality(""); setCompanyId(""); setStatus(""); setIncludeDiscontinued(false); }}>Clear</button>
       </div>
 
       {err && <div className="notice err">{err}</div>}
