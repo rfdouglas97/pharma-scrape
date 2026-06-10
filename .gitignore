@@ -8,6 +8,7 @@ creds.txt
 *.pem
 *.key
 secrets*
+Eval_data/
 .pytest_cache/
 .ruff_cache/
 artifacts/

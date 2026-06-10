@@ -24,6 +24,12 @@
 
 **What this changes:** the original plan ran enrichment (M2) → scale (M3) → API (M4) → UI (M5). We now bring a **thin gold loader + API + explorer/review UI forward** (new M2) so the eval can run through it (new M3), *then* do full enrichment (M4) and scale (M5). The risk discipline is intact: **we do not scale ingestion past the pilot, or treat the data as sellable, until the gate passes.** Building the UI on an unvalidated extractor is low-risk — the loader rebuilds from immutable silver, and the UI is format-agnostic.
 
+**Decisions / findings (2026-06-10):**
+- **Frontend confirmed: Next.js** (App Router) on Vercel for the explorer/review UI — it's the eventual product surface, so we build on it from M2 rather than a throwaway.
+- **GSK extraction validated against authoritative ground truth** (GSK's own downloadable Q1-2026 pipeline spreadsheet, in `Eval_data/`, gitignored). Result: we captured **all 57 unique compounds** (recall ~100%, incl. linerixibat); the only true gap was one brand-name synonym ("Lynavoy"). Our 5 "extra" assets were real page content from the page's **"Pipeline changes / Removed"** section, correctly tagged `Removed`. The headline "76" the page implies = the spreadsheet's 76 **program rows** (compound × indication), not 76 assets.
+- **To-do — prompt refinement (before M3 gate):** segregate "Pipeline changes / Added / Removed" sections from the active pipeline (e.g. status=`removed`/`discontinued` and exclude from active counts) so active-program counts reconcile cleanly with company-stated totals.
+- **To-do — source strategy (M5):** where a company publishes a **downloadable pipeline file** (xlsx/PDF, as GSK does), prefer ingesting that structured file over scraping the rendered page — cleaner, more complete, and lower extraction risk. Add `source_type=pipeline_file` handling to the registry/ingest path. Such files also make the best golden-set ground truth.
+
 ---
 
 ## 1. Architecture Overview
