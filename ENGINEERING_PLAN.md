@@ -1,6 +1,7 @@
 # Pharma Pipeline Intelligence — Engineering Plan
 
-**Status:** Approved scope, ready to build
+**Status:** In build — M0 complete, M1 built & live-validated, re-sequenced so the UI lands before the eval gate (see §0).
+**Repo:** github.com/rfdouglas97/pharma-scrape (private)
 **Inputs:** `pharma-pipeline-intelligence-brief.md` + decisions confirmed 2026-06-10:
 
 | Decision | Choice |
@@ -9,6 +10,19 @@
 | Phase 1 UI | Functional explorer web app (search, filters, drill-down) — polish deferred to Phase 2 |
 | Re-scrape cadence | **Weekly**, with content-hash skip so unchanged pages cost nothing to re-extract |
 | Stack | Python ETL (Playwright + Claude API), PostgreSQL + pgvector single store, FastAPI service layer, Next.js explorer |
+| Eval sequencing (2026-06-10) | **Golden-set labeling/eval happens through the review UI, not by hand-editing JSON.** UI brought forward ahead of the gate; ingestion does not scale to 200 until the gate passes. |
+
+---
+
+## 0. Current Status (2026-06-10)
+
+| Milestone | State |
+|---|---|
+| **M0 Foundations** | ✅ **Complete.** Repo+env, Postgres+pgvector (docker-compose; Supabase in prod), full schema v1 (23 tables, SCD2, ontology closure, pgvector), vocab + 20-company registry seeds, ingest stage (render→hash-skip→snapshot) with provenance artifacts, CLI, CI, 18 tests. |
+| **M1 Extraction core** | ✅ **Built & live-validated; eval gate pending (deferred to the UI).** Canonical schema, versioned vision prompt, Claude Opus 4.8 extractor (streaming + tiled screenshots), golden-set scorer + harness, fixture scaffolder. Validated live on 4 format-diverse pages: Moderna (image-only, 27 assets), BMS (table, 50 — matches their stated count), Lilly (41/76), GSK (62). Candidate golden set seeded as correctable drafts. |
+| **Eval gate** | ⏳ **Deferred by decision** until the review UI exists — labeling will happen side-by-side with the screenshot, not in raw JSON. The harness already refuses to score unlabeled drafts (no self-grading). Gate threshold unchanged: field precision ≥0.95 / recall ≥0.90. |
+
+**What this changes:** the original plan ran enrichment (M2) → scale (M3) → API (M4) → UI (M5). We now bring a **thin gold loader + API + explorer/review UI forward** (new M2) so the eval can run through it (new M3), *then* do full enrichment (M4) and scale (M5). The risk discipline is intact: **we do not scale ingestion past the pilot, or treat the data as sellable, until the gate passes.** Building the UI on an unvalidated extractor is low-risk — the loader rebuilds from immutable silver, and the UI is format-agnostic.
 
 ---
 
@@ -312,31 +326,39 @@ Levers if cost matters later: drop extraction to Sonnet 4.6 (−40%) after golde
 
 ## 11. Milestones
 
-**M0 — Foundations (week 1)**
-Repo scaffold, Supabase + Fly + Vercel provisioning, Alembic schema v1 (everything in §4), vocab seed files, company registry seeded with top 50 companies + pipeline URLs (research task — partly manual, partly Claude-assisted), CI.
-*Done when:* `pipeline run --company pfizer` writes a snapshot row + artifacts to storage.
+*Re-sequenced 2026-06-10 (see §0): UI moved ahead of the eval gate. ✅ = done, 🟡 = built/pending, ⬜ = upcoming.*
 
-**M1 — Extraction core (weeks 2–3)**
-Render/snapshot/hash for the pilot 10 (chosen for format diversity: static table, JS dashboard, accordion, PDF, image-only chart). Canonical Pydantic schema, extraction prompt, structured-output extractor, golden-set eval harness.
-*Done when:* golden-set field precision ≥0.95 / recall ≥0.90 across all 10 formats. **This is the project's main risk gate — do not scale past it until it passes.**
+**M0 — Foundations** ✅
+Repo scaffold, Postgres+pgvector (docker-compose locally; Supabase in prod), Alembic schema v1 (everything in §4), vocab seeds, 20-company registry seed, ingest stage (render→hash-skip→snapshot) + provenance artifacts, CLI, CI.
+*Done:* `pipeline run --company X` writes snapshot rows + artifacts; verified on Lilly/Moderna/BMS; hash-skip + robots compliance proven.
 
-**M2 — Normalize, resolve, enrich (weeks 3–4)**
-Vocab normalization + review queue, entity resolution (exact/fuzzy/LLM-adjudicated), EFO load + closure build, OLS mapping pipeline, HGNC target normalization, Open Targets evaluation (go/no-go), SCD2 gold writer.
-*Done when:* pilot 10 fully populated in gold; ≥85% of indications auto-mapped ≥0.8 confidence; partnered-asset dedupe demonstrated (e.g. an asset shared by two pilot companies resolves to one `asset_id`).
+**M1 — Extraction core** 🟡 *(built & live-validated; gate deferred to M3)*
+Canonical Pydantic schema, versioned vision prompt, Claude Opus 4.8 extractor (streaming, tiled screenshots, `needs_review` flagging), golden-set scorer + harness, fixture scaffolder. Live-validated on 4 format-diverse pages (image-only + 3 tables). Candidate golden set seeded as correctable drafts.
+*Remaining:* the gate run itself — now happens in M3 through the review UI.
 
-**M3 — Scale to 200 + weekly automation (weeks 5–6)**
-Registry to ~200 companies, Batches API integration, GitHub Actions weekly workflow with matrix chunking, hash-skip, quality gates, coverage metrics, alerting.
-*Done when:* a full unattended weekly run completes with ≥90% company success rate and a coverage report.
+**M2 — Thin gold loader + API + explorer/review UI** ⬜ ← **NEXT**
+- **Silver→gold loader (thin):** upsert extractions into `company/asset/program/program_version` using the *existing* phase/modality dictionary normalization; basic asset upsert (exact name/synonym match only — full entity resolution deferred to M4). Verbatim + `extras` preserved. Populates gold enough to browse. Rebuildable from immutable silver.
+- **FastAPI read layer** over `pipeline_intel.search` (facets + drill-down; adjacency/vector deferred to M6).
+- **Next.js explorer:** company/asset/program browse with provenance (source URL, fetch date, viewable screenshot) **+ a review surface**: extraction shown side-by-side with its screenshot, editable, save → writes the corrected `expected.json` and flips `meta.labeled=true` (this is the labeling tool that unblocks the gate).
+*Done when:* you can browse the pilot pipelines in the browser and correct an extraction into a labeled golden fixture without touching JSON.
 
-**M4 — Search + API (weeks 6–7)**
-Facets + adjacency + vector search, hybrid ranking, Voyage embedding job, FastAPI endpoints, API-key auth, deploy.
-*Done when:* "clinical-stage IL-23 programs in IBD *and adjacent GI indications*" returns correct, provenance-linked results via `curl`.
+**M3 — Run the eval gate (through the UI)** ⬜ — **the risk gate**
+Label the pilot fixtures via the M2 review UI, run `pipeline eval`, tune prompt + per-site `render_config` until **field precision ≥0.95 / recall ≥0.90** across formats.
+*Done when:* gate passes. **Do not scale ingestion past the pilot, or treat the data as sellable, until here.**
 
-**M5 — Web explorer (weeks 7–9)**
-Next.js app: search, asset/company pages, ops/review page, Supabase auth, deploy.
-*Done when:* you can run a real research workflow end-to-end in the browser, and the review queue is triagable without SQL.
+**M4 — Normalize, resolve, enrich (full)** ⬜
+Entity resolution (exact/fuzzy/LLM-adjudicated, partnered-asset dedupe), EFO load + closure build, OLS indication mapping, HGNC target normalization, Open Targets go/no-go, review queue for low-confidence mappings. Upgrades gold from "thin" to "enriched."
+*Done when:* ≥85% of pilot indications auto-mapped ≥0.8 confidence; a partnered asset shared by two companies resolves to one `asset_id`.
 
-**Phase 2 backlog (designed-for, not built):** change-event generation from `program_version` diffs (phase moves, additions, discontinuations) + point-in-time queries; customer API keys/rate limits/billing; MCP server over `pipeline_intel.search`; agentic NL search; polished product UI; additional sources (ClinicalTrials.gov cross-referencing).
+**M5 — Scale to 200 + weekly automation** ⬜
+Registry to ~200 (verify/correct seed URLs, add `render_config` per site), Batches API, GitHub Actions weekly cron with matrix chunking, quality gates, coverage metrics, alerting.
+*Done when:* a full unattended weekly run completes with ≥90% company success rate + coverage report.
+
+**M6 — Biology-aware search + API hardening** ⬜
+Ontology-adjacency traversal + Voyage embeddings + hybrid ranking fused in `pipeline_intel.search`; per-customer API keys + rate limiting.
+*Done when:* "clinical-stage IL-23 programs in IBD *and adjacent GI indications*" returns correct, provenance-linked results in the UI and via the API.
+
+**Phase 2 backlog (designed-for, not built):** change-event generation from `program_version` diffs + point-in-time queries; customer billing; MCP server over `pipeline_intel.search`; agentic NL search; polished product UI; additional sources (ClinicalTrials.gov cross-referencing).
 
 ---
 
@@ -350,3 +372,4 @@ Next.js app: search, asset/company pages, ops/review page, Supabase auth, deploy
 | Phase semantics differ per company ("Phase 2/3", "Registration", regional phases) | Medium | Verbatim always preserved; vocab is versioned + extensible; unmapped state instead of forced guesses |
 | Weekly LLM cost creep as registry grows to 500 | Low | Hash-skip, Batches, model-tier lever, per-run budget alert |
 | One-person ops burden | Medium | Review queue keeps human work batched + bounded; alerts only on real failures; everything idempotent/rerunnable |
+| Building UI/loader before the extraction gate passes (re-sequence) | Low | Loader rebuilds from immutable silver; UI is format-agnostic; the only hard gate is *scaling ingestion / selling data*, which still waits for M3. Worst case: prompt tuning in M3 changes extraction output → re-run loader (cheap, idempotent). |
