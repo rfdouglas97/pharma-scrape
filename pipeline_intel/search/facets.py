@@ -40,6 +40,7 @@ def _current_program_query() -> Select:
             Indication.preferred_label.label("indication"),
             ProgramVersion.indication_verbatim,
             ProgramVersion.phase_code,
+            PhaseVocab.label.label("phase_label"),
             ProgramVersion.phase_verbatim,
             ProgramVersion.status,
             Company.company_id,
@@ -53,6 +54,7 @@ def _current_program_query() -> Select:
         .join(Asset, Asset.asset_id == Program.asset_id)
         .join(Indication, Indication.indication_id == Program.indication_id)
         .join(Company, Company.company_id == Program.company_id)
+        .outerjoin(PhaseVocab, PhaseVocab.code == ProgramVersion.phase_code)
         .outerjoin(Snapshot, Snapshot.snapshot_id == ProgramVersion.last_seen_snapshot_id)
         .outerjoin(CompanySource, CompanySource.source_id == Snapshot.source_id)
         .where(ProgramVersion.valid_to.is_(None))

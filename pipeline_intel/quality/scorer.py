@@ -17,14 +17,24 @@ import re
 from dataclasses import dataclass, field
 
 from pipeline_intel.extract.schemas import ExtractionResult
+from pipeline_intel.normalize.vocab import preclean
 
 _NON_ALNUM = re.compile(r"[^a-z0-9]+")
-# Phase synonyms collapsed so "Ph2"/"Phase II"/"Phase 2" count as the same captured value.
+# Phase synonyms collapsed so "Ph2"/"Phase II"/"Phase 2"/"Phase 2 in Progress" all count
+# as the same phase. We run the loader's `preclean` first (strips "in progress",
+# parentheticals, footnote markers), then canonicalize roman/arabic + registration/approval
+# wording — so the eval scores *phase identity*, not verbatim phrasing differences.
 _PHASE_CANON = {
-    "ph1": "phase1", "phasei": "phase1", "phase1": "phase1",
-    "ph2": "phase2", "phaseii": "phase2", "phase2": "phase2",
-    "ph3": "phase3", "phaseiii": "phase3", "phase3": "phase3",
-    "ph12": "phase12", "phaseiii12": "phase12", "phase12": "phase12",
+    "preclinical": "preclinical", "ind": "preclinical",
+    "phase1": "phase1", "phasei": "phase1", "ph1": "phase1",
+    "phase2": "phase2", "phaseii": "phase2", "ph2": "phase2",
+    "phase3": "phase3", "phaseiii": "phase3", "ph3": "phase3",
+    "phase12": "phase12",   # "Phase 1/2"
+    "phase23": "phase23",   # "Phase 2/3"
+    "filed": "filed", "registration": "filed", "submitted": "filed",
+    "approved": "approved", "marketed": "approved", "commercial": "approved",
+    "regulatoryapproval": "approved",
+    "discontinued": "discontinued", "removed": "discontinued", "terminated": "discontinued",
 }
 
 
@@ -35,7 +45,9 @@ def _norm(s: str | None) -> str:
 
 
 def _norm_phase(s: str | None) -> str:
-    n = _norm(s)
+    if not s:
+        return ""
+    n = _norm(preclean(s))  # preclean strips "in progress"/parens/footnotes, then canonicalize
     return _PHASE_CANON.get(n, n)
 
 

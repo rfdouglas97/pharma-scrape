@@ -1,3 +1,5 @@
+import pytest
+
 from pipeline_intel.extract.schemas import (
     ExtractedAsset,
     ExtractedProgram,
@@ -36,6 +38,22 @@ def test_phase_synonyms_count_as_match():
     report = score(pred, gold)
     assert report.by_category["phase"].tp == 1
     assert report.overall.recall == 1.0
+
+
+@pytest.mark.parametrize("gold_phase,pred_phase", [
+    ("Phase 2", "Phase 2 in Progress"),   # BMS-style suffix
+    ("Phase 3", "Phase III"),             # roman vs arabic
+    ("Registration", "Registration (EU, JP)"),  # parenthetical qualifier
+    ("Filed", "Registration"),            # alias
+    ("Approved", "Regulatory Approval Achieved"),
+    ("Phase 3", "Phase III *"),           # footnote marker
+])
+def test_phase_normalization_matches_verbatim_variants(gold_phase, pred_phase):
+    gold = ExtractionResult(assets=[_asset("X", programs=[_prog("NSCLC", gold_phase)])])
+    pred = ExtractionResult(assets=[_asset("X", programs=[_prog("NSCLC", pred_phase)])])
+    report = score(pred, gold)
+    assert report.by_category["phase"].tp == 1, f"{pred_phase!r} should match {gold_phase!r}"
+    assert report.by_category["phase"].fp == 0 and report.by_category["phase"].fn == 0
 
 
 def test_synonym_matches_asset_identity():

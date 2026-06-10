@@ -1,9 +1,13 @@
 import Link from "next/link";
 import type { ProgramRow } from "@/lib/api";
 
-export function PhaseBadge({ row }: { row: { phase_verbatim: string | null; status: string | null } }) {
+export function PhaseBadge({ row }: { row: { phase_label?: string | null; phase_code?: string | null; phase_verbatim: string | null; status: string | null } }) {
   const cls = row.status === "discontinued" ? "badge discontinued" : "badge";
-  return <span className={cls}>{row.phase_verbatim || "—"}</span>;
+  // Show the NORMALIZED phase ("Phase 2"); fall back to verbatim if unmapped.
+  // The raw page wording is preserved as the tooltip.
+  const label = row.phase_label || row.phase_verbatim || "—";
+  const title = row.phase_verbatim && row.phase_verbatim !== label ? `verbatim: ${row.phase_verbatim}` : undefined;
+  return <span className={cls} title={title}>{label}</span>;
 }
 
 export function Provenance({ row }: { row: { source_url: string | null; fetched_at: string | null; snapshot_id: string | null } }) {

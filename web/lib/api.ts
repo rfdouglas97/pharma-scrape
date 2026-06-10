@@ -41,6 +41,7 @@ export type ProgramRow = {
   indication: string;
   indication_verbatim: string | null;
   phase_code: string | null;
+  phase_label: string | null;
   phase_verbatim: string | null;
   status: string | null;
   company_id: string;
