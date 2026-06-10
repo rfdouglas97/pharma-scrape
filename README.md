@@ -62,6 +62,23 @@ golden set — the rule that keeps us from scaling extraction past the pilot on 
 Cover format-diverse pages (static table, JS dashboard, PDF, image-only chart). Pass
 `--model claude-sonnet-4-6` to compare a cheaper tier against the gate.
 
+### Load gold + run the explorer / review UI (M2)
+
+```bash
+uv run pipeline load --all          # silver extractions -> gold (company/asset/program + SCD2)
+
+# API (terminal 1)
+uv run uvicorn api.main:app --port 8000
+
+# Web app (terminal 2)
+cd web && npm install && npm run dev    # http://localhost:3000
+```
+
+The explorer (`/`) is faceted program search; `/companies/[id]` is a phase-grouped pipeline;
+`/assets/[id]` is asset detail with provenance. **`/review`** shows each extraction beside
+its source screenshot — correct it and "Save as labeled golden" to produce eval ground
+truth (this is how the M3 gate gets labeled, no JSON hand-editing).
+
 ## Layout
 
 | Path | What |
@@ -70,6 +87,11 @@ Cover format-diverse pages (static table, JS dashboard, PDF, image-only chart). 
 | `pipeline_intel/ingest/` | Render (Playwright), hashing, storage, snapshot writer, per-company runner |
 | `pipeline_intel/extract/` | Extraction schema, versioned prompt, Claude vision extractor |
 | `pipeline_intel/quality/` | Golden-set eval harness, field-level scorer, fixture scaffolder |
+| `pipeline_intel/normalize/` | Phase/modality vocab normalizer (dictionary + preclean) |
+| `pipeline_intel/gold/upsert.py` | Thin silver→gold loader (SCD2, asset dedup, provenance) |
+| `pipeline_intel/search/` | Shared query layer over gold (facets, drill-down) |
+| `api/` | FastAPI read + review service |
+| `web/` | Next.js explorer + review UI |
 | `pipeline_intel/registry/` | Vocab + company-registry seed loaders |
 | `config/` | `companies.seed.yaml`, `vocab/phase.yaml`, `vocab/modality.yaml` |
 | `migrations/` | Alembic |
