@@ -90,6 +90,39 @@ def scaffold_from_snapshot(
                         "Fill in expected.json with the hand-labeled pipeline, then run `pipeline eval`."}
 
 
+def save_golden_label(
+    snapshot_id: str, corrected: dict, fmt: str = "unknown", golden_dir: Path = GOLDEN_DIR
+) -> dict:
+    """Save a human-verified ExtractionResult as a labeled golden fixture (from the review
+    UI). Writes page.txt/page.png from the snapshot, expected.json from the corrected data,
+    and meta with labeled=true so the eval gate counts it."""
+    from pipeline_intel.extract.schemas import ExtractionResult
+
+    ExtractionResult.model_validate(corrected)  # reject malformed labels early
+    storage = get_storage()
+    with session() as s:
+        snap = s.get(Snapshot, snapshot_id)
+        if snap is None or not snap.html_key:
+            return {"error": "snapshot not found or has no artifacts"}
+        source = s.get(CompanySource, snap.source_id)
+        company = s.get(Company, source.company_id) if source else None
+        slug = _slug(company.name if company else snapshot_id)
+        out = golden_dir / slug
+        out.mkdir(parents=True, exist_ok=True)
+
+        text_key = (snap.render_meta or {}).get("text_key")
+        if text_key:
+            (out / "page.txt").write_bytes(storage.get(text_key))
+        for k in snap.screenshot_keys or []:
+            (out / "page.png").write_bytes(storage.get(k))
+            break
+        (out / "expected.json").write_text(json.dumps(corrected, indent=2))
+        (out / "meta.json").write_text(json.dumps(
+            {"company": company.name if company else "", "url": source.url if source else "",
+             "format": fmt, "snapshot_id": snapshot_id, "labeled": True}, indent=2))
+    return {"slug": slug, "labeled": True, "dir": str(out)}
+
+
 def latest_snapshot_for_company(company_query: str) -> str | None:
     with session() as s:
         company = s.execute(
