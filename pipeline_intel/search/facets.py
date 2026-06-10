@@ -18,6 +18,9 @@ from pipeline_intel.gold.models import (
     Company,
     CompanySource,
     Indication,
+    IndicationMapping,
+    OntologyClosure,
+    OntologyTerm,
     Partnership,
     PhaseVocab,
     Program,
@@ -37,6 +40,7 @@ def _current_program_query() -> Select:
             Asset.preferred_name.label("asset_name"),
             Asset.modality_code,
             Asset.modality_verbatim,
+            Program.indication_id,
             Indication.preferred_label.label("indication"),
             ProgramVersion.indication_verbatim,
             ProgramVersion.phase_code,
@@ -235,3 +239,89 @@ def coverage(s: Session) -> list[dict]:
     """Per-company coverage/freshness metrics for the ops view."""
     rows = list_companies(s)
     return rows
+
+
+# --- Ontology-adjacency search ---------------------------------------------
+def adjacent_curies(s: Session, curie: str, max_ancestor_hops: int = 2) -> dict[str, dict]:
+    """Expand a disease CURIE to itself + descendants (any depth, more specific) +
+    ancestors within N hops (more general), via the precomputed closure. Returns
+    {curie: {relation, distance}} where relation ∈ exact|descendant|ancestor."""
+    out: dict[str, dict] = {curie: {"relation": "exact", "distance": 0}}
+
+    # descendants: closure rows with this curie as ancestor
+    for c, depth in s.execute(
+        select(OntologyClosure.descendant_curie, OntologyClosure.depth)
+        .where(OntologyClosure.ancestor_curie == curie, OntologyClosure.depth > 0)
+    ):
+        out.setdefault(c, {"relation": "descendant", "distance": depth})
+
+    # ancestors within N hops: closure rows with this curie as descendant
+    for c, depth in s.execute(
+        select(OntologyClosure.ancestor_curie, OntologyClosure.depth)
+        .where(
+            OntologyClosure.descendant_curie == curie,
+            OntologyClosure.depth > 0,
+            OntologyClosure.depth <= max_ancestor_hops,
+        )
+    ):
+        if c not in out:
+            out[c] = {"relation": "ancestor", "distance": depth}
+    return out
+
+
+def programs_by_indication(
+    s: Session, curie: str, max_ancestor_hops: int = 2, active_only: bool = True, limit: int = 500
+) -> dict:
+    """Programs whose mapped indication is the given disease or an adjacent one (sub/super-
+    type). Each row carries `relation` + `distance` so the UI can show why it matched.
+    This is the biology-aware query the brief centers on."""
+    adj = adjacent_curies(s, curie, max_ancestor_hops)
+    if not adj:
+        return {"query_curie": curie, "adjacent": {}, "results": []}
+
+    # indications mapped to any adjacent curie
+    ind_to_curie = dict(s.execute(
+        select(IndicationMapping.indication_id, IndicationMapping.curie).where(
+            IndicationMapping.curie.in_(list(adj)),
+            IndicationMapping.status.in_(("auto", "reviewed")),
+        )
+    ).all())
+    if not ind_to_curie:
+        return {"query_curie": curie, "adjacent": adj, "results": []}
+
+    stmt = _current_program_query().where(Program.indication_id.in_(list(ind_to_curie)))
+    if active_only:
+        stmt = stmt.where(ProgramVersion.status != "discontinued")
+    rows = []
+    for r in s.execute(stmt.limit(limit)):
+        d = dict(r._mapping)
+        meta = adj.get(ind_to_curie.get(d["indication_id"]))
+        rows.append(d | (meta or {}))
+    # rank: exact > descendant > ancestor, then by distance
+    rel_rank = {"exact": 0, "descendant": 1, "ancestor": 2}
+    rows.sort(key=lambda x: (rel_rank.get(x.get("relation"), 9), x.get("distance", 9)))
+    label = s.get(OntologyTerm, curie)
+    return {
+        "query_curie": curie,
+        "query_label": label.label if label else None,
+        "adjacent_count": len(adj),
+        "results": rows,
+    }
+
+
+def list_indications(s: Session, q: str | None = None, mapped_only: bool = True) -> list[dict]:
+    """Indications with their EFO mapping — for picking a disease to run adjacency on."""
+    stmt = (
+        select(
+            Indication.indication_id, Indication.preferred_label,
+            IndicationMapping.curie, IndicationMapping.label.label("efo_label"),
+            IndicationMapping.status,
+        )
+        .outerjoin(IndicationMapping, (IndicationMapping.indication_id == Indication.indication_id)
+                   & IndicationMapping.status.in_(("auto", "reviewed")))
+    )
+    if q:
+        stmt = stmt.where(Indication.preferred_label.ilike(f"%{q}%"))
+    if mapped_only:
+        stmt = stmt.where(IndicationMapping.curie.isnot(None))
+    return [dict(r._mapping) for r in s.execute(stmt.order_by(Indication.preferred_label).limit(500))]

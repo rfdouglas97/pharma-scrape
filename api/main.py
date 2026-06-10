@@ -91,6 +91,21 @@ def coverage() -> list[dict]:
         return facets.coverage(s)
 
 
+@app.get("/v1/indications")
+def indications(q: str | None = None, mapped_only: bool = True) -> list[dict]:
+    with session() as s:
+        return facets.list_indications(s, q=q, mapped_only=mapped_only)
+
+
+@app.get("/v1/indications/adjacent")
+def indication_adjacent(
+    curie: str, max_up: int = 2, active_only: bool = True
+) -> dict:
+    """Biology-aware search: programs in this disease + adjacent (sub/super-type) indications."""
+    with session() as s:
+        return facets.programs_by_indication(s, curie, max_ancestor_hops=max_up, active_only=active_only)
+
+
 # --- Provenance: serve the raw source screenshot ----------------------------
 @app.get("/v1/snapshots/{snapshot_id}/screenshot")
 def screenshot(snapshot_id: str) -> Response:

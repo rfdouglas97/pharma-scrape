@@ -128,6 +128,29 @@ def load(
     typer.echo(json.dumps({"loaded": len(results), "results": results}, indent=2))
 
 
+@app.command()
+def enrich(
+    model: str = typer.Option(None, "--model", "-m", help="Override mapping model"),
+    limit: int = typer.Option(None, "--limit", help="Map at most N indications (testing)"),
+    skip_closure: bool = typer.Option(False, "--skip-closure", help="Map only; don't rebuild closure"),
+    closure_only: bool = typer.Option(False, "--closure-only", help="Skip mapping; rebuild closure only"),
+) -> None:
+    """Enrich gold: map indications -> EFO/MONDO and build the adjacency closure.
+    Both steps commit incrementally and are resumable. Needs ANTHROPIC_API_KEY (mapping)."""
+    from pipeline_intel.db import session
+    from pipeline_intel.ontology.closure import build_graph
+    from pipeline_intel.ontology.mapper import MAPPER_MODEL, map_all
+
+    result: dict = {}
+    if not closure_only:
+        with session() as s:
+            result["mapping"] = map_all(s, model or MAPPER_MODEL, limit=limit).as_dict()
+    if not skip_closure:
+        with session() as s:
+            result["closure"] = build_graph(s).as_dict()
+    typer.echo(json.dumps(result, indent=2))
+
+
 @app.command(name="eval")
 def eval_cmd(model: str = typer.Option(None, "--model", "-m", help="Override model")) -> None:
     """Run the golden-set evaluation and apply the M1 quality gate. Needs ANTHROPIC_API_KEY."""
