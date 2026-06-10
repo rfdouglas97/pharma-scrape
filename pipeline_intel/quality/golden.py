@@ -10,7 +10,7 @@ from pathlib import Path
 from sqlalchemy import select
 
 from pipeline_intel.db import session
-from pipeline_intel.gold.models import Company, CompanySource, Snapshot
+from pipeline_intel.gold.models import Company, CompanySource, Extraction, Snapshot
 from pipeline_intel.ingest.storage import get_storage
 from pipeline_intel.quality.eval_harness import GOLDEN_DIR
 
@@ -35,7 +35,15 @@ _TEMPLATE = {
 }
 
 
-def scaffold_from_snapshot(snapshot_id: str, fmt: str = "unknown", golden_dir: Path = GOLDEN_DIR) -> dict:
+def scaffold_from_snapshot(
+    snapshot_id: str,
+    fmt: str = "unknown",
+    golden_dir: Path = GOLDEN_DIR,
+    seed_from_extraction: bool = True,
+) -> dict:
+    """Scaffold a golden fixture. If seed_from_extraction and an extraction exists for the
+    snapshot, expected.json is pre-filled with the model output as a CORRECTABLE DRAFT —
+    the human still has to verify/fix it before it counts as ground truth."""
     storage = get_storage()
     with session() as s:
         snap = s.get(Snapshot, snapshot_id)
@@ -57,15 +65,29 @@ def scaffold_from_snapshot(snapshot_id: str, fmt: str = "unknown", golden_dir: P
             (out / "page.png").write_bytes(storage.get(k))
             break  # first screenshot
 
+        seed = None
+        if seed_from_extraction:
+            seed = s.execute(
+                select(Extraction.raw_json)
+                .where(Extraction.snapshot_id == snapshot_id, Extraction.raw_json.isnot(None))
+                .order_by(Extraction.extracted_at.desc())
+                .limit(1)
+            ).scalar_one_or_none()
+
         (out / "meta.json").write_text(json.dumps(
             {"company": company.name if company else "", "url": source.url if source else "",
-             "format": fmt, "snapshot_id": snapshot_id}, indent=2))
+             "format": fmt, "snapshot_id": snapshot_id,
+             "labeled": False, "seeded_from_model": bool(seed)}, indent=2))
         expected = out / "expected.json"
         if not expected.exists():  # never clobber human labels
-            expected.write_text(json.dumps(_TEMPLATE, indent=2))
+            expected.write_text(json.dumps(seed or _TEMPLATE, indent=2))
 
         return {"slug": slug, "dir": str(out), "label_file": str(expected),
-                "next": "Fill in expected.json with the hand-labeled pipeline, then run `pipeline eval`."}
+                "seeded_from_model": bool(seed),
+                "next": ("Review/correct expected.json (it is a MODEL DRAFT, not yet ground truth), "
+                         "set meta.labeled=true, then run `pipeline eval`.")
+                        if seed else
+                        "Fill in expected.json with the hand-labeled pipeline, then run `pipeline eval`."}
 
 
 def latest_snapshot_for_company(company_query: str) -> str | None:

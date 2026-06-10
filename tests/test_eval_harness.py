@@ -15,7 +15,8 @@ def test_load_labeled_fixture(tmp_path):
     d = tmp_path / "acme"
     d.mkdir()
     (d / "meta.json").write_text(json.dumps(
-        {"company": "Acme", "url": "https://acme.example/pipeline", "format": "html_table"}))
+        {"company": "Acme", "url": "https://acme.example/pipeline",
+         "format": "html_table", "labeled": True}))
     (d / "page.txt").write_text("ABC-123 | PD-1 | NSCLC | Phase 2")
     (d / "expected.json").write_text(json.dumps({
         "assets": [{
@@ -45,4 +46,15 @@ def test_unlabeled_template_dir_is_loaded_but_inert(tmp_path):
     d.mkdir()
     (d / "meta.json").write_text(json.dumps({"company": "Draft"}))
     (d / "page.txt").write_text("...")
+    assert load_fixtures(tmp_path) == []
+
+
+def test_model_seeded_draft_not_counted_until_labeled(tmp_path):
+    # A model-seeded fixture (labeled != true) must NOT be scored — that would grade
+    # the model against its own output.
+    d = tmp_path / "seeded"
+    d.mkdir()
+    (d / "meta.json").write_text(json.dumps(
+        {"company": "Seeded", "labeled": False, "seeded_from_model": True}))
+    (d / "expected.json").write_text(json.dumps({"assets": [], "page_notes": None}))
     assert load_fixtures(tmp_path) == []

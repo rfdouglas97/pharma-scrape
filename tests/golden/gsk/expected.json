@@ -1,0 +1,1782 @@
+{
+  "assets": [
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Registration",
+          "additional_fields": [],
+          "indication_verbatim": "Chronic rhinosinusitis with nasal polyps (CRSwNP)"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Eosinophilic granulomatosis with polyangiitis (EGPA)"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Hypereosinophilic syndrome (HES)"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Chronic obstructive pulmonary disease (COPD)"
+        },
+        {
+          "status": "Approved in all major markets",
+          "phase_verbatim": "Removed",
+          "additional_fields": [
+            {
+              "name": "Pipeline change",
+              "value": "Removed (Q4 2025 to Q1 2026)"
+            }
+          ],
+          "indication_verbatim": "Asthma"
+        }
+      ],
+      "synonyms": [
+        "depemokimab",
+        "Exdensur"
+      ],
+      "preferred_name": "GSK3511294",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Long-acting anti-interleukin 5 (IL5) antibody",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Registration",
+          "additional_fields": [],
+          "indication_verbatim": "Cholestatic pruritus in primary biliary cholangitis (PBC)"
+        }
+      ],
+      "synonyms": [
+        "linerixibat"
+      ],
+      "preferred_name": "GSK2330672",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Ileal bile acid transporter (IBAT) inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Registration",
+          "additional_fields": [],
+          "indication_verbatim": "2L+ Multiple myeloma combination with Pomalyst and dexamethasone"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "1L Multiple myeloma combination with Revlimid and dexamethasone"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Newly diagnosed amyloid light chain amyloidosis"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "1L Multiple myeloma combination with Velcade, Revlimid and dexamethasone"
+        },
+        {
+          "status": "Approved in all major markets",
+          "phase_verbatim": "Removed",
+          "additional_fields": [
+            {
+              "name": "Pipeline change",
+              "value": "Removed (Q4 2025 to Q1 2026)"
+            }
+          ],
+          "indication_verbatim": "2L+ Multiple myeloma combination with Velcade and dexamethasone"
+        }
+      ],
+      "synonyms": [
+        "belantamab mafodotin",
+        "Blenrep"
+      ],
+      "preferred_name": "GSK2857916",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "ADC targeting B-cell maturation antigen",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Registration",
+          "additional_fields": [],
+          "indication_verbatim": "Respiratory syncytial virus prophylaxis, adults 60+ years of age in China"
+        }
+      ],
+      "synonyms": [
+        "RSV vaccine",
+        "Arexvy"
+      ],
+      "preferred_name": "GSK3844766",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Recombinant protein, adjuvanted vaccine",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Registration",
+          "additional_fields": [
+            {
+              "name": "Pipeline change note",
+              "value": "Submissions accepted in major markets"
+            }
+          ],
+          "indication_verbatim": "Chronic hepatitis B virus infection"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Human immunodeficiency virus (HIV)/hepatitis B virus (HBV) co-infection"
+        }
+      ],
+      "synonyms": [
+        "bepirovirsen"
+      ],
+      "preferred_name": "GSK3228836",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "HBV antisense oligonucleotide",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Registration",
+          "additional_fields": [],
+          "indication_verbatim": "Complicated urinary tract infection (cUTI)"
+        }
+      ],
+      "synonyms": [
+        "tebipenem pivoxil"
+      ],
+      "preferred_name": "GSK3778712",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Antibacterial carbapenem",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Refractory chronic cough (RCC)"
+        }
+      ],
+      "synonyms": [
+        "camlipixant"
+      ],
+      "preferred_name": "GSK5464714",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "P2X3 receptor antagonist",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Asthma, low carbon version of metered dose inhaler"
+        }
+      ],
+      "synonyms": [
+        "salbutamol",
+        "Ventolin"
+      ],
+      "preferred_name": "AH3365",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Beta 2 adrenergic receptor agonist",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Interstitial lung disease associated with connective tissue disease"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase III #",
+          "additional_fields": [
+            {
+              "name": "Pipeline change note",
+              "value": "Progressed to phase III part of phase II/III study"
+            }
+          ],
+          "indication_verbatim": "Systemic sclerosis associated interstitial lung disease"
+        }
+      ],
+      "synonyms": [
+        "belimumab",
+        "Benlysta"
+      ],
+      "preferred_name": "GSK1550188",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Anti-B lymphocyte stimulator (BLys) monoclonal antibody",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Metabolic dysfunction-associated steatohepatitis (MASH)"
+        }
+      ],
+      "synonyms": [
+        "efimosfermin alfa"
+      ],
+      "preferred_name": "GSK6519754",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Fibroblast growth factor 21 (FGF21) analog",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Peri-operative dMMR/MSI-H colon cancer"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Unresected head and neck squamous cell carcinoma"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "1L endometrial cancer"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Neoadjuvant dMMR/MSI-H rectal cancer"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Previously untreated neoadjuvant MMRp/MSS colon cancer"
+        }
+      ],
+      "synonyms": [
+        "TSR-042",
+        "dostarlimab",
+        "Jemperli"
+      ],
+      "preferred_name": "GSK4057190 (TSR-042)",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Anti-programmed cell death protein 1 receptor (PD-1) antibody",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Extensive-stage small-cell lung cancer"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase I *",
+          "additional_fields": [],
+          "indication_verbatim": "Solid tumours"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase I *",
+          "additional_fields": [],
+          "indication_verbatim": "PanGI"
+        }
+      ],
+      "synonyms": [
+        "risvutatug rezetecan"
+      ],
+      "preferred_name": "GSK5764227",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "ADC targeting B7-H3",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Newly diagnosed glioblastoma multiforme"
+        }
+      ],
+      "synonyms": [
+        "niraparib",
+        "Zejula"
+      ],
+      "preferred_name": "GSK3985771",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Poly (ADP-ribose) polymerase (PARP) 1/2 inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Gastrointestinal stromal tumours"
+        }
+      ],
+      "synonyms": [
+        "velzatinib"
+      ],
+      "preferred_name": "GSK6042981",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "KIT inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Meningitis B (infants US)"
+        }
+      ],
+      "synonyms": [
+        "Men B vaccine",
+        "Bexsero"
+      ],
+      "preferred_name": "GSK3536829",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Recombinant protein and outer membrance vesicle vaccine",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase III",
+          "additional_fields": [],
+          "indication_verbatim": "Varicella"
+        }
+      ],
+      "synonyms": [
+        "Varicella new seed"
+      ],
+      "preferred_name": "GSK4178116",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Live attenuated vaccine",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Alzheimer\u2019s disease"
+        }
+      ],
+      "synonyms": [
+        "AL-101",
+        "nivisnebart"
+      ],
+      "preferred_name": "GSK4527226 (AL-101)",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Anti-sortilin monoclonal antibody",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Metabolic dysfunction-associated steatohepatitis (MASH)"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Alcohol-related liver disease (ALD)"
+        }
+      ],
+      "synonyms": [
+        "gatuzosiran"
+      ],
+      "preferred_name": "GSK4532990",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "HSD17B13 RNA interference",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Asthma"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK5784283",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Long-acting anti-thymic stromal lymphopoietin (TSLP) monoclonal antibody",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Non-cystic fibrosis bronchiectasis (NCFB)"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Chronic obstructive pulmonary disease (COPD)"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK3862995",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Anti-interleukin 33 (IL33) antibody",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [
+            {
+              "name": "Pipeline change note",
+              "value": "RAPT Therapeutics acquisition"
+            }
+          ],
+          "indication_verbatim": "anti-IgE antibody"
+        }
+      ],
+      "synonyms": [
+        "ozureprubart"
+      ],
+      "preferred_name": "GSK6775388",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        },
+        {
+          "name": "Note",
+          "value": "Source appears to list 'anti-IgE antibody' in Indication column and 'Food allergies' in Mode of action column"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Food allergies",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Myelodysplastic syndrome"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Myelofibrosis"
+        }
+      ],
+      "synonyms": [
+        "momelotinib",
+        "Ojjaara/Omjjara"
+      ],
+      "preferred_name": "GSK3070785",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "JAK1, JAK2 and ACVR1 inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "HIV treatment"
+        }
+      ],
+      "synonyms": [
+        "cabotegravir"
+      ],
+      "preferred_name": "GSK1265744",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "^",
+          "value": "ViiV Healthcare responsible for developing and delivering HIV medicines"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "HIV integrase inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "HIV treatment"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "VH3810109",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "^",
+          "value": "ViiV Healthcare responsible for developing and delivering HIV medicines"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "HIV broadly neutralizing antibody",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "HIV treatment"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "VH4011499",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "^",
+          "value": "ViiV Healthcare responsible for developing and delivering HIV medicines"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "HIV capsid protein inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "HIV treatment"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "VH4524184",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "^",
+          "value": "ViiV Healthcare responsible for developing and delivering HIV medicines"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "HIV integrase inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Tuberculosis"
+        }
+      ],
+      "synonyms": [
+        "alpibectir"
+      ],
+      "preferred_name": "BVL-GSK3729098",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Ethionamide booster",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Tuberculosis"
+        }
+      ],
+      "synonyms": [
+        "ganfeborole"
+      ],
+      "preferred_name": "GSK3036656",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Leucyl t-RNA synthetase inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Invasive non-typhoidal salmonella and typhoid fever"
+        }
+      ],
+      "synonyms": [
+        "iNTS (S. typhimurium + S. enteritidis + S. Typhi)"
+      ],
+      "preferred_name": "GSK4077164",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Bivalent Generalized Modules for Membrane Antigens (GMMA) vaccine and typhoid conjugate vaccine (TCV)",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Seasonal flu"
+        }
+      ],
+      "synonyms": [
+        "mRNA Seasonal Flu"
+      ],
+      "preferred_name": "GSK4382276",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "mRNA vaccine",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "COVID-19"
+        }
+      ],
+      "synonyms": [
+        "mRNA COVID-19"
+      ],
+      "preferred_name": "GSK4396687",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "mRNA vacccine",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Measles, mumps, rubella, and varicella"
+        }
+      ],
+      "synonyms": [
+        "Measles, mumps, rubella & varicella new seed vaccine"
+      ],
+      "preferred_name": "GSK4406371",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Live attenuated vaccine",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II",
+          "additional_fields": [],
+          "indication_verbatim": "Chronic hepatitis B virus infection"
+        }
+      ],
+      "synonyms": [
+        "daplusiran + tomligisiran"
+      ],
+      "preferred_name": "GSK5637608",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Hepatitis B virus-targeted siRNA sequential combination",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase II *",
+          "additional_fields": [],
+          "indication_verbatim": "Urinary tract infection (UTI)"
+        }
+      ],
+      "synonyms": [
+        "Urinary tract infection"
+      ],
+      "preferred_name": "GSK5102188",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Adjuvanted recombinant subunit vaccine",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I *",
+          "additional_fields": [],
+          "indication_verbatim": "Prostate cancer"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK5458514",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "PSMAxCD3 T-cell engager",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I *",
+          "additional_fields": [],
+          "indication_verbatim": "Solid tumours"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK5460025",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Nucleotide excision repair targeting agent",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I *",
+          "additional_fields": [
+            {
+              "name": "Pipeline change note",
+              "value": "New asset entering phase I"
+            }
+          ],
+          "indication_verbatim": "Prostate cancer"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK5471713",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "AR degrader",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I *",
+          "additional_fields": [],
+          "indication_verbatim": "Chronic hepatitis B virus infection"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK3965193",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "PAPD5/PAPD7 inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I *",
+          "additional_fields": [],
+          "indication_verbatim": "Seasonal flu and COVID-19"
+        }
+      ],
+      "synonyms": [
+        "mRNA Seasonal Flu/COVID-19"
+      ],
+      "preferred_name": "GSK5475152",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "mRNA vaccine",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Systemic lupus erythematosus"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK4527363",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "B-cell modulator",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Inflammatory bowel disease"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK4528287",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Anti IL23-IL18 bispecific antibody",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Autosomal dominant polycystic kidney disease"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK4771261",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Monoclonal antibody against novel kidney target",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Autoimmune disease"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK5926371",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Anti CD19-CD20-CD3 trispecific antibody",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Systemic lupus erythematosus"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK4347859",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Interferon pathway modulator",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Chronic obstructive pulmonary disease (COPD)"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK6582701",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "PDE3/4 inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Chronic obstructive pulmonary disease (COPD)"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK6759821",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "siRNA",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [
+            {
+              "name": "Pipeline change note",
+              "value": "35Pharma acquisition"
+            }
+          ],
+          "indication_verbatim": "Pulmonary arterial hypertension (PAH)"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Pulmonary hypertension due to heart failure with preserved ejection fraction (PH-HFpEF)"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK6792070",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Activin signaling inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Gynaecologic malignancies"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Gynaecologic malignancies combination with anticancer therapies"
+        }
+      ],
+      "synonyms": [
+        "mocertatug rezetecan"
+      ],
+      "preferred_name": "GSK5733584",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "ADC targeting B7-H4",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Multiple myeloma"
+        }
+      ],
+      "synonyms": [
+        "belantamab"
+      ],
+      "preferred_name": "GSK2857914",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "B-cell maturation antigen binder",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [
+            {
+              "name": "Pipeline change note",
+              "value": "New asset entering phase I"
+            }
+          ],
+          "indication_verbatim": "Solid Tumors"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK5533524",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "ADC targeting a tumour associated antigen (TAA)",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "HIV treatment"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "VH4527079",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "^",
+          "value": "ViiV Healthcare responsible for developing and delivering HIV medicines"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "HIV entry inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Malaria"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK3772701",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "P falciparum whole cell inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Uncomplicated urinary tract infection (uUTI)"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK3882347",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "FimH antagonist",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Rhinovirus disease"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK3923868",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "PI4K beta inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Malaria"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK4024484",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "P. falciparum whole cell inhibitor",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Group A streptococcal infections"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK4424989",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "Recombinant/glycoconjugate vaccine",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase I",
+          "additional_fields": [],
+          "indication_verbatim": "Pneumococcal disease"
+        }
+      ],
+      "synonyms": [
+        "Pneumococcal 30+ valent - adults"
+      ],
+      "preferred_name": "GSK5459248",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": "MAPS Pneumococcal 30+ valent adults",
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": "Approved in all major markets",
+          "phase_verbatim": "Removed",
+          "additional_fields": [
+            {
+              "name": "Pipeline change",
+              "value": "Removed (Q4 2025 to Q1 2026)"
+            }
+          ],
+          "indication_verbatim": "Chronic obstructive pulmonary disease (COPD)"
+        }
+      ],
+      "synonyms": [
+        "mepolizumab",
+        "Nucala"
+      ],
+      "preferred_name": "SB240563",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": "Development ended",
+          "phase_verbatim": "Removed",
+          "additional_fields": [
+            {
+              "name": "Pipeline change",
+              "value": "Removed (Q4 2025 to Q1 2026)"
+            }
+          ],
+          "indication_verbatim": "Cancer"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "XMT-2056",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020(1)",
+          "value": "wholly owned by Mersana Therapeutics"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": "Development ended",
+          "phase_verbatim": "Removed",
+          "additional_fields": [
+            {
+              "name": "Pipeline change",
+              "value": "Removed (Q4 2025 to Q1 2026)"
+            }
+          ],
+          "indication_verbatim": "Chronic hepatitis B virus infection"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GSK5251738",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": "Approved in US",
+          "phase_verbatim": "Removed",
+          "additional_fields": [
+            {
+              "name": "Pipeline change",
+              "value": "Removed (Q4 2025 to Q1 2026)"
+            }
+          ],
+          "indication_verbatim": "Uncomplicated urinary tract infection (uUTI)"
+        },
+        {
+          "status": "Approved in US",
+          "phase_verbatim": "Removed",
+          "additional_fields": [
+            {
+              "name": "Pipeline change",
+              "value": "Removed (Q4 2025 to Q1 2026)"
+            }
+          ],
+          "indication_verbatim": "Uncomplicated urogenital gonorrhoea (GC)"
+        }
+      ],
+      "synonyms": [
+        "gepotidacin",
+        "Blujepa"
+      ],
+      "preferred_name": "GSK2140944",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": "Development paused",
+          "phase_verbatim": "Removed",
+          "additional_fields": [
+            {
+              "name": "Pipeline change",
+              "value": "Removed (Q4 2025 to Q1 2026)"
+            }
+          ],
+          "indication_verbatim": "Influenza A virus H5N1"
+        }
+      ],
+      "synonyms": [
+        "mRNA Flu H5N1 pre-pandemic"
+      ],
+      "preferred_name": "GSK5536522",
+      "target_verbatim": null,
+      "additional_fields": [
+        {
+          "name": "\u2020",
+          "value": "In-license or other alliance relationship with third party"
+        },
+        {
+          "name": "Immuno-modulator",
+          "value": "yes"
+        }
+      ],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    }
+  ],
+  "page_notes": "Main pipeline rendered as an interactive table (read from screenshots). A 'Pipeline changes' section (Q4 2025 to Q1 2026) lists Added/Progressed/Removed items; Removed items have no phase column (only notes) and were captured with phase_verbatim='Removed' and the note as status. A downloadable Q1 2026 Pipeline list (XLSX) may contain additional detail. Note: GSK6775388 (ozureprubart) source appears to swap Indication ('anti-IgE antibody') and Mode of action ('Food allergies') columns; captured verbatim."
+}

@@ -1,0 +1,867 @@
+Skip to content
+Skip to search
+Change location
+Search
+Menu
+HomeInnovationPipeline
+Pipeline
+Q1 2026 Pipeline list (XLSX - 25.9KB)
+
+At GSK, our portfolio and pipeline is focused in developing medicines and vaccines in four core therapeutic areas, which are the areas of human health we focus on to prevent and treat disease: respiratory, immunology and inflammation; oncology; HIV; and infectious diseases.
+
+ 
+
+Our pipeline
+Pipeline changes
+Key
+Key
+†
+In-license or other alliance relationship with third party
+^
+ViiV Healthcare, a global specialist HIV company with GSK, Pfizer, Inc. and Shionogi Limited as shareholders, is responsible for developing and delivering HIV medicines.
+*
+In Phase I/II study
+#
+In Phase II/III study
+
+Pipeline updated 29 April 2026
+Key
+†
+In-license or other alliance relationship with third party
+^
+ViiV Healthcare, a global specialist HIV company with GSK, Pfizer, Inc. and Shionogi Limited as shareholders, is responsible for developing and delivering HIV medicines.
+*
+In Phase I/II study
+#
+In Phase II/III study
+
+Immuno-modulator
+View all therapeutic areas
+Respiratory, immunology and inflammation
+Oncology
+HIV
+Infectious diseases
+
+
+Compound number/
+Generic name/
+Brand name
+	Indication	Phase
+Close x
+View all phases
+Registration
+Phase III
+Phase III #
+Phase II
+Phase II (2)
+Phase II *
+Phase II #
+Phase I *
+Phase I
+Phase I (4)
+Clear
+	Mode of action /
+Vaccine type
+
+
+GSK3511294 †
+
+depemokimab
+
+Exdensur
+
+Immuno-modulator
+	Chronic rhinosinusitis with nasal polyps (CRSwNP)	Registration	Long-acting anti-interleukin 5 (IL5) antibody
+
+
+GSK2330672
+
+linerixibat
+
+	Cholestatic pruritus in primary biliary cholangitis (PBC)	Registration	Ileal bile acid transporter (IBAT) inhibitor
+
+
+GSK2857916 †
+
+belantamab mafodotin
+
+Blenrep
+
+Immuno-modulator
+	2L+ Multiple myeloma combination with Pomalyst and dexamethasone	Registration	ADC targeting B-cell maturation antigen
+
+
+GSK3844766 †
+
+RSV vaccine
+
+Arexvy
+
+Immuno-modulator
+	Respiratory syncytial virus prophylaxis, adults 60+ years of age in China	Registration	Recombinant protein, adjuvanted vaccine
+
+
+GSK3228836 †
+
+bepirovirsen
+
+	Chronic hepatitis B virus infection	Registration	HBV antisense oligonucleotide
+
+
+GSK3778712 †
+
+tebipenem pivoxil
+
+	Complicated urinary tract infection (cUTI)	Registration	Antibacterial carbapenem
+
+
+GSK5464714
+
+camlipixant
+
+	Refractory chronic cough (RCC)	Phase III	P2X3 receptor antagonist
+
+
+GSK3511294 †
+
+depemokimab
+
+Exdensur
+
+Immuno-modulator
+	Eosinophilic granulomatosis with polyangiitis (EGPA)	Phase III	Long-acting anti-interleukin 5 (IL5) antibody
+
+
+GSK3511294 †
+
+depemokimab
+
+Exdensur
+
+Immuno-modulator
+	Hypereosinophilic syndrome (HES)	Phase III	Long-acting anti-interleukin 5 (IL5) antibody
+
+
+GSK3511294 †
+
+depemokimab
+
+Exdensur
+
+Immuno-modulator
+	Chronic obstructive pulmonary disease (COPD)	Phase III	Long-acting anti-interleukin 5 (IL5) antibody
+
+
+AH3365
+
+salbutamol
+
+Ventolin
+
+	Asthma, low carbon version of metered dose inhaler	Phase III	Beta 2 adrenergic receptor agonist
+
+
+GSK1550188
+
+belimumab
+
+Benlysta
+
+Immuno-modulator
+	Interstitial lung disease associated with connective tissue disease	Phase III	Anti-B lymphocyte stimulator (BLys) monoclonal antibody
+
+
+GSK6519754 †
+
+efimosfermin alfa 
+
+	Metabolic dysfunction-associated steatohepatitis (MASH)	Phase III	Fibroblast growth factor 21 (FGF21) analog
+
+
+GSK2857916 †
+
+belantamab mafodotin
+
+Blenrep
+
+Immuno-modulator
+	1L Multiple myeloma combination with Revlimid and dexamethasone	Phase III	ADC targeting B-cell maturation antigen
+
+
+GSK4057190 (TSR-042) †
+
+dostarlimab
+
+Jemperli
+
+Immuno-modulator
+	Peri-operative dMMR/MSI-H colon cancer	Phase III	Anti-programmed cell death protein 1 receptor (PD-1) antibody
+
+
+GSK4057190 (TSR-042) †
+
+dostarlimab
+
+Jemperli
+
+Immuno-modulator
+	Unresected head and neck squamous cell carcinoma	Phase III	Anti-programmed cell death protein 1 receptor (PD-1) antibody
+
+
+GSK4057190 (TSR-042) †
+
+dostarlimab
+
+Jemperli
+
+Immuno-modulator
+	1L endometrial cancer	Phase III	Anti-programmed cell death protein 1 receptor (PD-1) antibody
+
+
+GSK5764227 †
+
+risvutatug rezetecan
+
+	Extensive-stage small-cell lung cancer	Phase III	ADC targeting B7-H3
+
+
+GSK3985771 †
+
+niraparib
+
+Zejula
+
+	Newly diagnosed glioblastoma multiforme	Phase III	Poly (ADP-ribose) polymerase (PARP) 1/2 inhibitor
+
+
+GSK6042981 †
+
+velzatinib
+
+	Gastrointestinal stromal tumours​	Phase III	KIT inhibitor​
+
+
+GSK3536829
+
+Men B vaccine
+
+Bexsero
+
+Immuno-modulator
+	Meningitis B (infants US)	Phase III	Recombinant protein and outer membrance vesicle vaccine
+
+
+GSK4178116 †
+
+Varicella new seed
+
+Immuno-modulator
+	Varicella	Phase III	Live attenuated vaccine
+
+
+GSK1550188
+
+belimumab
+
+Benlysta
+
+Immuno-modulator
+	Systemic sclerosis associated interstitial lung disease	Phase III #	Anti-B lymphocyte stimulator (BLys) monoclonal antibody
+
+
+GSK4527226 (AL-101) †
+
+nivisnebart
+
+Immuno-modulator
+	Alzheimer’s disease	Phase II	Anti-sortilin monoclonal antibody
+
+
+GSK4532990 †
+
+gatuzosiran
+
+	Metabolic dysfunction-associated steatohepatitis (MASH)	Phase II	HSD17B13 RNA interference
+
+
+GSK4532990 †
+
+gatuzosiran
+
+	Alcohol-related liver disease (ALD)	Phase II	HSD17B13 RNA interference
+
+
+GSK5784283 †
+
+Immuno-modulator
+	Asthma	Phase II	Long-acting anti-thymic stromal lymphopoietin (TSLP) monoclonal antibody
+
+
+GSK3862995 †
+
+Immuno-modulator
+	Non-cystic fibrosis bronchiectasis (NCFB)	Phase II	Anti-interleukin 33 (IL33) antibody
+
+
+GSK6775388 †
+
+ozureprubart
+
+Immuno-modulator
+	anti-IgE antibody	Phase II	Food allergies
+
+
+GSK4057190 (TSR-042) †
+
+dostarlimab
+
+Jemperli
+
+Immuno-modulator
+	Neoadjuvant dMMR/MSI-H rectal cancer	Phase II	Anti-programmed cell death protein 1 receptor (PD-1) antibody
+
+
+GSK4057190 (TSR-042) †
+
+dostarlimab
+
+Jemperli
+
+Immuno-modulator
+	Previously untreated neoadjuvant MMRp/MSS colon cancer	Phase II	Anti-programmed cell death protein 1 receptor (PD-1) antibody
+
+
+GSK2857916 †
+
+belantamab mafodotin
+
+Blenrep
+
+Immuno-modulator
+	Newly diagnosed amyloid light chain amyloidosis	Phase II	ADC targeting B-cell maturation antigen
+
+
+GSK3070785 †
+
+momelotinib
+
+Ojjaara/Omjjara
+
+	Myelodysplastic syndrome	Phase II	JAK1, JAK2 and ACVR1 inhibitor
+
+
+GSK3070785 †
+
+momelotinib
+
+Ojjaara/Omjjara
+
+	Myelofibrosis	Phase II	JAK1, JAK2 and ACVR1 inhibitor
+
+
+GSK1265744 ^
+
+cabotegravir
+
+	HIV treatment	Phase II	HIV integrase inhibitor
+
+
+VH3810109 †^
+
+	HIV treatment	Phase II	HIV broadly neutralizing antibody
+
+
+VH4011499 ^
+
+	HIV treatment	Phase II	HIV capsid protein inhibitor
+
+
+VH4524184 †^
+
+	HIV treatment	Phase II	HIV integrase inhibitor
+
+
+BVL-GSK3729098 †
+
+alpibectir
+
+	Tuberculosis	Phase II	Ethionamide booster
+
+
+GSK3036656 †
+
+ganfeborole
+
+	Tuberculosis	Phase II	Leucyl t-RNA synthetase inhibitor
+
+
+GSK4077164 †
+
+iNTS (S. typhimurium + S. enteritidis + S. Typhi)
+
+Immuno-modulator
+	Invasive non-typhoidal salmonella and typhoid fever	Phase II	Bivalent Generalized Modules for Membrane Antigens (GMMA) vaccine and typhoid conjugate vaccine (TCV)
+
+
+GSK4382276 †
+
+mRNA Seasonal Flu
+
+Immuno-modulator
+	Seasonal flu	Phase II	mRNA vaccine
+
+
+GSK4396687 †
+
+mRNA COVID-19
+
+Immuno-modulator
+	COVID-19	Phase II	mRNA vacccine
+
+
+GSK4406371
+
+Measles, mumps, rubella & varicella new seed vaccine
+
+Immuno-modulator
+	Measles, mumps, rubella, and varicella	Phase II	Live attenuated vaccine
+
+
+GSK5637608 †
+
+daplusiran + tomligisiran
+
+	Chronic hepatitis B virus infection	Phase II	Hepatitis B virus-targeted siRNA sequential combination
+
+
+GSK3228836 †
+
+bepirovirsen
+
+	Human immunodeficiency virus (HIV)/hepatitis B virus (HBV) co-infection	Phase II	HBV antisense oligonucleotide
+
+
+GSK5102188
+
+Urinary tract infection
+
+Immuno-modulator
+	Urinary tract infection (UTI)	Phase II *	Adjuvanted recombinant subunit vaccine
+
+
+GSK5764227 †
+
+risvutatug rezetecan
+
+	Solid tumours	Phase I *	ADC targeting B7-H3
+
+
+GSK5458514 †
+
+Immuno-modulator
+	Prostate cancer	Phase I *	PSMAxCD3 T-cell engager
+
+
+GSK5764227 †
+
+risvutatug rezetecan
+
+	PanGI	Phase I *	ADC targeting B7-H3
+
+
+GSK5460025
+
+	Solid tumours	Phase I *	Nucleotide excision repair targeting agent
+
+
+GSK5471713
+
+	Prostate cancer	Phase I *	AR degrader
+
+
+GSK3965193
+
+	Chronic hepatitis B virus infection	Phase I *	PAPD5/PAPD7 inhibitor
+
+
+GSK5475152 †
+
+mRNA Seasonal Flu/COVID-19
+
+Immuno-modulator
+	Seasonal flu and COVID-19	Phase I *	mRNA vaccine
+
+
+GSK3862995 †
+
+Immuno-modulator
+	Chronic obstructive pulmonary disease (COPD)	Phase I	Anti-interleukin 33 (IL33) antibody
+
+
+GSK4527363 †
+
+Immuno-modulator
+	Systemic lupus erythematosus	Phase I	B-cell modulator
+
+
+GSK4528287 †
+
+Immuno-modulator
+	Inflammatory bowel disease	Phase I	Anti IL23-IL18 bispecific antibody
+
+
+GSK4771261 †
+
+	Autosomal dominant polycystic kidney disease	Phase I	Monoclonal antibody against novel kidney target
+
+
+GSK5926371 †
+
+Immuno-modulator
+	Autoimmune disease	Phase I	Anti CD19-CD20-CD3 trispecific antibody
+
+
+GSK4347859
+
+Immuno-modulator
+	Systemic lupus erythematosus	Phase I	Interferon pathway modulator
+
+
+GSK6582701 †
+
+Immuno-modulator
+	Chronic obstructive pulmonary disease (COPD)	Phase I	PDE3/4 inhibitor
+
+
+GSK6759821 †
+
+	Chronic obstructive pulmonary disease (COPD)	Phase I	siRNA
+
+
+GSK6792070
+
+Immuno-modulator
+	Pulmonary arterial hypertension (PAH)	Phase I	Activin signaling inhibitor
+
+
+GSK6792070
+
+Immuno-modulator
+	Pulmonary hypertension due to heart failure with preserved ejection fraction (PH-HFpEF)	Phase I	Activin signaling inhibitor
+
+
+GSK2857916 †
+
+belantamab mafodotin
+
+Blenrep
+
+Immuno-modulator
+	1L Multiple myeloma combination with Velcade, Revlimid and dexamethasone	Phase I	ADC targeting B-cell maturation antigen
+
+
+GSK5733584 †
+
+mocertatug rezetecan
+
+	Gynaecologic malignancies	Phase I	ADC targeting B7-H4
+
+
+GSK2857914
+
+belantamab
+
+Immuno-modulator
+	Multiple myeloma	Phase I	B-cell maturation antigen binder
+
+
+GSK5733584 †
+
+mocertatug rezetecan
+
+	Gynaecologic malignancies combination with anticancer therapies 	Phase I	ADC targeting B7-H4
+
+
+GSK5533524
+
+	Solid Tumors	Phase I	ADC targeting a tumour associated antigen (TAA)
+
+
+VH4527079 ^
+
+	HIV treatment	Phase I	HIV entry inhibitor
+
+
+GSK3772701 †
+
+	Malaria	Phase I	P falciparum whole cell inhibitor
+
+
+GSK3882347 †
+
+	Uncomplicated urinary tract infection (uUTI)	Phase I	FimH antagonist
+
+
+GSK3923868
+
+	Rhinovirus disease	Phase I	PI4K beta inhibitor
+
+
+GSK4024484 †
+
+	Malaria	Phase I	P. falciparum whole cell inhibitor
+
+
+GSK4424989 †
+
+Immuno-modulator
+	Group A streptococcal infections	Phase I	Recombinant/glycoconjugate vaccine
+
+
+GSK5459248 †
+
+Pneumococcal 30+ valent - adults
+
+Immuno-modulator
+	Pneumococcal disease	Phase I	MAPS Pneumococcal 30+ valent adults
+Q4 2025 to Q1 2026
+Key
+†
+In-license or other alliance relationship with third party
+^
+ViiV Healthcare, a global specialist HIV company with GSK, Pfizer, Inc. and Shionogi Limited as shareholders, is responsible for developing and delivering HIV medicines.
+*
+In Phase I/II study
+#
+In Phase II/III study
+
+Immuno-modulator
+Therapeutic areas
+Respiratory, immunology and inflammation
+Oncology
+HIV
+Infectious diseases
+Added
+
+
+Compound number/
+Generic name/
+Brand name
+	Indication	Phase	Notes
+
+
+GSK6775388 †
+
+ozureprubart
+
+Immuno-modulator
+	anti-IgE antibody	Phase II	RAPT Therapeutics acquisition
+
+
+GSK6792070
+
+Immuno-modulator
+	Pulmonary arterial hypertension (PAH)	Phase I	35Pharma acquisition
+
+
+GSK5471713
+
+	Prostate cancer	Phase I *	New asset entering phase I
+
+
+GSK5533524
+
+	Solid Tumors	Phase I	New asset entering phase I
+Progressed
+
+
+Compound number/
+Generic name/
+Brand name
+	Indication	Phase	Notes
+
+
+GSK1550188
+
+belimumab
+
+Benlysta
+
+Immuno-modulator
+	Systemic sclerosis associated interstitial lung disease	Phase III #	Progressed to phase III part of phase II/III study
+
+
+GSK3228836 †
+
+bepirovirsen
+
+	Chronic hepatitis B virus infection	Registration	Submissions accepted in major markets
+Removed
+
+
+Compound number/
+Generic name/
+Brand name
+	Indication	Notes
+
+
+GSK3511294 †
+
+depemokimab
+
+Exdensur
+
+Immuno-modulator
+	Asthma	Approved in all major markets
+
+
+SB240563
+
+mepolizumab
+
+Nucala
+
+Immuno-modulator
+	Chronic obstructive pulmonary disease (COPD)	Approved in all major markets
+
+
+XMT-2056 †(1)
+
+(wholly owned by Mersana Therapeutics)
+
+Immuno-modulator
+	Cancer	Development ended
+
+
+GSK2857916 †
+
+belantamab mafodotin
+
+Blenrep
+
+Immuno-modulator
+	2L+ Multiple myeloma combination with Velcade and dexamethasone	Approved in all major markets
+
+
+GSK5251738 †
+
+Immuno-modulator
+	Chronic hepatitis B virus infection	Development ended
+
+
+GSK2140944 †
+
+gepotidacin
+
+Blujepa
+
+	Uncomplicated urinary tract infection (uUTI)	Approved in US
+
+
+GSK2140944 †
+
+gepotidacin
+
+Blujepa
+
+	Uncomplicated urogenital gonorrhoea (GC)	Approved in US
+
+
+GSK5536522 †
+
+mRNA Flu H5N1 pre-pandemic
+
+Immuno-modulator
+	Influenza A virus H5N1	Development paused
+Pipeline progress
+
+The content of our development pipeline will change over time as new projects progress from research to development and from development to the market.
+
+Phases of clinical development
+
+Our products in development progress through three stages: phase I, phase II and phase III/registrational. Each of these phases allows us to assess the safety and efficacy of our investigational products to eventually provide data to support applications for regulatory approval. For competitive reasons, new projects in pre-clinical development are not disclosed and some project types may not be identified.
+
+ 
+
+Expand all
+Phase I
+Phase II
+Phase III/registrational
+Monitoring post-launch
+
+Brand names are trademarks either owned by and/or licensed to GSK or associated companies.  This information was updated on 29 April 2026.  
+
+You might also like
+BEHIND THE SCIENCE MAGAZINE
+
+Explore innovations from inside and outside our labs. Go #BehindTheScience to see for yourself
+
+TECH
+
+Tech is revolutionising how we develop medicines and vaccines, streamline clinical trials, optimise supply chains, enhance patient care
+
+OUR LEADING SCIENTISTS
+
+Meet the world-leading scientists who are working to bring innovative medicines and vaccines to patients
+
+Continue to Therapeutic areas 
+
+Gsk Logo
+
+This is our global website, intended for visitors seeking information on GSK's worldwide business.  Our market sites can be reached by visiting our location selector.  
+
+ 
+
+© 2001-2026 GSK plc. All rights reserved. Trade marks are owned by or licensed to the GSK group of companies.
+
+GSK plc. Registered in England and Wales No. 3888792.
+
+Registered office: 79 New Oxford Street, London. United Kingdom. WC1A 1DG
+
+> Modern Slavery Act Statement 2025 (PDF - 187.7KB)
+
+GSK websites
+Locations selector
+Social media directory
+GSKPro for healthcare professionals
+GSK study register
+Supplier website
+ViiV Healthcare
+Quick links
+Behind the Science magazine
+Company
+Innovation
+Products
+Responsibility
+Investors
+Media
+Careers
+Get in touch
+Contact us
+Partnerships
+Report a possible side effect
+GSK Speak up
+Follow us on:
+Accessibility
+Digital sustainability
+Terms of use
+Cookie policy
+Privacy notice
+Sitemap
+We use cookies
+
+GSK values your privacy and your trust is important to us. We use cookies to enhance your website experience. Some cookies are necessary to run the website. Others are optional: performance cookies show us how you use our website and features; functional cookies remember your preferences; and advertising cookies help us share relevant content. Cookie Policy
+
+Always active Strictly Necessary Cookies
+❮
+
+Necessary for the website to function appropriately, such as store session data during a website visit, to manage cookie and tag preferences, and to protect the security of the website. In addition some cookies are set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will not then work. These cookies do not store any personally identifiable information.
+
+ 
+Performance cookies
+❮
+ 
+Advertising Cookies
+❮
+CUSTOMIZE
+ACCEPT ALL

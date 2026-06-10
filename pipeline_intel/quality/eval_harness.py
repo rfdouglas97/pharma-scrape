@@ -50,6 +50,11 @@ def load_fixtures(golden_dir: Path = GOLDEN_DIR) -> list[Fixture]:
         if not (meta_path.exists() and expected_path.exists()):
             continue
         meta = json.loads(meta_path.read_text())
+        # Only human-verified fixtures count as ground truth. A model-seeded draft
+        # (labeled != true) must never be scored against — that would grade the model
+        # against its own output. Flip meta.labeled to true once you've corrected it.
+        if meta.get("labeled") is not True:
+            continue
         gold = ExtractionResult.model_validate_json(expected_path.read_text())
         page_text = (d / "page.txt").read_text() if (d / "page.txt").exists() else ""
         screenshots = [(d / "page.png").read_bytes()] if (d / "page.png").exists() else []

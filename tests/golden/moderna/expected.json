@@ -1,0 +1,738 @@
+{
+  "assets": [
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Commercial",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "RESPIRATORY VACCINES - ADULTS"
+            }
+          ],
+          "indication_verbatim": "COVID-19 vaccine"
+        }
+      ],
+      "synonyms": [
+        "SPIKEVAX"
+      ],
+      "preferred_name": "SPIKEVAX\u00ae",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Commercial",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "RESPIRATORY VACCINES - ADULTS"
+            }
+          ],
+          "indication_verbatim": "COVID-19 vaccine"
+        }
+      ],
+      "synonyms": [
+        "mNEXSPIKE"
+      ],
+      "preferred_name": "mNEXSPIKE\u00ae",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Commercial",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "RESPIRATORY VACCINES - ADULTS"
+            }
+          ],
+          "indication_verbatim": "RSV vaccine"
+        }
+      ],
+      "synonyms": [
+        "mRESVIA"
+      ],
+      "preferred_name": "mRESVIA\u00ae",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "RESPIRATORY VACCINES - ADULTS"
+            }
+          ],
+          "indication_verbatim": "Flu + COVID vaccine"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mCOMBRIAX",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "RESPIRATORY VACCINES - ADULTS"
+            }
+          ],
+          "indication_verbatim": "Flu vaccine"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1010",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [
+        {
+          "name": "CEPI",
+          "role": "in collaboration with",
+          "territory": null
+        }
+      ],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Collaboration",
+              "value": "in collaboration with CEPI"
+            },
+            {
+              "name": "Category",
+              "value": "RESPIRATORY VACCINES - ADULTS"
+            }
+          ],
+          "indication_verbatim": "Pandemic Flu vaccine"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1018",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 1",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "RESPIRATORY VACCINES - ADULTS"
+            }
+          ],
+          "indication_verbatim": "RSV + hMPV vaccine"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1365",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "RESPIRATORY VACCINES - ADOLESCENTS AND PEDIATRICS"
+            }
+          ],
+          "indication_verbatim": "RSV vaccine pediatrics"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1345",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "LATENT & OTHER VACCINES - ENTERIC VIRUSES"
+            }
+          ],
+          "indication_verbatim": "Norovirus vaccine"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1403",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "LATENT & OTHER VACCINES - ENTERIC VIRUSES"
+            }
+          ],
+          "indication_verbatim": "Norovirus vaccine"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1405",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "LATENT & OTHER VACCINES - LATENT VIRUSES"
+            }
+          ],
+          "indication_verbatim": "CMV vaccine for transplant recipients"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1647",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "LATENT & OTHER VACCINES - LATENT VIRUSES"
+            }
+          ],
+          "indication_verbatim": "EBV vaccine to prevent infectious mononucleosis"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1189",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "LATENT & OTHER VACCINES - LATENT VIRUSES"
+            }
+          ],
+          "indication_verbatim": "EBV vaccine to address long-term EBV sequelae"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1195",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [
+        {
+          "name": "IAVI",
+          "role": "in collaboration with",
+          "territory": null
+        }
+      ],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 1",
+          "additional_fields": [
+            {
+              "name": "Collaboration",
+              "value": "in collaboration with IAVI"
+            },
+            {
+              "name": "Category",
+              "value": "LATENT & OTHER VACCINES - LATENT VIRUSES"
+            }
+          ],
+          "indication_verbatim": "HIV vaccine"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1645",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "LATENT & OTHER VACCINES - BACTERIAL"
+            }
+          ],
+          "indication_verbatim": "Lyme disease vaccine"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1975",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "LATENT & OTHER VACCINES - BACTERIAL"
+            }
+          ],
+          "indication_verbatim": "Lyme disease vaccine"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1982",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 1",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "LATENT & OTHER VACCINES - PUBLIC HEALTH"
+            }
+          ],
+          "indication_verbatim": "Nipah vaccine"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1215",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "LATENT & OTHER VACCINES - PUBLIC HEALTH"
+            }
+          ],
+          "indication_verbatim": "Mpox vaccine"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-1769",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [
+        {
+          "name": "Merck",
+          "role": "partnered with",
+          "territory": null
+        }
+      ],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "ONCOLOGY THERAPEUTICS"
+            }
+          ],
+          "indication_verbatim": "Adjuvant melanoma"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [],
+          "indication_verbatim": "Adjuvant NSCLC"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [],
+          "indication_verbatim": "Adjuvant NSCLC non-pCR post-neoadjuvant treatment"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [],
+          "indication_verbatim": "Adjuvant Stage 1 NSCLC"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [],
+          "indication_verbatim": "Adjuvant Renal cell carcinoma (RCC)"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [],
+          "indication_verbatim": "Adjuvant Bladder cancer (MIBC)"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [],
+          "indication_verbatim": "Bladder cancer (NMIBC)"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [],
+          "indication_verbatim": "Metastatic melanoma"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [],
+          "indication_verbatim": "First-line metastatic squamous NSCLC"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 1",
+          "additional_fields": [],
+          "indication_verbatim": "Early and advanced solid tumors"
+        }
+      ],
+      "synonyms": [
+        "mRNA-4157"
+      ],
+      "preferred_name": "INTISMERAN AUTOGENE",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 1",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "ONCOLOGY THERAPEUTICS - CANCER ANTIGEN THERAPIES"
+            }
+          ],
+          "indication_verbatim": "Advanced solid tumors"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-4359",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 1",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "ONCOLOGY THERAPEUTICS - CANCER ANTIGEN THERAPIES"
+            }
+          ],
+          "indication_verbatim": "Solid tumors"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-4106",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 1",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "ONCOLOGY THERAPEUTICS - CANCER ANTIGEN THERAPIES"
+            }
+          ],
+          "indication_verbatim": "Select advanced solid tumor malignancies"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-4200",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 1",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "ONCOLOGY THERAPEUTICS - T-CELL ENGAGERS"
+            }
+          ],
+          "indication_verbatim": "Multiple myeloma"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-2808",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [
+        {
+          "name": "Immatics",
+          "role": "in collaboration with",
+          "territory": null
+        }
+      ],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 1",
+          "additional_fields": [
+            {
+              "name": "Collaboration",
+              "value": "in collaboration with Immatics"
+            },
+            {
+              "name": "Category",
+              "value": "ONCOLOGY THERAPEUTICS - CELL THERAPY ENHANCERS"
+            }
+          ],
+          "indication_verbatim": "Solid tumors"
+        }
+      ],
+      "synonyms": [
+        "mRNA-4203",
+        "anzu-cel",
+        "IMA203"
+      ],
+      "preferred_name": "mRNA-4203 + anzu-cel (IMA203)",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "RARE DISEASE THERAPEUTICS - RARE DISEASE INTERCELLULAR THERAPEUTICS"
+            }
+          ],
+          "indication_verbatim": "Propionic acidemia (PA)"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-3927",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Category",
+              "value": "RARE DISEASE THERAPEUTICS - RARE DISEASE INTERCELLULAR THERAPEUTICS"
+            }
+          ],
+          "indication_verbatim": "Methylmalonic acidemia (MMA)"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-3705",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [
+        {
+          "name": "Vertex",
+          "role": "in collaboration with",
+          "territory": null
+        }
+      ],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 1",
+          "additional_fields": [
+            {
+              "name": "Collaboration",
+              "value": "in collaboration with Vertex"
+            },
+            {
+              "name": "Category",
+              "value": "RARE DISEASE THERAPEUTICS - RARE DISEASE INTERCELLULAR THERAPEUTICS"
+            }
+          ],
+          "indication_verbatim": "Cystic fibrosis (CF)"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "mRNA-3692",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": null,
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    }
+  ],
+  "page_notes": "Pipeline is rendered as a horizontal bar chart with phase columns (Phase 1, Phase 2, Phase 3, Commercial) and no explicit phase text; phase_verbatim values were read from the length/endpoint of each progress bar in the screenshot and may carry some imprecision for bars ending near phase boundaries. Page is dated as-of May 28, 2026."
+}

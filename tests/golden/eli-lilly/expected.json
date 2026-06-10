@@ -1,0 +1,1699 @@
+{
+  "assets": [
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Regulatory Approval Achieved",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            },
+            {
+              "name": "Indicator",
+              "value": "Regulatory approval achieved"
+            }
+          ],
+          "indication_verbatim": "Obesity"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Regulatory Review",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Diabetes"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Osteoarthritis Pain"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Peripheral Artery Disease"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Obstructive Sleep Apnea"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Hypertension"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Stress Urinary Incontinence"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Cardiovascular Outcomes"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Orforglipron",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Regulatory Review",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Diabetes"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Insulin Efsitora Alfa",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Regulatory Review",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cancer"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "1L CLL monotherapy"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cancer"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "R/R MCL monotherapy"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cancer"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "R/R CLL combination"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Pirtobrutinib",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Regulatory Review",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Cardiovascular Outcomes"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Metabolic Dysfunction-Associated Steatotic Liver Disease"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Morbidity and Mortality in Obesity"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Type 1 Diabetes"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Higher Doses"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Tirzepatide",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            },
+            {
+              "name": "Indicator",
+              "value": "New to pipeline"
+            }
+          ],
+          "indication_verbatim": "Type 1 Diabetes"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Baricitinib",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Alcohol Use Disorder"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            },
+            {
+              "name": "Indicator",
+              "value": "New to pipeline"
+            }
+          ],
+          "indication_verbatim": "Major Depressive Disorder"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Tobacco Use Disorder"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Bipolar Disorder"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Asthma"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            },
+            {
+              "name": "Indicator",
+              "value": "New to pipeline"
+            }
+          ],
+          "indication_verbatim": "Opioid Use Disorder"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            },
+            {
+              "name": "Indicator",
+              "value": "New to pipeline"
+            }
+          ],
+          "indication_verbatim": "Schizophrenia"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Brenipatide",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Cognitively unimpaired Alzheimer\u2019s disease"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Donanemab",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Obesity"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            },
+            {
+              "name": "Indicator",
+              "value": "New to pipeline"
+            }
+          ],
+          "indication_verbatim": "Obstructive Sleep Apnea"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            },
+            {
+              "name": "Indicator",
+              "value": "New to pipeline"
+            }
+          ],
+          "indication_verbatim": "Osteoarthritis Pain"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Eloralintide",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            },
+            {
+              "name": "Indicator",
+              "value": "New to pipeline"
+            }
+          ],
+          "indication_verbatim": "Obesity"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Eloralintide Incretin Add-On",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cancer"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Adjuvant Breast Cancer"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Imlunestrant",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Psoriasis"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Psoriatic Arthritis"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Ixekizumab + Tirzepatide",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Wet AMD"
+        }
+      ],
+      "synonyms": [
+        "Ixo-Vec"
+      ],
+      "preferred_name": "Ixoberogene Soroparvovec (Ixo-Vec)",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Allergic Rhinitis (perennial allergens)"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Chronic Rhinosinusitis with Nasal Polyps"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Lebrikizumab",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Atherosclerotic Cardiovascular Disease"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Lepodisiran",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Crohn's Disease"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Ulcerative Colitis"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Mirikizumab + Tirzepatide",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Atherosclerotic Cardiovascular Disease"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Muvalaplin",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cancer"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "KRAS G12C-mutant NSCLC (PD-L1 high)"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cancer"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "KRAS G12C-mutant NSCLC (All PD-L1)"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cancer"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Adjuvant KRAS G12C-mutant resected NSCLC"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cancer"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Adjuvant KRAS G12C-mutant unresected NSCLC"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Olomorasib",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Cognitively unimpaired / MCI due to Alzheimer\u2019s disease"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Remternetug",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Chronic Low Back Pain"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "CV / Renal Outcomes"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Obesity, OA, OSA"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Diabetes"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Metabolic Dysfunction-Associated Steatotic Liver Disease"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Retatrutide",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cancer"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Adjuvant RET+ NSCLC"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Selpercatinib",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cancer"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Platinum-Resistant Ovarian Cancer"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 3",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cancer"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            },
+            {
+              "name": "Indicator",
+              "value": "New to pipeline"
+            }
+          ],
+          "indication_verbatim": "Platinum-Sensitive Ovarian Cancer"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Sofetabart Mipitecan",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "LCA4"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "AIPL1 Gene Therapy",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            },
+            {
+              "name": "Indicator",
+              "value": "Milestone achieved"
+            }
+          ],
+          "indication_verbatim": "Pain"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "AT2R Antagonist",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Obesity"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Bimagrumab",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Hidradenitis Suppurativa"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Ulcerative Colitis"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Eltrekibart",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Parkinson's Disease"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Gaucher Disease Type 1"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GBA1 Gene Therapy",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cancer"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Chemotherapy Induced Nausea and Vomiting"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GIPR Agonist Long Acting",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Diabetes"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "GS Insulin Receptor Agonist",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Obesity"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Macupatide",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Symptomatic Alzheimer's disease"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Mevidalen",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Obesity"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Naperiglipron",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            },
+            {
+              "name": "Indicator",
+              "value": "Milestone achieved"
+            }
+          ],
+          "indication_verbatim": "Pain"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Nav1.8 Inhibitor (SM)",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Diabetes"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Nisotirostide",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            },
+            {
+              "name": "Indicator",
+              "value": "New to pipeline"
+            }
+          ],
+          "indication_verbatim": "Inflammatory Disorders"
+        }
+      ],
+      "synonyms": [
+        "VTX3232"
+      ],
+      "preferred_name": "NLRP3 Inhibitor (VTX3232)",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            },
+            {
+              "name": "Indicator",
+              "value": "New to pipeline"
+            }
+          ],
+          "indication_verbatim": "Recurrent Pericarditis"
+        }
+      ],
+      "synonyms": [
+        "VTX2735"
+      ],
+      "preferred_name": "NLRP3 Inhibitor II (VTX2735)",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Hearing Loss"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "OTOF Gene Therapy",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Psoriasis"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Simepdekinra",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Cardiometabolic Health"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Severe Hypertriglyceridemia"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Solbinsiran",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Neuroscience"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Pain"
+        }
+      ],
+      "synonyms": [
+        "Epiregulin Ab"
+      ],
+      "preferred_name": "Turigrobart (Epiregulin Ab)",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Large Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "NME"
+            }
+          ],
+          "indication_verbatim": "Ulcerative Colitis"
+        },
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Crohn\u2019s Disease"
+        }
+      ],
+      "synonyms": [
+        "Integrin \u03b14\u03b27"
+      ],
+      "preferred_name": "Zotemtegrast (Integrin \u03b14\u03b27)",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    },
+    {
+      "partners": [],
+      "programs": [
+        {
+          "status": null,
+          "phase_verbatim": "Phase 2",
+          "additional_fields": [
+            {
+              "name": "Therapeutic Area",
+              "value": "Immunology"
+            },
+            {
+              "name": "Type",
+              "value": "New Indication / Other"
+            }
+          ],
+          "indication_verbatim": "Ulcerative Colitis"
+        }
+      ],
+      "synonyms": [],
+      "preferred_name": "Zotemtegrast (Integrin \u03b14\u03b27) + Mirikizumab",
+      "target_verbatim": null,
+      "additional_fields": [],
+      "modality_verbatim": "Small Molecule",
+      "mechanism_verbatim": null,
+      "originator_verbatim": null
+    }
+  ],
+  "page_notes": "Pipeline rendered as a series of cards grouped by phase (Regulatory Approval Achieved, Regulatory Review, Phase 3, Phase 2). Phase 1 projects are no longer disclosed per the company. Icons next to molecule names (checkmark = Regulatory approval achieved, badge = Milestone achieved, plus = New to pipeline) captured as 'Indicator' fields where visible. Targets/mechanisms are not generally disclosed on cards."
+}
