@@ -1,6 +1,6 @@
 # Pharma Pipeline Intelligence — Engineering Plan
 
-**Status:** In build — M0 complete, M1 built & live-validated, re-sequenced so the UI lands before the eval gate (see §0).
+**Status:** In build — M0–M2 complete (foundations → extraction → gold loader + API + UI). Eval gate (M3) sequenced before scale-out; see §0.
 **Repo:** github.com/rfdouglas97/pharma-scrape (private)
 **Inputs:** `pharma-pipeline-intelligence-brief.md` + decisions confirmed 2026-06-10:
 
@@ -19,12 +19,14 @@
 | Milestone | State |
 |---|---|
 | **M0 Foundations** | ✅ **Complete.** Repo+env, Postgres+pgvector (docker-compose; Supabase in prod), full schema v1 (23 tables, SCD2, ontology closure, pgvector), vocab + 20-company registry seeds, ingest stage (render→hash-skip→snapshot) with provenance artifacts, CLI, CI, 18 tests. |
-| **M1 Extraction core** | ✅ **Built & live-validated; eval gate pending (deferred to the UI).** Canonical schema, versioned vision prompt, Claude Opus 4.8 extractor (streaming + tiled screenshots), golden-set scorer + harness, fixture scaffolder. Validated live on 4 format-diverse pages: Moderna (image-only, 27 assets), BMS (table, 50 — matches their stated count), Lilly (41/76), GSK (62). Candidate golden set seeded as correctable drafts. |
-| **Eval gate** | ⏳ **Deferred by decision** until the review UI exists — labeling will happen side-by-side with the screenshot, not in raw JSON. The harness already refuses to score unlabeled drafts (no self-grading). Gate threshold unchanged: field precision ≥0.95 / recall ≥0.90. |
+| **M1 Extraction core** | ✅ **Built & live-validated.** Canonical schema, versioned vision prompt, Claude Opus 4.8 extractor (streaming + tiled screenshots), golden-set scorer + harness, fixture scaffolder. Validated live on 4 format-diverse pages: Moderna (image-only, 27 assets), BMS (table, 50 — matches their stated count), Lilly (41/76), GSK (62 — matches their spreadsheet at ~100% recall). |
+| **M2 Gold loader + API + UI** | ✅ **Complete.** Thin silver→gold loader (SCD2, exact-synonym dedup, provenance; 180 assets/287 programs loaded), phase/modality normalizer (preclean), shared query layer, FastAPI read+review service, Next.js explorer + review UI. Phase shown normalized (verbatim on hover); scorer normalizes phase too. 27 tests. |
+| **M3 Eval gate** | ⏳ **Sequenced before scale, not now.** We have strong *informal* ground-truth validation (GSK/BMS matches), and golden labels are durable page-truth, so formal labeling is deliberately deferred until after the pending extractor refinements (Removed-section) and just before scale-out. Threshold unchanged: precision ≥0.95 / recall ≥0.90. Harness refuses to score unlabeled drafts. |
 
 **What this changes:** the original plan ran enrichment (M2) → scale (M3) → API (M4) → UI (M5). We now bring a **thin gold loader + API + explorer/review UI forward** (new M2) so the eval can run through it (new M3), *then* do full enrichment (M4) and scale (M5). The risk discipline is intact: **we do not scale ingestion past the pilot, or treat the data as sellable, until the gate passes.** Building the UI on an unvalidated extractor is low-risk — the loader rebuilds from immutable silver, and the UI is format-agnostic.
 
 **Decisions / findings (2026-06-10):**
+- **Why the gate is not run "now":** its sole purpose is to certify extraction before scaling to ~200 and before selling — a gate-before-scale, not an immediate task. With GSK/BMS already matching their own published numbers, and golden labels being model-independent page-truth (re-scored for free after any prompt change), the efficient order is *refine extractor → label once → run gate just before scale*. Non-scaling work proceeds in parallel.
 - **Frontend confirmed: Next.js** (App Router) on Vercel for the explorer/review UI — it's the eventual product surface, so we build on it from M2 rather than a throwaway.
 - **GSK extraction validated against authoritative ground truth** (GSK's own downloadable Q1-2026 pipeline spreadsheet, in `Eval_data/`, gitignored). Result: we captured **all 57 unique compounds** (recall ~100%, incl. linerixibat); the only true gap was one brand-name synonym ("Lynavoy"). Our 5 "extra" assets were real page content from the page's **"Pipeline changes / Removed"** section, correctly tagged `Removed`. The headline "76" the page implies = the spreadsheet's 76 **program rows** (compound × indication), not 76 assets.
 - **To-do — prompt refinement (before M3 gate):** segregate "Pipeline changes / Added / Removed" sections from the active pipeline (e.g. status=`removed`/`discontinued` and exclude from active counts) so active-program counts reconcile cleanly with company-stated totals.
@@ -348,9 +350,13 @@ Canonical Pydantic schema, versioned vision prompt, Claude Opus 4.8 extractor (s
 - **Next.js explorer:** company/asset/program browse with provenance (source URL, fetch date, viewable screenshot) **+ a review surface**: extraction shown side-by-side with its screenshot, editable, save → writes the corrected `expected.json` and flips `meta.labeled=true` (this is the labeling tool that unblocks the gate).
 *Done when:* you can browse the pilot pipelines in the browser and correct an extraction into a labeled golden fixture without touching JSON.
 
-**M3 — Run the eval gate (through the UI)** ⬜ — **the risk gate**
-Label the pilot fixtures via the M2 review UI, run `pipeline eval`, tune prompt + per-site `render_config` until **field precision ≥0.95 / recall ≥0.90** across formats.
-*Done when:* gate passes. **Do not scale ingestion past the pilot, or treat the data as sellable, until here.**
+**M3 — Extractor refinement + golden gate** ⬜ — **the risk gate, run *before scale*, not now**
+The gate's only job is to certify extraction accuracy **before** (a) scaling ingestion past the pilot and (b) selling the data — it is **not** a chore that must be cleared this moment. We already have strong *informal* validation: GSK matched its own downloadable pipeline spreadsheet at ~100% compound recall; BMS matched its self-stated "50 compounds"; Moderna's image-only extraction eyeballed clean. So this milestone is sequenced deliberately:
+1. **Extractor refinements first** (cheaper to label against a clean draft): segregate "Pipeline changes / Added / Removed" sections from active pipeline; any other systematic fixes found.
+2. **(Optional) broaden the pilot** for format diversity — a JS dashboard, a PDF.
+3. **Label once**, against the refined extractor, via the review UI. For GSK, auto-reconcile against the uploaded spreadsheet. Golden labels are page-truth (verbatim), so they are **durable** — independent of the model; prompt changes only alter model output, which is re-scored against the same labels in seconds. The gate thus becomes a permanent regression harness.
+4. **Run `pipeline eval`** and tune prompt + per-site `render_config` until **field precision ≥0.95 / recall ≥0.90** across formats.
+*Done when:* gate passes. **Do not scale ingestion past the pilot, or treat the data as sellable, until here.** Non-scaling work (M4 enrichment, change-tracking design) can proceed in parallel and does not wait on the gate.
 
 **M4 — Normalize, resolve, enrich (full)** ⬜
 Entity resolution (exact/fuzzy/LLM-adjudicated, partnered-asset dedupe), EFO load + closure build, OLS indication mapping, HGNC target normalization, Open Targets go/no-go, review queue for low-confidence mappings. Upgrades gold from "thin" to "enriched."
