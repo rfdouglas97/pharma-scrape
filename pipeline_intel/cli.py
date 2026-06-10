@@ -79,6 +79,55 @@ def extract(
     typer.echo(json.dumps(outcome.__dict__, indent=2, default=str))
 
 
+@app.command()
+def load(
+    extraction: str = typer.Option(None, "--extraction", "-e", help="Extraction ID to load"),
+    company: str = typer.Option(None, "--company", "-c", help="Load latest extraction for company"),
+    all_: bool = typer.Option(False, "--all", help="Load the latest extraction for every snapshot"),
+) -> None:
+    """Load extraction(s) from silver into gold (company/asset/program + SCD2). Idempotent."""
+    from sqlalchemy import select
+
+    from pipeline_intel.db import session
+    from pipeline_intel.gold.models import Extraction
+    from pipeline_intel.gold.upsert import load_extraction
+    from pipeline_intel.quality.golden import latest_snapshot_for_company
+
+    with session() as s:
+        ext_ids: list[str] = []
+        if extraction:
+            ext_ids = [extraction]
+        elif company:
+            snap_id = latest_snapshot_for_company(company)
+            if not snap_id:
+                typer.echo(f"no snapshot for {company!r}")
+                raise typer.Exit(1)
+            eid = s.execute(
+                select(Extraction.extraction_id)
+                .where(Extraction.snapshot_id == snap_id, Extraction.raw_json.isnot(None))
+                .order_by(Extraction.extracted_at.desc()).limit(1)
+            ).scalar_one_or_none()
+            ext_ids = [eid] if eid else []
+        elif all_:
+            # latest non-empty extraction per snapshot
+            rows = s.execute(
+                select(Extraction.extraction_id, Extraction.snapshot_id, Extraction.extracted_at)
+                .where(Extraction.raw_json.isnot(None))
+                .order_by(Extraction.extracted_at.desc())
+            ).all()
+            seen: set[str] = set()
+            for eid, sid, _ in rows:
+                if sid not in seen:
+                    seen.add(sid)
+                    ext_ids.append(eid)
+        else:
+            typer.echo("provide --extraction, --company, or --all")
+            raise typer.Exit(1)
+
+        results = [load_extraction(s, eid).as_dict() for eid in ext_ids if eid]
+    typer.echo(json.dumps({"loaded": len(results), "results": results}, indent=2))
+
+
 @app.command(name="eval")
 def eval_cmd(model: str = typer.Option(None, "--model", "-m", help="Override model")) -> None:
     """Run the golden-set evaluation and apply the M1 quality gate. Needs ANTHROPIC_API_KEY."""

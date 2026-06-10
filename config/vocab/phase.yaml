@@ -33,7 +33,7 @@ phases:
   - code: approved
     label: Approved / Marketed
     sort_order: 60
-    aliases: [approved, marketed, commercial, launched, on market]
+    aliases: [approved, marketed, commercial, launched, on market, regulatory approval, regulatory approval achieved, approval achieved]
   - code: discontinued
     label: Discontinued
     sort_order: 70

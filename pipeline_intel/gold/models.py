@@ -123,6 +123,9 @@ class Asset(Base):
     originator_company_id: Mapped[str | None] = mapped_column(ForeignKey("company.company_id"))
     chembl_id: Mapped[str | None] = mapped_column(String(32))
     description: Mapped[str | None] = mapped_column(Text)
+    # Asset-level company-specific fields preserved verbatim: mechanism_verbatim,
+    # originator_verbatim, and any asset additional_fields the page disclosed.
+    extras: Mapped[dict] = mapped_column(JSONB, default=dict)
     created_at: Mapped[datetime] = ts_now()
 
     synonyms: Mapped[list[AssetSynonym]] = relationship(back_populates="asset")
