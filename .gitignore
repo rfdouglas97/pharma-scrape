@@ -2,6 +2,12 @@
 __pycache__/
 *.pyc
 .env
+.env.*
+!.env.example
+creds.txt
+*.pem
+*.key
+secrets*
 .pytest_cache/
 .ruff_cache/
 artifacts/
