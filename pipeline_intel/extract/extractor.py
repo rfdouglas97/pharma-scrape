@@ -22,7 +22,10 @@ from pipeline_intel.ingest.storage import Storage
 # Page text is truncated to keep input cost bounded; the screenshot remains authoritative
 # for anything beyond the cutoff. Pipeline pages rarely exceed this in meaningful text.
 MAX_TEXT_CHARS = 120_000
-MAX_OUTPUT_TOKENS = 16_000  # parse() is non-streaming; stay under the HTTP-timeout ceiling
+# Large pipelines (e.g. big pharma) produce big structured outputs. We stream so we can
+# raise the ceiling well above the ~16K non-streaming limit without HTTP timeouts; if a
+# page still hits this, the extraction is flagged needs_review (truncated).
+MAX_OUTPUT_TOKENS = 64_000
 
 
 @dataclass
@@ -46,6 +49,10 @@ def _image_block(png_bytes: bytes) -> dict:
 
 
 def build_messages(company_name: str, url: str, page_text: str, screenshots: list[bytes]) -> list[dict]:
+    """Build the user turn. Each screenshot is tiled here so both the DB extraction path
+    and the eval-harness path get API-safe, high-res-legible images."""
+    from pipeline_intel.extract.imaging import prepare_screenshots
+
     text = page_text[:MAX_TEXT_CHARS]
     content: list[dict] = [
         {
@@ -53,14 +60,15 @@ def build_messages(company_name: str, url: str, page_text: str, screenshots: lis
             "text": prompt.USER_INSTRUCTION.format(company=company_name, url=url, page_text=text),
         }
     ]
-    content.extend(_image_block(b) for b in screenshots)
+    for shot in screenshots:
+        content.extend(_image_block(t) for t in prepare_screenshots(shot))
     return [{"role": "user", "content": content}]
 
 
 def _load_artifacts(s: Session, storage: Storage, snap: Snapshot) -> tuple[str, list[bytes]]:
     text_key = (snap.render_meta or {}).get("text_key")
     page_text = storage.get(text_key).decode("utf-8", errors="replace") if text_key else ""
-    screenshots = [storage.get(k) for k in (snap.screenshot_keys or [])]
+    screenshots = [storage.get(k) for k in (snap.screenshot_keys or [])]  # tiled in build_messages
     return page_text, screenshots
 
 
@@ -131,7 +139,7 @@ def run_extraction(
     """Pure LLM call: messages -> validated ExtractionResult. No DB. Reused by the eval harness."""
     client = get_client()
     messages = build_messages(company_name, url, page_text, screenshots)
-    response = client.messages.parse(
+    with client.messages.stream(
         model=model,
         max_tokens=MAX_OUTPUT_TOKENS,
         thinking={"type": "adaptive"},
@@ -144,7 +152,8 @@ def run_extraction(
         ],
         messages=messages,
         output_format=ExtractionResult,
-    )
+    ) as stream:
+        response = stream.get_final_message()
     usage = {
         "input_tokens": response.usage.input_tokens,
         "output_tokens": response.usage.output_tokens,
