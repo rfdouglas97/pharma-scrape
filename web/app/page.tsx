@@ -11,6 +11,7 @@ export default function ExplorePage() {
   const [phase, setPhase] = useState("");
   const [modality, setModality] = useState("");
   const [companyId, setCompanyId] = useState("");
+  const [therapeuticArea, setTherapeuticArea] = useState("");
   const [status, setStatus] = useState("");
   const [includeDiscontinued, setIncludeDiscontinued] = useState(false);
   const [data, setData] = useState<ProgramSearch | null>(null);
@@ -30,6 +31,7 @@ export default function ExplorePage() {
     if (phase) params.set("phase", phase);
     if (modality) params.set("modality", modality);
     if (companyId) params.set("company_id", companyId);
+    if (therapeuticArea) params.set("therapeutic_area", therapeuticArea);
     if (status) params.set("status", status);
     if (!includeDiscontinued) params.set("active_only", "true");
     params.set("limit", "200");
@@ -60,6 +62,10 @@ export default function ExplorePage() {
           onChange={(e) => setQ(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && run()}
         />
+        <select value={therapeuticArea} onChange={(e) => setTherapeuticArea(e.target.value)}>
+          <option value="">All therapeutic areas</option>
+          {facets?.therapeutic_areas.map((t) => <option key={t} value={t}>{t}</option>)}
+        </select>
         <select value={phase} onChange={(e) => setPhase(e.target.value)}>
           <option value="">All phases</option>
           {facets?.phases.map((p) => <option key={p.code} value={p.code}>{p.label}</option>)}
@@ -81,7 +87,7 @@ export default function ExplorePage() {
           Include discontinued/removed
         </label>
         <button onClick={run}>Search</button>
-        <button className="ghost" onClick={() => { setQ(""); setPhase(""); setModality(""); setCompanyId(""); setStatus(""); setIncludeDiscontinued(false); }}>Clear</button>
+        <button className="ghost" onClick={() => { setQ(""); setPhase(""); setModality(""); setCompanyId(""); setTherapeuticArea(""); setStatus(""); setIncludeDiscontinued(false); }}>Clear</button>
       </div>
 
       {err && <div className="notice err">{err}</div>}

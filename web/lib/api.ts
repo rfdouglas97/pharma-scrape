@@ -45,6 +45,9 @@ export type ProgramRow = {
   phase_label: string | null;
   phase_verbatim: string | null;
   status: string | null;
+  efo_curie: string | null;
+  efo_label: string | null;
+  therapeutic_area: string | null;
   company_id: string;
   company_name: string;
   ticker: string | null;
@@ -63,5 +66,6 @@ export type ProgramSearch = {
 export type Facets = {
   phases: { code: string; label: string }[];
   modalities: string[];
+  therapeutic_areas: string[];
   statuses: string[];
 };

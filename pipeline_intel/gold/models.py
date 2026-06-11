@@ -162,6 +162,9 @@ class IndicationMapping(Base):
     confidence: Mapped[float | None] = mapped_column(Numeric(4, 3))
     method: Mapped[str | None] = mapped_column(String(32))  # exact | ols_search | llm_assisted
     status: Mapped[str] = mapped_column(String(32), default="auto")  # auto|reviewed|rejected|unmapped
+    # High-level therapeutic area (Oncology, Immunology, Neuroscience, ...) derived from the
+    # MONDO is-a hierarchy — the classification axis investors group pipelines by.
+    therapeutic_area: Mapped[str | None] = mapped_column(String(48))
 
 
 class Target(Base):

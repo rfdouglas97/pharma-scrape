@@ -151,6 +151,17 @@ def enrich(
     typer.echo(json.dumps(result, indent=2))
 
 
+@app.command(name="classify-ta")
+def classify_ta() -> None:
+    """Assign each mapped indication a therapeutic area from the MONDO hierarchy. Uses OLS."""
+    from pipeline_intel.db import session
+    from pipeline_intel.ontology.therapeutic_area import classify_all
+
+    with session() as s:
+        stats = classify_all(s)
+    typer.echo(json.dumps(stats.as_dict(), indent=2))
+
+
 @app.command(name="eval")
 def eval_cmd(model: str = typer.Option(None, "--model", "-m", help="Override model")) -> None:
     """Run the golden-set evaluation and apply the M1 quality gate. Needs ANTHROPIC_API_KEY."""

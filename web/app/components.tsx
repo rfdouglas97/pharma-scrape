@@ -33,7 +33,7 @@ export function ProgramTable({ rows }: { rows: ProgramRow[] }) {
     <table>
       <thead>
         <tr>
-          <th>Asset</th><th>Company</th><th>Indication</th><th>Phase</th><th>Modality</th><th>Provenance</th>
+          <th>Asset</th><th>Company</th><th>Indication</th><th>Therapeutic area</th><th>Phase</th><th>Provenance</th>
         </tr>
       </thead>
       <tbody>
@@ -41,9 +41,11 @@ export function ProgramTable({ rows }: { rows: ProgramRow[] }) {
           <tr key={r.program_id}>
             <td><Link href={`/assets/${r.asset_id}`}>{r.asset_name}</Link></td>
             <td><Link href={`/companies/${r.company_id}`}>{r.company_name}</Link>{r.ticker ? <span className="muted small"> ({r.ticker})</span> : null}</td>
-            <td>{r.indication_verbatim || r.indication}</td>
+            <td title={r.efo_label ? `mapped: ${r.efo_label}${r.efo_curie ? ` (${r.efo_curie})` : ""}` : undefined}>
+              {r.indication_verbatim || r.indication}
+            </td>
+            <td className="small">{r.therapeutic_area ? <span className="badge gray">{r.therapeutic_area}</span> : <span className="muted">—</span>}</td>
             <td><PhaseBadge row={r} /></td>
-            <td className="small">{r.modality_verbatim || (r.modality_code ?? <span className="muted">—</span>)}</td>
             <td><Provenance row={r} /></td>
           </tr>
         ))}

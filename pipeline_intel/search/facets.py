@@ -47,6 +47,9 @@ def _current_program_query() -> Select:
             PhaseVocab.label.label("phase_label"),
             ProgramVersion.phase_verbatim,
             ProgramVersion.status,
+            IndicationMapping.curie.label("efo_curie"),
+            IndicationMapping.label.label("efo_label"),
+            IndicationMapping.therapeutic_area,
             Company.company_id,
             Company.name.label("company_name"),
             Company.ticker,
@@ -59,6 +62,11 @@ def _current_program_query() -> Select:
         .join(Indication, Indication.indication_id == Program.indication_id)
         .join(Company, Company.company_id == Program.company_id)
         .outerjoin(PhaseVocab, PhaseVocab.code == ProgramVersion.phase_code)
+        .outerjoin(
+            IndicationMapping,
+            (IndicationMapping.indication_id == Program.indication_id)
+            & IndicationMapping.status.in_(("auto", "reviewed")),
+        )
         .outerjoin(Snapshot, Snapshot.snapshot_id == ProgramVersion.last_seen_snapshot_id)
         .outerjoin(CompanySource, CompanySource.source_id == Snapshot.source_id)
         .where(ProgramVersion.valid_to.is_(None))
@@ -72,6 +80,7 @@ def search_programs(
     modality: str | None = None,
     company_id: str | None = None,
     status: str | None = None,
+    therapeutic_area: str | None = None,
     active_only: bool = False,
     limit: int = 100,
     offset: int = 0,
@@ -88,6 +97,8 @@ def search_programs(
         stmt = stmt.where(Asset.modality_code == modality)
     if company_id:
         stmt = stmt.where(Program.company_id == company_id)
+    if therapeutic_area:
+        stmt = stmt.where(IndicationMapping.therapeutic_area == therapeutic_area)
     if status:
         stmt = stmt.where(ProgramVersion.status == status)
     elif active_only:
@@ -228,9 +239,15 @@ def facet_values(s: Session) -> dict:
     modalities = s.execute(
         select(Asset.modality_code).where(Asset.modality_code.isnot(None)).distinct()
     ).scalars().all()
+    tas = s.execute(
+        select(IndicationMapping.therapeutic_area)
+        .where(IndicationMapping.therapeutic_area.isnot(None))
+        .distinct()
+    ).scalars().all()
     return {
         "phases": [{"code": p.code, "label": p.label} for p in phases],
         "modalities": sorted(modalities),
+        "therapeutic_areas": sorted(tas),
         "statuses": ["active", "discontinued", "paused", "unknown"],
     }
 

@@ -55,12 +55,30 @@ _STAGE_WORDS = (
 )
 
 
-def lenient_search(term: str, rows: int = 4) -> list:
-    """Search MONDO for a disease term; if strict token matching returns nothing, strip
-    staging/grade qualifier words and retry (OLS requires all query tokens to match)."""
-    cands = ols_client.search_disease(term, rows=rows)
-    if cands:
-        return cands
+_POSSESSIVE = re.compile(r"(\w)['’]s\b")
+
+
+def _search_variants(term: str) -> str:
+    """Possessive-stripped form ('Alzheimer's' -> 'Alzheimers' -> 'Alzheimer'): OLS labels
+    drop the possessive, and the apostrophe otherwise tanks recall."""
+    return _POSSESSIVE.sub(r"\1", term)
+
+
+def lenient_search(term: str, rows: int = 12) -> list:
+    """Search MONDO for a disease term. OLS fuzzy ranking buries the base disease under
+    subtypes, so we put EXACT label/synonym matches first (these surface the base term),
+    then append fuzzy hits for breadth — the LLM adjudicator picks among them. On a total
+    miss, strip staging/grade qualifiers and retry."""
+    variant = _search_variants(term)
+    exact = ols_client.search_disease(variant, rows=5, exact=True)
+    fuzzy = ols_client.search_disease(variant, rows=rows)
+    merged, seen = [], set()
+    for c in exact + fuzzy:  # exact first, dedup by curie
+        if c.curie not in seen:
+            seen.add(c.curie)
+            merged.append(c)
+    if merged:
+        return merged
     reduced = term.lower()
     for w in _STAGE_WORDS:
         reduced = reduced.replace(w, " ")
@@ -206,9 +224,12 @@ def map_indication(s: Session, indication: Indication, model: str = MAPPER_MODEL
         return "needs_review"
 
     # Fast path: the canonical name exactly matches a candidate label — unambiguous, no
-    # second LLM call needed.
-    nn = _NON_ALNUM.sub("", norm.disease_name.lower())
-    exact_cand = next((c for c in cands if _NON_ALNUM.sub("", c.label.lower()) == nn), None)
+    # second LLM call needed. Possessives are stripped on both sides ("Alzheimer's" -> base).
+    def _cmp(x: str) -> str:
+        return _NON_ALNUM.sub("", _search_variants(x).lower())
+
+    nn = _cmp(norm.disease_name)
+    exact_cand = next((c for c in cands if _cmp(c.label) == nn), None)
     if exact_cand is not None:
         _store(s, indication.indication_id, exact_cand, 0.95, "llm_assisted", "auto")
         return "mapped_llm"
