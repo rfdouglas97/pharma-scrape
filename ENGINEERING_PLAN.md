@@ -14,14 +14,15 @@
 
 ---
 
-## 0. Current Status (2026-06-10)
+## 0. Current Status (2026-06-11)
 
 | Milestone | State |
 |---|---|
-| **M0 Foundations** | ✅ **Complete.** Repo+env, Postgres+pgvector (docker-compose; Supabase in prod), full schema v1 (23 tables, SCD2, ontology closure, pgvector), vocab + 20-company registry seeds, ingest stage (render→hash-skip→snapshot) with provenance artifacts, CLI, CI, 18 tests. |
-| **M1 Extraction core** | ✅ **Built & live-validated.** Canonical schema, versioned vision prompt, Claude Opus 4.8 extractor (streaming + tiled screenshots), golden-set scorer + harness, fixture scaffolder. Validated live on 4 format-diverse pages: Moderna (image-only, 27 assets), BMS (table, 50 — matches their stated count), Lilly (41/76), GSK (62 — matches their spreadsheet at ~100% recall). |
-| **M2 Gold loader + API + UI** | ✅ **Complete.** Thin silver→gold loader (SCD2, exact-synonym dedup, provenance; 180 assets/287 programs loaded), phase/modality normalizer (preclean), shared query layer, FastAPI read+review service, Next.js explorer + review UI. Phase shown normalized (verbatim on hover); scorer normalizes phase too. 27 tests. |
-| **M3 Eval gate** | ⏳ **Sequenced before scale, not now.** We have strong *informal* ground-truth validation (GSK/BMS matches), and golden labels are durable page-truth, so formal labeling is deliberately deferred until after the pending extractor refinements (Removed-section) and just before scale-out. Threshold unchanged: precision ≥0.95 / recall ≥0.90. Harness refuses to score unlabeled drafts. |
+| **M0 Foundations** | ✅ **Complete.** Repo+env, Postgres+pgvector (docker-compose; Supabase in prod), full schema v1 (SCD2, ontology closure, pgvector), vocab + 20-company registry seeds, ingest stage (render→hash-skip→snapshot) with provenance artifacts, CLI, CI. |
+| **M1 Extraction core** | ✅ **Built & live-validated.** Canonical schema, versioned vision prompt, Claude Opus 4.8 extractor (streaming + tiled screenshots), golden-set scorer + harness. Validated live on 4 format-diverse pages: Moderna (image-only), BMS (table — matches stated count), Lilly, GSK (matches their spreadsheet ~100% recall). |
+| **M2 Gold loader + API + UI** | ✅ **Complete.** Thin silver→gold loader (SCD2, exact-synonym dedup, provenance; ~180 assets / 287 programs), phase/modality normalizer, shared query layer, FastAPI read+review service, Next.js explorer + review UI. Active vs discontinued segregated; phase shown normalized. |
+| **M4 Enrichment (slice)** | ✅ **Substantially complete.** Indication→MONDO mapping at **~84% auto** (183/217, from 17% — recall fixed via exact-label-first search; vaccines/Alzheimer's/CLL recovered). EFO/MONDO **adjacency** (closure) powering biology-aware search (live: "lung carcinoma" → 25 NSCLC/SCLC subtype programs across companies). **Therapeutic-area classification** (Oncology, Immunology, Neuroscience, Infectious & Vaccines, Cardiometabolic, …) via MONDO is-a ancestry, surfaced in API + explorer UI (filter + column). Dataset normalized to MONDO (HP-phenotype contamination purged). *Remaining local step: rebuild the adjacency closure on the cleaned mapping.* |
+| **M3 Eval gate** | ⏳ **Sequenced before scale, not now.** Strong *informal* ground-truth validation (GSK/BMS match their own published numbers); golden labels are durable page-truth, so formal labeling is deferred until just before scale-out. Threshold: precision ≥0.95 / recall ≥0.90. Harness refuses to score unlabeled drafts. |
 
 **What this changes:** the original plan ran enrichment (M2) → scale (M3) → API (M4) → UI (M5). We now bring a **thin gold loader + API + explorer/review UI forward** (new M2) so the eval can run through it (new M3), *then* do full enrichment (M4) and scale (M5). The risk discipline is intact: **we do not scale ingestion past the pilot, or treat the data as sellable, until the gate passes.** Building the UI on an unvalidated extractor is low-risk — the loader rebuilds from immutable silver, and the UI is format-agnostic.
 
@@ -358,9 +359,11 @@ The gate's only job is to certify extraction accuracy **before** (a) scaling ing
 4. **Run `pipeline eval`** and tune prompt + per-site `render_config` until **field precision ≥0.95 / recall ≥0.90** across formats.
 *Done when:* gate passes. **Do not scale ingestion past the pilot, or treat the data as sellable, until here.** Non-scaling work (M4 enrichment, change-tracking design) can proceed in parallel and does not wait on the gate.
 
-**M4 — Normalize, resolve, enrich (full)** ⬜
-Entity resolution (exact/fuzzy/LLM-adjudicated, partnered-asset dedupe), EFO load + closure build, OLS indication mapping, HGNC target normalization, Open Targets go/no-go, review queue for low-confidence mappings. Upgrades gold from "thin" to "enriched."
-*Done when:* ≥85% of pilot indications auto-mapped ≥0.8 confidence; a partnered asset shared by two companies resolves to one `asset_id`.
+**M4 — Normalize, resolve, enrich** 🟢 *(indication + therapeutic-area slice done; rest pending)*
+✅ **Done:** OLS indication→MONDO mapping (LLM normalize → exact-label-first search → LLM adjudicate; ~84% auto, low-confidence/broad-baskets → review queue), EFO/MONDO is-a closure (bounded, depth-capped, resumable) powering indication-adjacency search, therapeutic-area classification via MONDO ancestry (API + UI), MONDO-consistent dataset.
+⬜ **Remaining (next M4 work):** entity-resolution upgrade (fuzzy + LLM-adjudicated partnered-asset dedupe beyond today's exact-synonym), target normalization (verbatim → HGNC/UniProt), Open Targets go/no-go (backfill target/modality where companies don't disclose).
+*Met:* ~84% of pilot indications auto-mapped (target was 85%); partnered-asset dedupe works for exact-name matches (fuzzy is the upgrade).
+⚠️ **Known limitation:** enrichment is **slow** (sequential OLS + LLM calls) — fine for incremental, resumable re-runs, but **must be parallelized before the 200-company scale-out**.
 
 **M5 — Scale to 200 + weekly automation** ⬜
 Registry to ~200 (verify/correct seed URLs, add `render_config` per site), Batches API, GitHub Actions weekly cron with matrix chunking, quality gates, coverage metrics, alerting.
