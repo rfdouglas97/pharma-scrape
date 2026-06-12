@@ -11,6 +11,7 @@ type AssetDetail = {
   modality_code: string | null;
   modality_verbatim: string | null;
   modality_source: string;
+  mechanism_verbatim: string | null;
   chembl_id: string | null;
   extras: Record<string, string>;
   synonyms: { synonym: string; type: string }[];
@@ -45,19 +46,25 @@ export default function AssetPage({ params }: { params: Promise<{ id: string }> 
       <div className="grid2">
         <div className="card">
           <dl className="kv">
+            <dt>Mechanism / MoA</dt>
+            <dd>
+              {a.mechanism_verbatim ? (
+                <>{a.mechanism_verbatim} <SourceBadge source="disclosed" /></>
+              ) : <span className="muted">not disclosed</span>}
+            </dd>
             <dt>Modality</dt>
             <dd>
               {a.modality_verbatim || a.modality_code ? (
                 <>{a.modality_verbatim || a.modality_code} <SourceBadge source={a.modality_source} /></>
               ) : <span className="muted">not disclosed</span>}
             </dd>
-            <dt>Targets</dt>
+            <dt>Target (gene)</dt>
             <dd>
               {a.targets.length ? a.targets.map((t, i) => (
                 <span key={i} style={{ marginRight: 8 }}>
                   {t.symbol || t.verbatim || t.name} <SourceBadge source={t.source} />
                 </span>
-              )) : <span className="muted">not disclosed</span>}
+              )) : <span className="muted">{a.mechanism_verbatim ? "see Mechanism / MoA above" : "not disclosed"}</span>}
             </dd>
             <dt>Synonyms / codes</dt><dd>{a.synonyms.filter((sn) => sn.synonym !== a.preferred_name).map((sn) => sn.synonym).join(", ") || <span className="muted">—</span>}</dd>
             <dt>Partners</dt><dd>{a.partners.length ? a.partners.map((p) => p.name + (p.role ? ` (${p.role})` : "")).join(", ") : <span className="muted">—</span>}</dd>

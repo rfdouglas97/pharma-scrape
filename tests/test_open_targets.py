@@ -1,17 +1,9 @@
 """Pure-function tests for Open Targets enrichment (no network)."""
 
 from pipeline_intel.ontology.open_targets import (
-    _DRUGTYPE_TO_MODALITY,
     _MAX_TARGETS_PER_MECHANISM,
     DrugAnnotation,
 )
-
-
-def test_drugtype_modality_map():
-    assert _DRUGTYPE_TO_MODALITY["antibody"] == "mab"
-    assert _DRUGTYPE_TO_MODALITY["antibody drug conjugate"] == "adc"
-    assert _DRUGTYPE_TO_MODALITY["small molecule"] == "small_molecule"
-    assert _DRUGTYPE_TO_MODALITY["unknown"] is None
 
 
 def test_gene_family_threshold_is_sane():

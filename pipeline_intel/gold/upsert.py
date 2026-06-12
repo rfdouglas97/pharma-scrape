@@ -109,10 +109,14 @@ def _resolve_asset(
         if asset.modality_code is None:
             stats.unmapped_modality += 1
 
-    # Preserve asset-level extras verbatim
+    # Mechanism / mode of action is a PRIMARY disclosed field — store it first-class.
+    # Companies disclose the target/mechanism here (e.g. GSK's "Mode of Action" column),
+    # so this is the disclosed target/mechanism, not a generic extra.
+    if ea.mechanism_verbatim and not asset.mechanism_verbatim:
+        asset.mechanism_verbatim = ea.mechanism_verbatim
+
+    # Other asset-level extras kept verbatim (originator, page-specific fields).
     extras = dict(asset.extras or {})
-    if ea.mechanism_verbatim:
-        extras.setdefault("mechanism_verbatim", ea.mechanism_verbatim)
     if ea.originator_verbatim:
         extras.setdefault("originator_verbatim", ea.originator_verbatim)
     for f in ea.additional_fields:

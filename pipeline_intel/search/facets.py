@@ -217,6 +217,7 @@ def get_asset(s: Session, asset_id: str) -> dict | None:
         "modality_code": asset.modality_code,
         "modality_verbatim": asset.modality_verbatim,
         "modality_source": asset.modality_source,
+        "mechanism_verbatim": asset.mechanism_verbatim,  # disclosed MoA — primary field
         "chembl_id": asset.chembl_id,
         "extras": asset.extras,
         "synonyms": [{"synonym": x.synonym, "type": x.synonym_type} for x in synonyms],

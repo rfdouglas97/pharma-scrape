@@ -124,6 +124,10 @@ class Asset(Base):
     modality_source: Mapped[str] = mapped_column(String(16), default="disclosed")
     originator_company_id: Mapped[str | None] = mapped_column(ForeignKey("company.company_id"))
     chembl_id: Mapped[str | None] = mapped_column(String(32))
+    # Mechanism / mode of action as DISCLOSED by the company (a primary pharma field).
+    # This is the company's target/mechanism statement, e.g. "Ileal bile acid transporter
+    # inhibitor", "anti-IL5 antibody". First-class, never overwritten by enrichment.
+    mechanism_verbatim: Mapped[str | None] = mapped_column(Text)
     description: Mapped[str | None] = mapped_column(Text)
     # Asset-level company-specific fields preserved verbatim: mechanism_verbatim,
     # originator_verbatim, and any asset additional_fields the page disclosed.

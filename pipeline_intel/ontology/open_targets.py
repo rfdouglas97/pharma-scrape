@@ -1,11 +1,11 @@
-"""Backfill targets, modality, and mechanism from the Open Targets Platform (EBI +
-Wellcome Sanger) for assets where the company didn't disclose them.
+"""Backfill the molecular TARGET from the Open Targets Platform (EBI + Wellcome Sanger)
+— and ONLY for assets where the company disclosed no target/mechanism at all.
 
-Most pipeline pages list drug + indication + phase but not the molecular target or
-modality. Open Targets links each drug (by ChEMBL ID) to its target gene (HGNC symbol),
-drug type, and mechanism of action — so we resolve each asset to a ChEMBL drug and fill
-the gaps. Everything backfilled is provenance-tagged source='open_targets', never
-overwriting company-disclosed values.
+The company's own disclosure always wins. If a page discloses a mode of action (e.g.
+GSK's "Mode of Action" column: "Ileal bile acid transporter inhibitor", "anti-IL5
+antibody"), that IS the disclosed target/mechanism and we leave it alone — Open Targets
+must not overwrite it or take credit for it. We deliberately do NOT derive modality from
+anything here: modality is only set when the company explicitly states it.
 """
 
 from __future__ import annotations
@@ -20,21 +20,6 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from pipeline_intel.gold.models import Asset, AssetSynonym, AssetTarget, Target
 
 OT_GRAPHQL = "https://api.platform.opentargets.org/api/v4/graphql"
-
-# Open Targets drugType -> our modality vocabulary code.
-_DRUGTYPE_TO_MODALITY = {
-    "antibody": "mab",
-    "antibody drug conjugate": "adc",
-    "small molecule": "small_molecule",
-    "protein": "protein",
-    "enzyme": "protein",
-    "oligonucleotide": "rna",
-    "oligosaccharide": "other",
-    "cell": "cell_therapy",
-    "gene therapy": "gene_therapy",
-    "radiotherapy": "radioligand",
-    "unknown": None,
-}
 
 # A mechanism listing more targets than this is a gene FAMILY (e.g. an ADC's tubulin
 # payload spans ~15 TUBB/TUBA genes) — that's the conjugate's cytotoxic mechanism, not the
@@ -95,14 +80,24 @@ def drug_annotation(chembl_id: str) -> DrugAnnotation | None:
 @dataclass
 class BackfillStats:
     assets_seen: int = 0
+    skipped_disclosed: int = 0  # company already disclosed a target/mechanism
     resolved: int = 0
     targets_added: int = 0
-    modality_filled: int = 0
-    mechanism_filled: int = 0
     unresolved: int = 0
 
     def as_dict(self) -> dict:
         return dict(self.__dict__)
+
+
+def _has_disclosed_target(s: Session, asset: Asset) -> bool:
+    """True if the company disclosed a mechanism/MoA or a target for this asset."""
+    if asset.mechanism_verbatim:
+        return True
+    return s.execute(
+        select(AssetTarget.id).where(
+            AssetTarget.asset_id == asset.asset_id, AssetTarget.source == "disclosed"
+        ).limit(1)
+    ).scalar_one_or_none() is not None
 
 
 def _resolve_asset(s: Session, asset: Asset) -> str | None:
@@ -142,41 +137,27 @@ def _link_target(s: Session, asset_id: str, symbol: str, name: str, action: str 
 
 
 def enrich_asset(s: Session, asset: Asset, stats: BackfillStats) -> None:
-    if asset.chembl_id:
-        cid = asset.chembl_id
-    else:
-        cid = _resolve_asset(s, asset)
+    # The company's disclosure wins — only fill genuine gaps.
+    if _has_disclosed_target(s, asset):
+        stats.skipped_disclosed += 1
+        return
+
+    cid = asset.chembl_id or _resolve_asset(s, asset)
     if not cid:
         stats.unresolved += 1
         return
     ann = drug_annotation(cid)
-    if ann is None:
+    if ann is None or not ann.targets:
         stats.unresolved += 1
         return
 
     stats.resolved += 1
     asset.chembl_id = cid
-
     for sym, name in ann.targets:
         if _link_target(s, asset.asset_id, sym, name, ann.action_type):
             stats.targets_added += 1
-
-    # Modality: only fill if the company didn't disclose one.
-    if not asset.modality_code and ann.drug_type:
-        code = _DRUGTYPE_TO_MODALITY.get(ann.drug_type.strip().lower())
-        if code:
-            asset.modality_code = code
-            asset.modality_verbatim = ann.drug_type
-            asset.modality_source = "open_targets"
-            stats.modality_filled += 1
-
-    # Mechanism into extras (clearly tagged as enriched).
-    if ann.mechanism:
-        extras = dict(asset.extras or {})
-        if "mechanism (Open Targets)" not in extras:
-            extras["mechanism (Open Targets)"] = ann.mechanism
-            asset.extras = extras
-            stats.mechanism_filled += 1
+    # NOTE: we deliberately do NOT backfill modality or mechanism — only the target gene,
+    # and only because the company disclosed neither.
 
 
 def backfill_all(s: Session, limit: int | None = None, commit_every: int = 15) -> BackfillStats:
