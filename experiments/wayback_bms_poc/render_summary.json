@@ -1,0 +1,222 @@
+[
+  {
+    "quarter": "2021Q1",
+    "ts": "20210109055759",
+    "captured": "2021-01-09",
+    "http_status": 200,
+    "text_len": 10997,
+    "screenshot_bytes": 1271660,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2021Q2",
+    "ts": "20210320000903",
+    "captured": "2021-03-20",
+    "http_status": 200,
+    "text_len": 11250,
+    "screenshot_bytes": 1303982,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2021Q3",
+    "ts": "20210628190843",
+    "captured": "2021-06-28",
+    "http_status": 200,
+    "text_len": 11361,
+    "screenshot_bytes": 1316135,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2021Q4",
+    "ts": "20210925173328",
+    "captured": "2021-09-25",
+    "http_status": 200,
+    "text_len": 11626,
+    "screenshot_bytes": 1344819,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2022Q1",
+    "ts": "20211213210853",
+    "captured": "2021-12-13",
+    "http_status": 200,
+    "text_len": 11452,
+    "screenshot_bytes": 1315618,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2022Q2",
+    "ts": "20220401122345",
+    "captured": "2022-04-01",
+    "http_status": 200,
+    "text_len": 11126,
+    "screenshot_bytes": 1272644,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2022Q3",
+    "ts": "20220630200612",
+    "captured": "2022-06-30",
+    "http_status": 200,
+    "text_len": 10173,
+    "screenshot_bytes": 1153820,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2022Q4",
+    "ts": "20221002170701",
+    "captured": "2022-10-02",
+    "http_status": 200,
+    "text_len": 9288,
+    "screenshot_bytes": 1036698,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2023Q1",
+    "ts": "20221229105826",
+    "captured": "2022-12-29",
+    "http_status": 200,
+    "text_len": 8729,
+    "screenshot_bytes": 974778,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2023Q2",
+    "ts": "20230327222530",
+    "captured": "2023-03-27",
+    "http_status": 200,
+    "text_len": 8487,
+    "screenshot_bytes": 941532,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2023Q3",
+    "ts": "20230803090421",
+    "captured": "2023-08-03",
+    "http_status": 200,
+    "text_len": 7938,
+    "screenshot_bytes": 865990,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2023Q4",
+    "ts": "20230921122651",
+    "captured": "2023-09-21",
+    "http_status": 200,
+    "text_len": 7731,
+    "screenshot_bytes": 817821,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2024Q1",
+    "ts": "20231205234032",
+    "captured": "2023-12-05",
+    "http_status": 200,
+    "text_len": 8118,
+    "screenshot_bytes": 854591,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2024Q2",
+    "ts": "20240329181223",
+    "captured": "2024-03-29",
+    "http_status": 200,
+    "text_len": 8167,
+    "screenshot_bytes": 866144,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2024Q3",
+    "ts": "20240712201006",
+    "captured": "2024-07-12",
+    "http_status": 200,
+    "text_len": 8451,
+    "screenshot_bytes": 875031,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2024Q4",
+    "ts": "20240927092120",
+    "captured": "2024-09-27",
+    "http_status": 200,
+    "text_len": 7954,
+    "screenshot_bytes": 815334,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2025Q1",
+    "ts": "20250107121159",
+    "captured": "2025-01-07",
+    "http_status": 200,
+    "text_len": 7811,
+    "screenshot_bytes": 805314,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2025Q2",
+    "ts": "20250403005854",
+    "captured": "2025-04-03",
+    "http_status": 200,
+    "text_len": 7367,
+    "screenshot_bytes": 762535,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2025Q3",
+    "ts": "20250624091047",
+    "captured": "2025-06-24",
+    "http_status": 200,
+    "text_len": 6852,
+    "screenshot_bytes": 701357,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2025Q4",
+    "ts": "20251004105314",
+    "captured": "2025-10-04",
+    "http_status": 200,
+    "text_len": 7184,
+    "screenshot_bytes": 745186,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2026Q1",
+    "ts": "20260103111045",
+    "captured": "2026-01-03",
+    "http_status": 200,
+    "text_len": 11162,
+    "screenshot_bytes": 1198000,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  },
+  {
+    "quarter": "2026Q2",
+    "ts": "20260312005217",
+    "captured": "2026-03-12",
+    "http_status": 200,
+    "text_len": 11910,
+    "screenshot_bytes": 1280236,
+    "blocked_live_hosts": [],
+    "render_ok": true
+  }
+]

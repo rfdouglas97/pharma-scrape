@@ -1,0 +1,803 @@
+{
+  "quarter": "2022Q2",
+  "ts": "20220401122345",
+  "captured": "2022-04-01",
+  "result": {
+    "assets": [
+      {
+        "preferred_name": "subcutaneous nivolumab + rHuPH20",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          },
+          {
+            "name": "Halozyme Therapeutics",
+            "role": "Development Partnership (rHuPH20)",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Advanced",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Renal Cell Carcinoma (RCC)"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "OPDIVO\u00ae (nivolumab) + YERVOY\u00ae (ipilimumab)",
+        "synonyms": [
+          "nivolumab",
+          "ipilimumab"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "NSCLC EGFR Mutant",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Unresectable NSCLC",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Esophageal: 1st line",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Intermediate",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Hepatocellular Carcinoma (HCC)"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1st line",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Hepatocellular Carcinoma (HCC)"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1st line",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Bladder"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Adjuvant",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Renal Cell Carcinoma (RCC)"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1st line",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Gastric"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Adjuvant",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Melanoma"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "CRC (MSI-High): 1st line",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Metastatic Castration-Resistant",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Prostate"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "OPDIVO\u00ae (nivolumab)",
+        "synonyms": [
+          "nivolumab"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Colorectal: 1st line",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Pan-Tumor TMB High",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Pediatric",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Neoadjuvant NSCLC",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Unresectable NSCLC",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Peri-adjuvant NSCLC",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Locally Advanced: 1st line",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Head & Neck"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Esophageal: 1st line",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "1st line",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Glioblastoma"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Adjuvant",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Hepatocellular Carcinoma (HCC)"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1st line",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Hepatocellular Carcinoma (HCC)"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "High-Risk Non-Muscle Invasive",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Bladder"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Adjuvant",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Renal Cell Carcinoma (RCC)"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Adjuvant",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Gastric"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Adjuvant",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Melanoma"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Metastatic Castration-Resistant",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Prostate"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Neoadjuvant ER+/HER2-",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Breast"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Hematologic Malignancies",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Refractory Hodgkin Lymphoma",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Pediatric Hodgkin Lymphoma",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Non-Hodgkin Lymphoma (Diffuse Large B-cell Lymphoma)",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Non-Hodgkin Lymphoma (Follicular Lymphoma)",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Primary Testicular Lymphoma",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "OPDIVO\u00ae (nivolumab) + relatlimab",
+        "synonyms": [
+          "nivolumab",
+          "relatlimab"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "1st line",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Melanoma"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "OPDIVO\u00ae (nivolumab) + linrodostat",
+        "synonyms": [
+          "nivolumab",
+          "linrodostat"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Neoadjuvant Muscle Invasive",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Bladder"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "OPDIVO\u00ae (nivolumab) + bempegaldesleukin",
+        "synonyms": [
+          "nivolumab",
+          "bempegaldesleukin"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          },
+          {
+            "name": "Nektar",
+            "role": "Development Partnership (bempegaldesleukin)",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Muscle Invasive",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Bladder"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1st Line",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Bladder"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1st line",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Melanoma"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "OPDIVO\u00ae (nivolumab) + bempegaldesleukin (Partner-run study)",
+        "synonyms": [
+          "nivolumab",
+          "bempegaldesleukin"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          },
+          {
+            "name": "Nektar",
+            "role": "Development Partnership (bempegaldesleukin)",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "1st line",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Renal Cell Carcinoma (RCC)"
+              },
+              {
+                "name": "Note",
+                "value": "# Partner-run study"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Adjuvant",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Melanoma"
+              },
+              {
+                "name": "Note",
+                "value": "# Partner-run study"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "OPDIVO\u00ae (nivolumab) + YERVOY\u00ae (ipilimumab) + cabozantinib",
+        "synonyms": [
+          "nivolumab",
+          "ipilimumab",
+          "cabozantinib"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          },
+          {
+            "name": "Exelixis",
+            "role": "Development Partnership (cabozantinib)",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Metastatic",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic Area",
+                "value": "Renal Cell Carcinoma (RCC)"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "Anti-CTLA-4 NF",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": "Anti-CTLA-4 NF",
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Note",
+                "value": "^ Trial(s) exploring various combinations"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "Anti-CTLA-4 Probody",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": "Anti-CTLA-4 Probody",
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Note",
+                "value": "^ Trial(s) exploring various combinations"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BET Inhibitor (CC-90010)",
+        "synonyms": [
+          "CC-90010"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": "BET Inhibitor",
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Note",
+                "value": "^ Trial(s) exploring various combinations"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Hematologic Malignancies",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "Anti-Fucosyl GM1",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": "Fucosyl GM1",
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "relatlimab",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Note",
+                "value": "^ Trial(s) exploring various combinations"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Hematologic Malignancies",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Note",
+                "value": "^ Trial(s) exploring various combinations"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "TIGIT Bispecific (Agenus)",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": "TIGIT",
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [],
+        "additional_fields": [
+          {
+            "name": "Originator",
+            "value": "Agenus"
+          }
+        ]
+      },
+      {
+        "preferred_name": "placeholder",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "x",
+            "phase_verbatim": "x",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      }
+    ],
+    "page_notes": "Phases were read from colored bar graphics in the screenshots (bars span Phase 1-3 columns); each program's phase reflects the furthest phase the bar reaches and may involve interpretation."
+  },
+  "usage": {
+    "input_tokens": 36880,
+    "output_tokens": 11919,
+    "cache_read_input_tokens": 3407,
+    "cache_creation_input_tokens": 0
+  },
+  "stop_reason": "end_turn"
+}

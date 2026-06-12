@@ -1,0 +1,298 @@
+{
+  "quarter": "2025Q3",
+  "ts": "20250624091047",
+  "captured": "2025-06-24",
+  "result": {
+    "assets": [
+      {
+        "preferred_name": "Anti-CCR8",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": "CCR8",
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership (Anti-CCR8 + nivolumab)",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986482",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986484",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986488",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986490",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "iza-bren",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": "SystImmune",
+        "partners": [
+          {
+            "name": "SystImmune",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors *",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Partner-run study",
+                "value": "*"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L NSCLC *",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Partner-run study",
+                "value": "*"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Metastatic NSCLC",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "1L Triple-Negative Breast Cancer",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "PRMT5 Inhibitor",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": "PRMT5",
+        "mechanism_verbatim": "Inhibitor",
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "NSCLC",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "RYZ101",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "2L+ SSTR2+ Gastroenteropancreatic Neuroendocrine Tumors",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Extensive Stage SCLC",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "HR+/HER2- Unresectable Metastatic Breast Cancer",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "SOS1 Inhibitor",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": "SOS1",
+        "mechanism_verbatim": "Inhibitor",
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "WEE1 CELMoD",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": "WEE1",
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [],
+        "additional_fields": [
+          {
+            "name": "Modality",
+            "value": "CELMoD"
+          }
+        ]
+      }
+    ],
+    "page_notes": null
+  },
+  "usage": {
+    "input_tokens": 18224,
+    "output_tokens": 19904,
+    "cache_read_input_tokens": 3407,
+    "cache_creation_input_tokens": 0
+  },
+  "stop_reason": "end_turn"
+}

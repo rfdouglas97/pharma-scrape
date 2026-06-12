@@ -1,0 +1,178 @@
+[
+  {
+    "quarter": "2021Q1",
+    "anchor": "2021-01-01",
+    "ts": "20210109055759",
+    "captured": "2021-01-09",
+    "dist_days": 8,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2021Q2",
+    "anchor": "2021-04-01",
+    "ts": "20210320000903",
+    "captured": "2021-03-20",
+    "dist_days": 12,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2021Q3",
+    "anchor": "2021-07-01",
+    "ts": "20210628190843",
+    "captured": "2021-06-28",
+    "dist_days": 3,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2021Q4",
+    "anchor": "2021-10-01",
+    "ts": "20210925173328",
+    "captured": "2021-09-25",
+    "dist_days": 6,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2022Q1",
+    "anchor": "2022-01-01",
+    "ts": "20211213210853",
+    "captured": "2021-12-13",
+    "dist_days": 19,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2022Q2",
+    "anchor": "2022-04-01",
+    "ts": "20220401122345",
+    "captured": "2022-04-01",
+    "dist_days": 0,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2022Q3",
+    "anchor": "2022-07-01",
+    "ts": "20220630200612",
+    "captured": "2022-06-30",
+    "dist_days": 1,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2022Q4",
+    "anchor": "2022-10-01",
+    "ts": "20221002170701",
+    "captured": "2022-10-02",
+    "dist_days": 1,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2023Q1",
+    "anchor": "2023-01-01",
+    "ts": "20221229105826",
+    "captured": "2022-12-29",
+    "dist_days": 3,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2023Q2",
+    "anchor": "2023-04-01",
+    "ts": "20230327222530",
+    "captured": "2023-03-27",
+    "dist_days": 5,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2023Q3",
+    "anchor": "2023-07-01",
+    "ts": "20230803090421",
+    "captured": "2023-08-03",
+    "dist_days": 33,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2023Q4",
+    "anchor": "2023-10-01",
+    "ts": "20230921122651",
+    "captured": "2023-09-21",
+    "dist_days": 10,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2024Q1",
+    "anchor": "2024-01-01",
+    "ts": "20231205234032",
+    "captured": "2023-12-05",
+    "dist_days": 27,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2024Q2",
+    "anchor": "2024-04-01",
+    "ts": "20240329181223",
+    "captured": "2024-03-29",
+    "dist_days": 3,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2024Q3",
+    "anchor": "2024-07-01",
+    "ts": "20240712201006",
+    "captured": "2024-07-12",
+    "dist_days": 11,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2024Q4",
+    "anchor": "2024-10-01",
+    "ts": "20240927092120",
+    "captured": "2024-09-27",
+    "dist_days": 4,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2025Q1",
+    "anchor": "2025-01-01",
+    "ts": "20250107121159",
+    "captured": "2025-01-07",
+    "dist_days": 6,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2025Q2",
+    "anchor": "2025-04-01",
+    "ts": "20250403005854",
+    "captured": "2025-04-03",
+    "dist_days": 2,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2025Q3",
+    "anchor": "2025-07-01",
+    "ts": "20250624091047",
+    "captured": "2025-06-24",
+    "dist_days": 7,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2025Q4",
+    "anchor": "2025-10-01",
+    "ts": "20251004105314",
+    "captured": "2025-10-04",
+    "dist_days": 3,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2026Q1",
+    "anchor": "2026-01-01",
+    "ts": "20260103111045",
+    "captured": "2026-01-03",
+    "dist_days": 2,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  },
+  {
+    "quarter": "2026Q2",
+    "anchor": "2026-04-01",
+    "ts": "20260312005217",
+    "captured": "2026-03-12",
+    "dist_days": 20,
+    "url": "https://www.bms.com/researchers-and-partners/in-the-pipeline.html"
+  }
+]

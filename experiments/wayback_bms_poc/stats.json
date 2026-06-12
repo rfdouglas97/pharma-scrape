@@ -1,0 +1,79 @@
+{
+  "window": "2021Q1\u20132026Q2",
+  "quarters_total": 22,
+  "quarantined": [
+    {
+      "quarter": "2022Q2",
+      "assets": 13,
+      "trail_median": 79.5
+    },
+    {
+      "quarter": "2025Q3",
+      "assets": 10,
+      "trail_median": 49.0
+    }
+  ],
+  "raw_assets_per_quarter": {
+    "2021Q1": 85,
+    "2021Q2": 86,
+    "2021Q3": 89,
+    "2021Q4": 93,
+    "2022Q1": 88,
+    "2022Q2": 15,
+    "2022Q3": 78,
+    "2022Q4": 76,
+    "2023Q1": 72,
+    "2023Q2": 67,
+    "2023Q3": 65,
+    "2023Q4": 61,
+    "2024Q1": 62,
+    "2024Q2": 65,
+    "2024Q3": 57,
+    "2024Q4": 54,
+    "2025Q1": 51,
+    "2025Q2": 50,
+    "2025Q3": 10,
+    "2025Q4": 48,
+    "2026Q1": 50,
+    "2026Q2": 51
+  },
+  "canonical_assets_per_quarter": {
+    "2021Q1": 76,
+    "2021Q2": 77,
+    "2021Q3": 80,
+    "2021Q4": 84,
+    "2022Q1": 79,
+    "2022Q2": 13,
+    "2022Q3": 72,
+    "2022Q4": 69,
+    "2023Q1": 65,
+    "2023Q2": 63,
+    "2023Q3": 61,
+    "2023Q4": 57,
+    "2024Q1": 57,
+    "2024Q2": 60,
+    "2024Q3": 54,
+    "2024Q4": 50,
+    "2025Q1": 48,
+    "2025Q2": 48,
+    "2025Q3": 10,
+    "2025Q4": 47,
+    "2026Q1": 49,
+    "2026Q2": 50
+  },
+  "distinct_names_raw": 269,
+  "assets_after_deterministic_identity": 181,
+  "assets_after_rename_merge": 150,
+  "merge_source": "curated_aliases.json",
+  "naive_asset_churn_events": 656,
+  "resolved_asset_events": 260,
+  "events_by_type": {
+    "asset_added": 73,
+    "asset_phase_changed": 51,
+    "partner_added": 16,
+    "asset_left_pipeline": 102,
+    "partner_removed": 15,
+    "asset_reappeared": 3
+  },
+  "program_level_rows_note": "indication-level feed deferred to ontology mapping"
+}

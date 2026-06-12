@@ -1,0 +1,2215 @@
+{
+  "quarter": "2026Q2",
+  "ts": "20260312005217",
+  "captured": "2026-03-12",
+  "result": {
+    "assets": [
+      {
+        "preferred_name": "milvexian",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Johnson & Johnson",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Secondary Stroke Prevention \u2217",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Cardiovascular"
+              },
+              {
+                "name": "Partner-run study",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Atrial Fibrillation \u2217",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Cardiovascular"
+              },
+              {
+                "name": "Partner-run study",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "MYK-224",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Heart Failure with Preserved Ejection Fraction",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Cardiovascular"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "arlo-cel",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "4L+ Multiple Myeloma",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Multiple Myeloma"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "2-4L Multiple Myeloma",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Multiple Myeloma"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BCL6 LDD",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Lymphoma",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lymphoma"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BREYANZI\u00ae (lisocabtagene maraleucel)",
+        "synonyms": [
+          "lisocabtagene maraleucel"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Relapsed/Refractory Marginal Zone Lymphoma",
+            "phase_verbatim": "Registration (JP)",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lymphoma"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "CD33-GSPT1 ADC",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Acute Myeloid Leukemia",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Leukemia"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "Dual Targeting BCMAxGPRC5D CAR T",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Relapsed/Refractory Multiple Myeloma",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Multiple Myeloma"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "golcadomide",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "1L Follicular Lymphoma",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lymphoma"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "High Risk 1L Large B-cell Lymphoma",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lymphoma"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "2L+ Follicular Lymphoma",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lymphoma"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "mezigdomide + elranatamab",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Relapsed/Refractory Multiple Myeloma",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Multiple Myeloma"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "HbF Activating CELMoD",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Sickle Cell Disease",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Sickle Cell Disease"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "iberdomide",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Post-Autologous Stem Cell Transplant Maintenance Newly Diagnosed Multiple Myeloma",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Multiple Myeloma"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "2L+ Multiple Myeloma",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Multiple Myeloma"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "mezigdomide",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "2L+ Multiple Myeloma Vd",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Multiple Myeloma"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "2L+ Multiple Myeloma Kd",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Multiple Myeloma"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "REBLOZYL\u00ae (luspatercept-aamt)",
+        "synonyms": [
+          "luspatercept-aamt"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Merck",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Alpha-Thalassemia",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Non-Transfusion Dependent Myelodysplastic Syndrome-Associated Anemia",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Transfusion Dependent Myelofibrosis-Associated Anemia",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "OPDIVO\u00ae (nivolumab)",
+        "synonyms": [
+          "nivolumab"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "1L Classical Hodgkin Lymphoma",
+            "phase_verbatim": "Registration (US, EU)",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Hematology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lymphoma"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Peri-adjuvant Muscle-Invasive Urothelial Carcinoma",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Urothelial Cancer"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Adjuvant Hepatocellular Carcinoma",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Hepatocellular Carcinoma"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "admilparant",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Idiopathic Pulmonary Fibrosis",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Immunology"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Progressive Pulmonary Fibrosis",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Immunology"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986454",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Rheumatoid Arthritis",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Immunology"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "CD19 HD Allo CAR T",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Autoimmune Diseases",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Immunology"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "zola-cel",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Rheumatoid Arthritis",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Immunology"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Systemic Sclerosis",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Immunology"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Idiopathic Inflammatory Myopathies",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Immunology"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Systemic Lupus Erythematosus",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Immunology"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Multiple Sclerosis",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Myasthenia Gravis",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "obexelimab",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Zenas BioPharma",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "IgG4-Related Disease",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Immunology"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "SOTYKTU\u00ae (deucravacitinib)",
+        "synonyms": [
+          "deucravacitinib"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Systemic Lupus Erythematosus",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Immunology"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Sj\u00f6gren's Disease",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Immunology"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Psoriatic Arthritis",
+            "phase_verbatim": "Registration (US, EU, JP)",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Immunology"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "Anti-MTBR-Tau",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Alzheimer's Disease",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986495",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Prothena",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Neurodegenerative Diseases\u2217",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              },
+              {
+                "name": "Partner-run study",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986521",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Neuropsychiatric Disorders",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "COBENFY\u2122",
+        "synonyms": [
+          "KarXT"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Zai Lab",
+            "role": "Development Partnership",
+            "territory": "KarXT"
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Adjunctive Bipolar-I Mania",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Psychosis in Alzheimer's Disease",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Agitation in Alzheimer's Disease",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Alzheimer's Disease Cognition",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Pediatric Autism Irritability",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Bipolar-I Mania",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "eIF2B Activator",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Alzheimer's Disease",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "FAAH/MAGL Dual Inhibitor",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Multiple Sclerosis Spasticity",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Alzheimer's Disease Agitation",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "KarXT Long-Acting Injectable",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Schizophrenia",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "TRPC4/5 Inhibitor",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Mood and Anxiety Disorders",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Neuroscience"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "Anti-CCR8",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "AR LDD",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Metastatic Castration-Resistant Prostate Cancer",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Prostate Cancer"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "atigotatug + nivolumab",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "1L Extensive-Stage Small Cell Lung Cancer",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986460",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Prostate Cancer",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Prostate Cancer"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986482",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986488",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986500",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986506",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986517",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986525",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "R/R Small Cell Lung Cancer",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "pumitamig",
+        "synonyms": [
+          "BNT327",
+          "BMS-986545"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "BioNTech",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "1L Hepatocellular Carcinoma",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Hepatocellular Carcinoma"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Renal Cell Carcinoma",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Renal Cell Carcinoma"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "2L Non-Small Cell Lung Cancer\u2217",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              },
+              {
+                "name": "Partner-run study",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Extensive-Stage Small Cell Lung Cancer\u2217",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              },
+              {
+                "name": "Partner-run study",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Non-Small Cell Lung Cancer\u2217",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              },
+              {
+                "name": "Partner-run study",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Microsatellite Stable Colorectal Cancer",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Colorectal Cancer"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Gastric Cancer",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Gastric Cancer"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Triple-Negative Breast Cancer\u2217",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Breast Cancer"
+              },
+              {
+                "name": "Partner-run study",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Non-Small Cell Lung Cancer PD-L1\u226550%",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Stage III Non-Small Cell Lung Cancer",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986523",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "CD40xFAP Bispecific",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "CEACAM5-TOPO1 ADC",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "iza-bren",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "SystImmune",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "1L Non-Small Cell Lung Cancer\u2217",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              },
+              {
+                "name": "Partner-run study",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Triple-Negative Breast Cancer",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Breast Cancer"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Solid Tumors \u2217",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              },
+              {
+                "name": "Partner-run study",
+                "value": "Yes"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Metastatic Non-Small Cell Lung Cancer",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "EGFR-mutated Post-TKI Non-Small Cell Lung Cancer",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Post-IO Metastatic Urothelial Cancer",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Urothelial Cancer"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "KRAZATI\u00ae (adagrasib)",
+        "synonyms": [
+          "adagrasib"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "2L Colorectal Cancer",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Colorectal Cancer"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Non-Small Cell Lung Cancer PD-L1\u226550%",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Non-Small Cell Lung Cancer",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "nivolumab + relatlimab HD",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "1L Non-Small Cell Lung Cancer PD-L1\u22651%",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "OPDIVO QVANTIG\u2122 (nivolumab and hyaluronidase-nvhy) + YERVOY\u00ae (ipilimumab)",
+        "synonyms": [
+          "nivolumab and hyaluronidase-nvhy",
+          "ipilimumab"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": "Development Partnership",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "1L Non-Small Cell Lung Cancer",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "navlimetostat (PRMT5 Inhibitor)",
+        "synonyms": [
+          "PRMT5 Inhibitor"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "2L Non-Small Cell Lung Cancer",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Non-Small Cell Lung Cancer",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "1L Pancreatic Ductal Adenocarcinoma",
+            "phase_verbatim": "Phase 2 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Pancreatic Cancer"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "RYZ101",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Extensive-Stage Small Cell Lung Cancer",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Lung Cancer"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "HR+/HER2- Unresectable Metastatic Breast Cancer",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Breast Cancer"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "2L+ SSTR2+ Gastroenteropancreatic Neuroendocrine Tumors",
+            "phase_verbatim": "Phase 3 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "RYZ401",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "RYZ801",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Hepatocellular Carcinoma",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Hepatocellular Carcinoma"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "WEE1 CELMoD",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1 in Progress",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Therapeutic area",
+                "value": "Oncology"
+              },
+              {
+                "name": "Focus area",
+                "value": "Solid Tumors"
+              },
+              {
+                "name": "New Molecular Entity Lead Indication",
+                "value": "Yes"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      }
+    ],
+    "page_notes": "Pipeline rendered as an interactive table/graphic; phases shown as numbered circles (1/2/3) with filled circles indicating current phase. 'New Molecular Entity Lead Indication' (diamond) and 'Partner-run study' (asterisk) markers captured per program. Page dated 'As of February 5, 2026'. Development partnerships listed in a footnote and mapped to assets."
+  },
+  "usage": {
+    "input_tokens": 26566,
+    "output_tokens": 17260,
+    "cache_read_input_tokens": 3407,
+    "cache_creation_input_tokens": 0
+  },
+  "stop_reason": "end_turn"
+}
