@@ -27,13 +27,27 @@ export function Provenance({ row }: { row: { source_url: string | null; fetched_
   );
 }
 
+export function Moa({ row }: { row: ProgramRow }) {
+  // Disclosed mechanism wins. Otherwise show the enriched target gene, marked as such.
+  if (row.mechanism_verbatim) return <span>{row.mechanism_verbatim}</span>;
+  if (row.target_symbols) {
+    const ot = row.target_source === "open_targets";
+    return (
+      <span title={ot ? "Target gene backfilled from Open Targets (company disclosed no mechanism)" : undefined}>
+        {row.target_symbols}{ot ? <span className="muted"> · OT</span> : null}
+      </span>
+    );
+  }
+  return <span className="muted">—</span>;
+}
+
 export function ProgramTable({ rows }: { rows: ProgramRow[] }) {
   if (!rows.length) return <p className="muted">No programs match.</p>;
   return (
     <table>
       <thead>
         <tr>
-          <th>Asset</th><th>Company</th><th>Indication</th><th>Therapeutic area</th><th>Phase</th><th>Provenance</th>
+          <th>Asset</th><th>Company</th><th>Indication</th><th>Mechanism / MoA</th><th>Therapeutic area</th><th>Phase</th><th>Provenance</th>
         </tr>
       </thead>
       <tbody>
@@ -44,6 +58,7 @@ export function ProgramTable({ rows }: { rows: ProgramRow[] }) {
             <td title={r.efo_label ? `mapped: ${r.efo_label}${r.efo_curie ? ` (${r.efo_curie})` : ""}` : undefined}>
               {r.indication_verbatim || r.indication}
             </td>
+            <td className="small"><Moa row={r} /></td>
             <td className="small">{r.therapeutic_area ? <span className="badge gray">{r.therapeutic_area}</span> : <span className="muted">—</span>}</td>
             <td><PhaseBadge row={r} /></td>
             <td><Provenance row={r} /></td>

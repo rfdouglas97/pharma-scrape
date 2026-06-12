@@ -33,6 +33,22 @@ from pipeline_intel.gold.models import (
 def _current_program_query() -> Select:
     """Base join: one row per program at its CURRENT version (valid_to IS NULL), with
     asset, indication, company, and provenance (last-seen snapshot)."""
+    # Correlated subqueries for the asset's enriched target gene(s) — used in the MoA column
+    # when the company didn't disclose a mechanism (the genes are Open-Targets-sourced).
+    target_syms = (
+        select(func.string_agg(Target.hgnc_symbol, ", "))
+        .select_from(AssetTarget)
+        .join(Target, Target.target_id == AssetTarget.target_id)
+        .where(AssetTarget.asset_id == Asset.asset_id)
+        .correlate(Asset)
+        .scalar_subquery()
+    )
+    target_src = (
+        select(func.max(AssetTarget.source))
+        .where(AssetTarget.asset_id == Asset.asset_id)
+        .correlate(Asset)
+        .scalar_subquery()
+    )
     return (
         select(
             Program.program_id,
@@ -40,6 +56,9 @@ def _current_program_query() -> Select:
             Asset.preferred_name.label("asset_name"),
             Asset.modality_code,
             Asset.modality_verbatim,
+            Asset.mechanism_verbatim,
+            target_syms.label("target_symbols"),
+            target_src.label("target_source"),
             Program.indication_id,
             Indication.preferred_label.label("indication"),
             ProgramVersion.indication_verbatim,
@@ -107,11 +126,13 @@ def search_programs(
         like = f"%{q}%"
         target_assets = select(AssetTarget.asset_id).join(
             Target, Target.target_id == AssetTarget.target_id
-        ).where(or_(Target.name.ilike(like), AssetTarget.verbatim.ilike(like)))
+        ).where(or_(Target.name.ilike(like), Target.hgnc_symbol.ilike(like),
+                    AssetTarget.verbatim.ilike(like)))
         syn_assets = select(AssetSynonym.asset_id).where(AssetSynonym.synonym.ilike(like))
         stmt = stmt.where(
             or_(
                 Asset.preferred_name.ilike(like),
+                Asset.mechanism_verbatim.ilike(like),  # search by disclosed MoA / target text
                 Indication.preferred_label.ilike(like),
                 Asset.asset_id.in_(target_assets),
                 Asset.asset_id.in_(syn_assets),

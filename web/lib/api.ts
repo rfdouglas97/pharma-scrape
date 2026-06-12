@@ -39,6 +39,9 @@ export type ProgramRow = {
   asset_name: string;
   modality_code: string | null;
   modality_verbatim: string | null;
+  mechanism_verbatim: string | null;
+  target_symbols: string | null;
+  target_source: string | null;
   indication: string;
   indication_verbatim: string | null;
   phase_code: string | null;
