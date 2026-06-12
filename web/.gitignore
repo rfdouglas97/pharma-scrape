@@ -1,1 +1,2 @@
-web/tsconfig.tsbuildinfo
+*.tsbuildinfo
+next-env.d.ts
