@@ -17,6 +17,7 @@ from pipeline_intel.gold.models import (
     Extraction,
     Snapshot,
 )
+from pipeline_intel.history import distribution as history
 from pipeline_intel.ingest.storage import get_storage
 from pipeline_intel.search import facets
 
@@ -50,6 +51,32 @@ def company(company_id: str) -> dict:
     if c is None:
         raise HTTPException(404, "company not found")
     return c
+
+
+# --- History (longitudinal change feed + composition over time) --------------
+@app.get("/v1/companies/{company_id}/history/distribution")
+def history_distribution(company_id: str, dim: str = "phase") -> dict:
+    """Per-quarter PROGRAM composition. dim=phase | therapeutic_area. Quarantined quarters flagged."""
+    if dim not in ("phase", "therapeutic_area"):
+        raise HTTPException(400, "dim must be 'phase' or 'therapeutic_area'")
+    with session() as s:
+        return history.period_distribution(s, company_id, dim)
+
+
+@app.get("/v1/companies/{company_id}/history/events")
+def history_events(company_id: str, types: str | None = None, status: str | None = "confirmed") -> dict:
+    """Change-event feed. `types` = comma-separated event types; `status`='confirmed' (default) or ''."""
+    type_list = [t for t in (types or "").split(",") if t] or None
+    with session() as s:
+        rows = history.change_events(s, company_id, types=type_list, status=status or None)
+    return {"company_id": company_id, "count": len(rows), "events": rows}
+
+
+@app.get("/v1/companies/{company_id}/history/summary")
+def history_summary(company_id: str) -> dict:
+    """Headline metrics: pipeline size, additions/exits per quarter (exits split by class), advances."""
+    with session() as s:
+        return history.history_summary(s, company_id)
 
 
 @app.get("/v1/programs")

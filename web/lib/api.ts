@@ -72,3 +72,60 @@ export type Facets = {
   therapeutic_areas: string[];
   statuses: string[];
 };
+
+// --- history (longitudinal) ------------------------------------------------
+export type HistQuarter = {
+  period: string;
+  captured_at: string;
+  source_url: string | null;
+  quarantined: boolean;
+  total: number;
+  counts: Record<string, number>;
+};
+export type HistDistribution = {
+  company_id: string;
+  dim: string;
+  unit: string;
+  buckets: string[];
+  quarters: HistQuarter[];
+};
+export type HistEvent = {
+  event_type: string;
+  asset: string | null;
+  asset_id: string | null;
+  period: string | null;
+  from_phase: string | null;
+  to_phase: string | null;
+  direction: string | null;
+  last_phase: string | null;
+  exit_class: string | null;
+  partner: string | null;
+  eff_min: string | null;
+  eff_max: string | null;
+  status: string;
+};
+export type HistEvents = { company_id: string; count: number; events: HistEvent[] };
+export type HistSummary = {
+  company_id: string;
+  pipeline_size_by_quarter: {
+    period: string;
+    captured_at: string;
+    pipeline_size: number;
+    quarantined: boolean;
+  }[];
+  per_quarter: {
+    period: string;
+    added: number;
+    discontinued: number;
+    exit_approved_or_late: number;
+    advances: number;
+  }[];
+  totals: {
+    assets_added: number;
+    phase_advances: number;
+    discontinued_confirmed: number;
+    exits_approved_or_late: number;
+    partner_changes: number;
+  };
+  caveat: string;
+};

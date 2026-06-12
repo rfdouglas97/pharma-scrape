@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { use, useEffect, useState } from "react";
 import type { ProgramRow } from "@/lib/api";
 import { api } from "@/lib/api";
@@ -42,6 +43,7 @@ export default function CompanyPage({ params }: { params: Promise<{ id: string }
         {c.n_programs} active programs
         {c.n_discontinued ? ` · ${c.n_discontinued} discontinued/removed` : ""}
         {c.website ? <> · <a href={c.website} target="_blank" rel="noreferrer">{c.website}</a></> : null}
+        {" · "}<Link href={`/companies/${id}/history`}>Pipeline history over time ↗</Link>
       </p>
       {phases.map((ph) => (
         <div key={ph}>

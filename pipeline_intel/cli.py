@@ -154,6 +154,25 @@ def rebuild_history_cmd(
     typer.echo(json.dumps(stats, indent=2, default=str))
 
 
+@app.command(name="load-wayback-history")
+def load_wayback_history_cmd(
+    company: str = typer.Option("Bristol Myers Squibb", "--company", "-c", help="Company name"),
+    extractions_dir: str = typer.Option(
+        "experiments/wayback_bms_poc/extractions", "--dir", help="Dir of quarterly extraction JSONs"),
+    aliases: str = typer.Option(
+        "experiments/wayback_bms_poc/curated_aliases.json", "--aliases",
+        help="Curated rename-merge clusters to seed asset_alias (set '' to skip)"),
+) -> None:
+    """Ingest the Wayback POC extractions into the DB (snapshots+extractions+gold), seed the alias
+    decision store, and rebuild the change-event feed. Idempotent."""
+    from pipeline_intel.db import session
+    from pipeline_intel.history.ingest_poc import load_wayback_history
+
+    with session() as s:
+        stats = load_wayback_history(s, company, extractions_dir, aliases or None)
+    typer.echo(json.dumps(stats, indent=2, default=str))
+
+
 @app.command()
 def enrich(
     model: str = typer.Option(None, "--model", "-m", help="Override mapping model"),

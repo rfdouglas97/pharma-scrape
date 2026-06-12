@@ -105,3 +105,13 @@ textarea { width: 100%; min-height: 70vh; font-family: ui-monospace, SFMono-Regu
 .notice.ok { background: #e7f4ea; color: #1e6b34; }
 .notice.err { background: #f6e7e6; color: #a23b32; }
 .notice.warn { background: #fdf3e2; color: #8a5a12; }
+
+/* history view */
+.kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 16px 0; }
+.stat { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.stat-n { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.stat-l { margin-top: 2px; }
+.chart-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+.chart-title { font-weight: 600; font-size: 15px; }
+.chart-sub { margin-top: 1px; }
+@media (max-width: 900px) { .kpis { grid-template-columns: repeat(2, 1fr); } }

@@ -23,10 +23,12 @@ def _artifact_prefix(company_slug: str, source_id: str, h: str) -> str:
 
 
 def latest_hash(s: Session, source_id: str) -> str | None:
+    # ULID PK tiebreaks same-second fetched_at so the genuinely-latest insert always wins
+    # (monotonic ULIDs); otherwise two snapshots written in the same second order arbitrarily.
     return s.execute(
         select(Snapshot.content_hash)
         .where(Snapshot.source_id == source_id)
-        .order_by(Snapshot.fetched_at.desc())
+        .order_by(Snapshot.fetched_at.desc(), Snapshot.snapshot_id.desc())
         .limit(1)
     ).scalar_one_or_none()
 

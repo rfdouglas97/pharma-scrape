@@ -26,6 +26,7 @@ from pipeline_intel.gold.models import (
     ChangeEvent as ChangeEventRow,
 )
 from pipeline_intel.history.detect import PHASE_ORDER, AssetObs, Capture, detect_changes
+from pipeline_intel.normalize.partner import normalize_partner
 from pipeline_intel.normalize.vocab import normalize_phase
 
 
@@ -44,16 +45,21 @@ def _match_asset_id(s: Session, name: str, synonyms: list[str]) -> str | None:
     ).scalars().first()
 
 
-def _captures_for_company(s: Session, company_id: str) -> tuple[list[Capture], dict[str, str]]:
+def _captures_for_company(
+    s: Session, company_id: str, origins: tuple[str, ...] | None = None
+) -> tuple[list[Capture], dict[str, str]]:
+    conds = [
+        CompanySource.company_id == company_id,
+        Extraction.status != "failed",
+        Extraction.raw_json.isnot(None),
+    ]
+    if origins:
+        conds.append(Snapshot.origin.in_(origins))
     rows = s.execute(
         select(Snapshot, Extraction)
         .join(Extraction, Extraction.snapshot_id == Snapshot.snapshot_id)
         .join(CompanySource, CompanySource.source_id == Snapshot.source_id)
-        .where(
-            CompanySource.company_id == company_id,
-            Extraction.status != "failed",
-            Extraction.raw_json.isnot(None),
-        )
+        .where(*conds)
         .order_by(func.coalesce(Snapshot.captured_at, Snapshot.fetched_at))
     ).all()
 
@@ -67,13 +73,15 @@ def _captures_for_company(s: Session, company_id: str) -> tuple[list[Capture], d
             if aid is None:
                 continue  # asset not yet in gold — load_extraction creates assets; skip if absent
             rec = by.setdefault(aid, {"name": ea.preferred_name, "phase_code": None, "partners": set()})
-            rec["partners"] |= {p.name for p in ea.partners}
+            rec["partners"] |= {pn for p in ea.partners if (pn := normalize_partner(p.name))}
             for ep in ea.programs:
                 code = normalize_phase(s, ep.phase_verbatim)
                 if code and PHASE_ORDER.get(code, 0) > PHASE_ORDER.get(rec["phase_code"], -1):
                     rec["phase_code"] = code
         cap_date = (snap.captured_at or snap.fetched_at).date()
-        period = cap_date.isoformat()
+        # prefer the human quarter label ("2021Q1") so the feed and the distribution charts share an
+        # x-axis; fall back to the ISO capture date for live snapshots with no quarter in render_meta.
+        period = (snap.render_meta or {}).get("quarter") or cap_date.isoformat()
         snap_by_period[period] = snap.snapshot_id
         assets = tuple(
             AssetObs(asset_id=aid, name=r["name"], phase_code=r["phase_code"],
@@ -84,9 +92,14 @@ def _captures_for_company(s: Session, company_id: str) -> tuple[list[Capture], d
     return captures, snap_by_period
 
 
-def rebuild_history(s: Session, company_id: str, *, confirm_n: int = 2) -> dict:
-    """Recompute the company's change-event feed from silver. Returns summary stats."""
-    captures, snap_by_period = _captures_for_company(s, company_id)
+def rebuild_history(
+    s: Session, company_id: str, *, confirm_n: int = 2, origins: tuple[str, ...] | None = None
+) -> dict:
+    """Recompute the company's change-event feed from silver. Returns summary stats.
+
+    `origins` restricts the captures used (e.g. ("wayback",) for the backfilled historical feed,
+    keeping a stray live scrape from polluting the quarterly timeline)."""
+    captures, snap_by_period = _captures_for_company(s, company_id, origins)
     events, quarantined = detect_changes(captures, confirm_n=confirm_n)
 
     s.execute(delete(ChangeEventRow).where(ChangeEventRow.company_id == company_id))
