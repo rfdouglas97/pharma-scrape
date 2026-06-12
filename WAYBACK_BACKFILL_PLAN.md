@@ -6,6 +6,49 @@
 > transaction handling**, a **durable decision store**, and **interval-dated changes** are added;
 > **URL-drift discovery** is promoted to the critical path. Horizon fixed at **~5 years**.
 
+## Status (2026-06-12)
+
+**Validated end-to-end on Bristol Myers Squibb (5 years, 22 quarterly captures); core engine shipped
+in PR #1 (`wayback-backfill`).**
+
+| Piece | State |
+|---|---|
+| **Gate 0** (render fidelity) | ✅ Passed — standard replay, egress blocked, **22/22 rendered, zero live-domain leaks**, period-correct |
+| **Extraction** | ✅ 22 quarters via Opus vision (older captures render phase as a chart → vision mandatory) |
+| **Change-detection core** (`pipeline_intel/history/detect.py`) | ✅ Built + 9 unit tests; reproduces the BMS POC exactly |
+| **Schema** (`captured_at`/`origin`/`extraction_quality_score`, `change_event`, `asset_alias`) | ✅ Migration applied + round-trips |
+| **DB rebuild adapter + CLI** (`rebuild-history`) | ✅ Built + 2 DB integration tests |
+| **Identity: deterministic + curated aliases** | ✅ Used in POC (269 names → 150 assets) |
+| **Identity: LLM clustering** (`merge_assets.py`) | ⏳ Written, **blocked by API usage limit until 2026-07-01** |
+| **BMS history loaded into the DB** | ❌ Not yet — POC ran on JSON; needs ingestion to be query/UI-able |
+| **Indication → MONDO ontology mapping (history)** | ❌ Not done — verbatim only |
+| **Multi-page assembly (§3), corporate transactions (§4)** | ❌ Not built (BMS is single-source; no divestiture in window) |
+
+### Data state — what's normalized & queryable
+
+What we have for BMS history, and what each enables:
+
+- **Phase — normalized throughout history ✅.** Only 11 distinct verbatim strings, all mapped to vocab
+  codes (`Phase 1/2/3`, `…in Progress` → same code, `Registration (…)` → filed). So **"% of the
+  pipeline in each phase per quarter" is directly derivable.**
+- **Asset identity — resolved throughout history ✅** (deterministic + curated aliases; LLM-clustering
+  pending). Powers add/advance/exit/partner change events.
+- **Change events — computed + (in the engine) persisted to `change_event` ✅** (interval-dated,
+  exit-classified, confirmed/provisional).
+- **Therapeutic area — captured verbatim, not yet persisted/normalized ⚠️.** BMS's page groups by
+  disease area and the extractor preserved it (`Disease Area`/`Therapeutic Area` field: "Oncology",
+  "Solid Tumors", "Immunology", "Neuroscience", …). So **"% oncology per quarter" is answerable now,
+  API-free** — measured: **~70% (2021) → ~55–60% (2024–25)**, BMS diversifying out of oncology. To
+  make it a *queryable feature* needs: (a) load history into the DB, (b) capture the disease-area
+  field into gold + normalize to the canonical therapeutic-area taxonomy (small, no API).
+- **Indication → MONDO ontology — NOT done for history ❌** (372 noisy verbatim strings). Required for
+  **cross-company, biology-aware adjacency** ("IL-23 programs in IBD *and adjacent GI indications*")
+  — the deferred enrichment layer (OLS + LLM; LLM part API-blocked).
+
+**Net:** phase-mix and therapeutic-area-mix over time are answerable from data in hand (the latter
+after a small TA-normalization step); ontology-adjacency queries need the enrichment layer. None of
+it is live in the explorer/API until BMS history is ingested into the DB.
+
 ## Context & purpose
 
 The system today knows only each pharma pipeline's **current** state — every `program_version`
@@ -369,14 +412,31 @@ and publishing policy are **two-way doors** — walk through them during the pil
 
 ## Build order (re-ranked for a change-event feed)
 
-0. **Vertical slice** (week one): one GSK source, render → extract → naive diff. Read the extraction
-   quality before committing to guard machinery.
-1. **Gate 0** render-fidelity test (cheapest thing that can kill the design).
-2. **Write the §3a spec** (done in this doc) — the one-way door the replay engine sits on.
-3. Schema: `captured_at`/`origin`/**`extraction_quality_score`**, `change_event` (interval-dated),
-   decision store **incl. indication-mapping verdicts**, transactions.
-4. URL-drift discovery (§6) — needed for 5yr depth.
-5. Standard-replay ingestion + always-store-raw + populate the quality score.
-6. Assembly layer (§3/§3a) + chronological replay with the §2 guards and §5 decision store.
-7. Transaction handling (§4) + forward/live reconciliation + the change-event feed surface.
-8. Pilot (GSK + one SPA) → define precision target → generalize.
+*(Pilot was run on **BMS** rather than GSK — single-source page with a captured therapeutic-area
+column and an authoritative current spreadsheet, ideal for a first end-to-end pass.)*
+
+0. ✅ **Vertical slice** — BMS render → extract → naive diff (proved the noise; motivated the layers).
+1. ✅ **Gate 0** render-fidelity — passed on BMS (22/22, zero leaks, period-correct).
+2. ✅ **§3a spec** — written here and implemented in `detect.py`.
+3. ✅ **Schema** — `captured_at`/`origin`/`extraction_quality_score`, `change_event`, `asset_alias`
+   decision store. ⬜ *Remaining:* indication-mapping verdicts table, `corporate_transaction`.
+4. ⬜ **URL-drift discovery (§6)** — not needed for BMS (current URL spans the window); required to
+   generalize to companies that restructured URLs.
+5. 🟡 **Standard-replay ingestion + always-store-raw** — done as POC scripts; ⬜ not yet wired into
+   `pipeline_intel.ingest` / the registry as a first-class `origin=wayback` path, and BMS captures
+   are not yet ingested into the DB.
+6. ✅ **Chronological replay + §2 guards + decision store** — `detect.py` + `rebuild.py` (tested).
+   🟡 Assembly layer (§3) deferred (BMS is single-source).
+7. ⬜ **Transactions (§4) + forward/live reconciliation + the feed surface** (API/UI).
+8. 🟡 **Pilot done (BMS); ⬜ define precision target + external approval signal; then generalize.**
+
+### Immediate next steps (in priority order)
+
+1. **Ingest BMS history into the DB** (snapshots with `captured_at`/`origin=wayback` + extractions +
+   gold), then `pipeline rebuild-history --company "Bristol Myers Squibb"` → the feed is live in the DB.
+2. **Capture + normalize therapeutic area** into gold (the disease-area field is already extracted) →
+   unlocks "% oncology / % by TA per quarter" as a real query. API-free.
+3. **External approval signal** (FDA/press) to split ambiguous exits into approved-graduated vs
+   discontinued — the one thing the pipeline page can't do alone.
+4. **(When API limit lifts 2026-07-01)** run `merge_assets.py` → populate `asset_alias` from LLM
+   clustering; re-extract the 2 quarantined quarters; run indication → MONDO mapping on history.
