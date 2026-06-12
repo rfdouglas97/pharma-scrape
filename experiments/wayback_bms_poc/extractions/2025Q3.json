@@ -1,23 +1,17 @@
 {
   "quarter": "2025Q3",
-  "ts": "20250624091047",
-  "captured": "2025-06-24",
+  "ts": "20250621103613",
+  "captured": "2025-06-21",
   "result": {
     "assets": [
       {
         "preferred_name": "Anti-CCR8",
         "synonyms": [],
         "modality_verbatim": null,
-        "target_verbatim": "CCR8",
+        "target_verbatim": null,
         "mechanism_verbatim": null,
         "originator_verbatim": null,
-        "partners": [
-          {
-            "name": "Ono",
-            "role": "Development Partnership (Anti-CCR8 + nivolumab)",
-            "territory": null
-          }
-        ],
+        "partners": [],
         "programs": [
           {
             "indication_verbatim": "Solid Tumors",
@@ -31,7 +25,12 @@
             ]
           }
         ],
-        "additional_fields": []
+        "additional_fields": [
+          {
+            "name": "Development Partnership",
+            "value": "Anti-CCR8 + nivolumab: Ono"
+          }
+        ]
       },
       {
         "preferred_name": "BMS-986482",
@@ -131,11 +130,11 @@
         "modality_verbatim": null,
         "target_verbatim": null,
         "mechanism_verbatim": null,
-        "originator_verbatim": "SystImmune",
+        "originator_verbatim": null,
         "partners": [
           {
             "name": "SystImmune",
-            "role": "Development Partnership",
+            "role": null,
             "territory": null
           }
         ],
@@ -186,8 +185,8 @@
         "preferred_name": "PRMT5 Inhibitor",
         "synonyms": [],
         "modality_verbatim": null,
-        "target_verbatim": "PRMT5",
-        "mechanism_verbatim": "Inhibitor",
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
         "originator_verbatim": null,
         "partners": [],
         "programs": [
@@ -199,7 +198,7 @@
           },
           {
             "indication_verbatim": "NSCLC",
-            "phase_verbatim": "Phase 2",
+            "phase_verbatim": "Phase 1",
             "status": null,
             "additional_fields": [
               {
@@ -250,8 +249,8 @@
         "preferred_name": "SOS1 Inhibitor",
         "synonyms": [],
         "modality_verbatim": null,
-        "target_verbatim": "SOS1",
-        "mechanism_verbatim": "Inhibitor",
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
         "originator_verbatim": null,
         "partners": [],
         "programs": [
@@ -273,26 +272,989 @@
         "preferred_name": "WEE1 CELMoD",
         "synonyms": [],
         "modality_verbatim": null,
-        "target_verbatim": "WEE1",
+        "target_verbatim": null,
         "mechanism_verbatim": null,
         "originator_verbatim": null,
         "partners": [],
-        "programs": [],
-        "additional_fields": [
+        "programs": [
           {
-            "name": "Modality",
-            "value": "CELMoD"
+            "indication_verbatim": "Solid Tumors",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
           }
-        ]
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "atigotatug + nivolumab",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "1L Extensive Stage SCLC",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "KRAZATI\u00ae (adagrasib)",
+        "synonyms": [
+          "KRAZATI",
+          "adagrasib"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Zai Lab",
+            "role": null,
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "1L NSCLC PD-L1\u226550%",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "1L NSCLC",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "2L Colorectal Cancer",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "nivolumab+relatlimab HD",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": null,
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "1L NSCLC PD-L1\u22651%",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "OPDIVO\u00ae (nivolumab)",
+        "synonyms": [
+          "OPDIVO",
+          "nivolumab"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": null,
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Adjuvant Hepatocellular Carcinoma",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Peri-adjuvant Muscle-Invasive Urothelial Carcinoma",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "RYZ801",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Hepatocellular Carcinoma",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "AR LDD",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Metastatic Castration-Resistant Prostate Cancer",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986460",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Prostate Cancer",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "subcutaneous nivolumab + relatlimab + rHuPH20",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Ono",
+            "role": null,
+            "territory": null
+          },
+          {
+            "name": "Halozyme",
+            "role": "rHuPH20",
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "1L Melanoma",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "arlo-cel",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "2-4L Multiple Myeloma",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Relapsed/Refractory Multiple Myeloma",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "Dual Targeting BCMAxGPRC5D CAR T",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Relapsed/Refractory Multiple Myeloma",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "iberdomide",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "2L+ Multiple Myeloma",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Post-Autologous Stem Cell Transplant Maintenance Newly Diagnosed Multiple Myeloma",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "mezigdomide",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "2L+ Multiple Myeloma Vd",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "2L+ Multiple Myeloma Kd",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "REBLOZYL\u00ae (luspatercept-aamt)",
+        "synonyms": [
+          "REBLOZYL",
+          "luspatercept-aamt"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Merck",
+            "role": null,
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "1L Non-Transfusion Dependent Myelodysplastic Syndrome-Associated Anemia",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "1L Transfusion Dependent Myelofibrosis-Associated Anemia",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "A-Thalassemia",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BCL6 LDD",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Lymphoma",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BREYANZI\u00ae (lisocabtagene maraleucel)",
+        "synonyms": [
+          "BREYANZI",
+          "lisocabtagene maraleucel"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Relapsed/Refractory Marginal Zone Lymphoma",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "golcadomide",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "High Risk 1L Large B-cell Lymphoma",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "2L+ Follicular Lymphoma",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Relapsed/Refractory Follicular Lymphoma",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "CD33-GSPT1 ADC",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Acute Myeloid Leukemia",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "HbF Activating CELMoD",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Sickle Cell Disease",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "admilparant",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Idiopathic Pulmonary Fibrosis",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Progressive Pulmonary Fibrosis",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "afimetoran",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Systemic Lupus Erythematosus",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986454",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Autoimmune Disease",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "CD19 NEX-T",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Severe Refractory Systemic Lupus Erythematosus",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Autoimmune Diseases",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Multiple Sclerosis",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Myasthenia Gravis",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "IL2-CD25",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Autoimmune Disease",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "obexelimab",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Zenas BioPharma",
+            "role": null,
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "IgG4-Related Disease",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "PKC\u03b8 Inhibitor",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Autoimmune Disease",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "SOTYKTU\u00ae (deucravacitinib)",
+        "synonyms": [
+          "SOTYKTU",
+          "deucravacitinib"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Sj\u00f6gren's Syndrome",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Psoriatic Arthritis",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          },
+          {
+            "indication_verbatim": "Systemic Lupus Erythematosus",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "Anti-MTBR Tau",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Alzheimer's Disease",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "BMS-986495",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Prothena",
+            "role": null,
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Neurodegenerative Diseases*",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              },
+              {
+                "name": "Partner-run study",
+                "value": "*"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "COBENFY\u2122",
+        "synonyms": [
+          "COBENFY"
+        ],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Zai Lab",
+            "role": null,
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Psychosis in Alzheimer's Disease",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "eIF2B Activator",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Alzheimer's Disease",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "FAAH/MAGL Dual Inhibitor",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Multiple Sclerosis Spasticity",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Alzheimer's Disease Agitation",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": []
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "TRPC4/5 Inhibitor",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Mood and Anxiety Disorders",
+            "phase_verbatim": "Phase 1",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "milvexian",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [
+          {
+            "name": "Johnson & Johnson",
+            "role": null,
+            "territory": null
+          }
+        ],
+        "programs": [
+          {
+            "indication_verbatim": "Acute Coronary Syndrome*",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Partner-run study",
+                "value": "*"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Atrial Fibrillation*",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Partner-run study",
+                "value": "*"
+              }
+            ]
+          },
+          {
+            "indication_verbatim": "Secondary Stroke Prevention*",
+            "phase_verbatim": "Phase 3",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "Partner-run study",
+                "value": "*"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
+      },
+      {
+        "preferred_name": "MYK-224",
+        "synonyms": [],
+        "modality_verbatim": null,
+        "target_verbatim": null,
+        "mechanism_verbatim": null,
+        "originator_verbatim": null,
+        "partners": [],
+        "programs": [
+          {
+            "indication_verbatim": "Heart Failure with Preserved Ejection Fraction",
+            "phase_verbatim": "Phase 2",
+            "status": null,
+            "additional_fields": [
+              {
+                "name": "NME Lead Indication",
+                "value": "\u2726"
+              }
+            ]
+          }
+        ],
+        "additional_fields": []
       }
     ],
-    "page_notes": null
+    "page_notes": "Pipeline is presented as a chart where development phase is conveyed by horizontal bars positioned under Phase 1 / Phase 2 / Phase 3 columns; phase_verbatim values were derived from bar endpoints in the screenshots (no explicit 'Phase X' text per row). The \u2726 symbol denotes 'NME Lead Indication' and the * denotes 'Partner-run study', captured in additional_fields. As of April 24, 2025; page states 44 compounds in development."
   },
   "usage": {
-    "input_tokens": 18224,
-    "output_tokens": 19904,
+    "input_tokens": 10775,
+    "output_tokens": 11007,
     "cache_read_input_tokens": 3407,
-    "cache_creation_input_tokens": 0
+    "cache_creation_input_tokens": 7449
   },
   "stop_reason": "end_turn"
 }
