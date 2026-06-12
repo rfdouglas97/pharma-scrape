@@ -85,15 +85,26 @@ class Snapshot(Base):
     snapshot_id: Mapped[str] = pk()
     source_id: Mapped[str] = mapped_column(ForeignKey("company_source.source_id"), nullable=False)
     fetched_at: Mapped[datetime] = ts_now()
+    # captured_at = real-world date the content was true (Wayback capture date; = fetched_at for
+    # live scrapes). The temporal anchor for ordering + the UI "as-of" date. origin distinguishes
+    # live weekly scrapes from historical Wayback backfill.
+    captured_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    origin: Mapped[str] = mapped_column(String(16), default="live")  # live | wayback
     http_status: Mapped[int | None] = mapped_column(Integer)
     content_hash: Mapped[str] = mapped_column(String(64), nullable=False)  # sha256 of normalized DOM
     html_key: Mapped[str | None] = mapped_column(Text)
     screenshot_keys: Mapped[list] = mapped_column(JSONB, default=list)
     pdf_keys: Mapped[list] = mapped_column(JSONB, default=list)
     render_meta: Mapped[dict] = mapped_column(JSONB, default=dict)
+    # cheap per-extraction completeness proxy, populated at extraction time; the consuming
+    # distribution/redesign-detection logic comes later (column added now to avoid re-extraction).
+    extraction_quality_score: Mapped[float | None] = mapped_column(Numeric)
     unchanged: Mapped[bool] = mapped_column(Boolean, default=False)  # hash matched previous
 
-    __table_args__ = (Index("ix_snapshot_source_fetched", "source_id", "fetched_at"),)
+    __table_args__ = (
+        Index("ix_snapshot_source_fetched", "source_id", "fetched_at"),
+        Index("ix_snapshot_source_captured", "source_id", "captured_at"),
+    )
 
 
 class Extraction(Base):
@@ -332,6 +343,58 @@ class JobRun(Base):
     error: Mapped[str | None] = mapped_column(Text)
 
 
+# --------------------------------------------------------------------------
+# Longitudinal change feed + identity decision store
+# --------------------------------------------------------------------------
+class ChangeEvent(Base):
+    """Derived, rebuildable feed of pipeline changes between captures (the investor product).
+
+    Recomputed from silver by the chronological replay; not hand-edited. A drug LEAVING the page
+    is three-way ambiguous (approved-graduated / discontinued / renamed) — `exit_class` records the
+    best phase-based proxy; `eff_min`/`eff_max` bound the true change date (the page only quantizes
+    to capture dates). Only `confirmed` events should publish.
+    """
+
+    __tablename__ = "change_event"
+    event_id: Mapped[str] = pk()
+    company_id: Mapped[str] = mapped_column(ForeignKey("company.company_id"), nullable=False)
+    asset_id: Mapped[str | None] = mapped_column(ForeignKey("asset.asset_id"))
+    event_type: Mapped[str] = mapped_column(String(32), nullable=False)
+    # asset_added | asset_left_pipeline | asset_phase_changed | partner_added | partner_removed
+    # | asset_reappeared
+    period: Mapped[str | None] = mapped_column(String(16))  # capture label observed in
+    from_phase: Mapped[str | None] = mapped_column(String(32))
+    to_phase: Mapped[str | None] = mapped_column(String(32))
+    direction: Mapped[str | None] = mapped_column(String(16))   # advance | regress | lateral
+    last_phase: Mapped[str | None] = mapped_column(String(32))
+    exit_class: Mapped[str | None] = mapped_column(String(32))
+    partner: Mapped[str | None] = mapped_column(Text)
+    eff_min: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))  # interval start
+    eff_max: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))  # interval end
+    status: Mapped[str] = mapped_column(String(16), default="confirmed")  # confirmed | provisional
+    from_snapshot_id: Mapped[str | None] = mapped_column(ForeignKey("snapshot.snapshot_id"))
+    to_snapshot_id: Mapped[str | None] = mapped_column(ForeignKey("snapshot.snapshot_id"))
+    created_at: Mapped[datetime] = ts_now()
+
+    __table_args__ = (Index("ix_change_event_company", "company_id", "event_type"),)
+
+
+class AssetAlias(Base):
+    """Durable identity decision store: 'this name/cluster IS this asset'. Survives history rebuilds
+    (which delete only change_event), so accumulated identity judgment — deterministic, LLM-clustered
+    (merge_assets), or human-reviewed — is never recomputed or lost. method records provenance."""
+
+    __tablename__ = "asset_alias"
+    alias_id: Mapped[str] = pk()
+    asset_id: Mapped[str] = mapped_column(ForeignKey("asset.asset_id"), nullable=False)
+    alias: Mapped[str] = mapped_column(Text, nullable=False)
+    method: Mapped[str] = mapped_column(String(24), default="deterministic")  # deterministic|llm|human
+    confidence: Mapped[float | None] = mapped_column(Numeric)
+    created_at: Mapped[datetime] = ts_now()
+
+    __table_args__ = (UniqueConstraint("alias", name="uq_asset_alias"),)
+
+
 __all__ = [
     "Base", "new_id",
     "Company", "CompanySource", "Snapshot", "Extraction",
@@ -340,4 +403,5 @@ __all__ = [
     "PhaseVocab", "ModalityVocab", "VocabMapping",
     "OntologyTerm", "OntologyEdge", "OntologyClosure",
     "ProgramEmbedding", "ReviewQueue", "JobRun",
+    "ChangeEvent", "AssetAlias",
 ]

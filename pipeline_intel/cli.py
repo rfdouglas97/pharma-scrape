@@ -128,6 +128,32 @@ def load(
     typer.echo(json.dumps({"loaded": len(results), "results": results}, indent=2))
 
 
+@app.command(name="rebuild-history")
+def rebuild_history_cmd(
+    company: str = typer.Option(..., "--company", "-c", help="Company name (substring) or company_id"),
+    confirm_n: int = typer.Option(2, "--confirm-n", help="Consecutive absences to confirm a discontinuation"),
+) -> None:
+    """Recompute a company's longitudinal change-event feed from silver (chronological replay
+    over snapshots ordered by captured_at). Idempotent: rewrites this company's change_event rows."""
+    from sqlalchemy import or_, select
+
+    from pipeline_intel.db import session
+    from pipeline_intel.gold.models import Company
+    from pipeline_intel.history.rebuild import rebuild_history
+
+    with session() as s:
+        cid = s.execute(
+            select(Company.company_id)
+            .where(or_(Company.company_id == company, Company.name.ilike(f"%{company}%")))
+            .limit(1)
+        ).scalar_one_or_none()
+        if not cid:
+            typer.echo(f"no company matching {company!r}")
+            raise typer.Exit(1)
+        stats = rebuild_history(s, cid, confirm_n=confirm_n)
+    typer.echo(json.dumps(stats, indent=2, default=str))
+
+
 @app.command()
 def enrich(
     model: str = typer.Option(None, "--model", "-m", help="Override mapping model"),
