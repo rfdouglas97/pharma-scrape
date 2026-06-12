@@ -120,6 +120,8 @@ class Asset(Base):
     preferred_name: Mapped[str] = mapped_column(Text, nullable=False)
     modality_code: Mapped[str | None] = mapped_column(ForeignKey("modality_vocab.code"))
     modality_verbatim: Mapped[str | None] = mapped_column(Text)
+    # Provenance for modality: 'disclosed' (from the company page) vs 'open_targets' (backfilled).
+    modality_source: Mapped[str] = mapped_column(String(16), default="disclosed")
     originator_company_id: Mapped[str | None] = mapped_column(ForeignKey("company.company_id"))
     chembl_id: Mapped[str | None] = mapped_column(String(32))
     description: Mapped[str | None] = mapped_column(Text)
@@ -183,6 +185,8 @@ class AssetTarget(Base):
     target_id: Mapped[str] = mapped_column(ForeignKey("target.target_id"), nullable=False)
     verbatim: Mapped[str | None] = mapped_column(Text)
     action: Mapped[str | None] = mapped_column(String(64))  # inhibitor / agonist / ...
+    # 'disclosed' (company page) vs 'open_targets' (mechanism-of-action backfill).
+    source: Mapped[str] = mapped_column(String(16), default="disclosed")
     source_extraction_id: Mapped[str | None] = mapped_column(ForeignKey("extraction.extraction_id"))
     __table_args__ = (UniqueConstraint("asset_id", "target_id", name="uq_asset_target"),)
 

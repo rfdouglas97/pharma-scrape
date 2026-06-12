@@ -10,12 +10,20 @@ type AssetDetail = {
   preferred_name: string;
   modality_code: string | null;
   modality_verbatim: string | null;
+  modality_source: string;
+  chembl_id: string | null;
   extras: Record<string, string>;
   synonyms: { synonym: string; type: string }[];
-  targets: { name: string; verbatim: string | null; action: string | null }[];
+  targets: { symbol: string | null; name: string | null; verbatim: string | null; action: string | null; source: string }[];
   partners: { name: string; role: string | null; territory: string | null }[];
   programs: ProgramRow[];
 };
+
+function SourceBadge({ source }: { source: string }) {
+  if (source === "open_targets")
+    return <span className="badge gray small" title="Backfilled from Open Targets, not company-disclosed">Open Targets</span>;
+  return <span className="badge small" title="Disclosed on the company pipeline page">disclosed</span>;
+}
 
 export default function AssetPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -37,10 +45,23 @@ export default function AssetPage({ params }: { params: Promise<{ id: string }> 
       <div className="grid2">
         <div className="card">
           <dl className="kv">
-            <dt>Modality</dt><dd>{a.modality_verbatim || a.modality_code || <span className="muted">not disclosed</span>}</dd>
-            <dt>Targets</dt><dd>{a.targets.length ? a.targets.map((t) => t.verbatim || t.name).join(", ") : <span className="muted">not disclosed</span>}</dd>
+            <dt>Modality</dt>
+            <dd>
+              {a.modality_verbatim || a.modality_code ? (
+                <>{a.modality_verbatim || a.modality_code} <SourceBadge source={a.modality_source} /></>
+              ) : <span className="muted">not disclosed</span>}
+            </dd>
+            <dt>Targets</dt>
+            <dd>
+              {a.targets.length ? a.targets.map((t, i) => (
+                <span key={i} style={{ marginRight: 8 }}>
+                  {t.symbol || t.verbatim || t.name} <SourceBadge source={t.source} />
+                </span>
+              )) : <span className="muted">not disclosed</span>}
+            </dd>
             <dt>Synonyms / codes</dt><dd>{a.synonyms.filter((sn) => sn.synonym !== a.preferred_name).map((sn) => sn.synonym).join(", ") || <span className="muted">—</span>}</dd>
             <dt>Partners</dt><dd>{a.partners.length ? a.partners.map((p) => p.name + (p.role ? ` (${p.role})` : "")).join(", ") : <span className="muted">—</span>}</dd>
+            {a.chembl_id ? <><dt>ChEMBL</dt><dd className="small"><a href={`https://platform.opentargets.org/drug/${a.chembl_id}`} target="_blank" rel="noreferrer">{a.chembl_id}</a></dd></> : null}
           </dl>
         </div>
         <div className="card">

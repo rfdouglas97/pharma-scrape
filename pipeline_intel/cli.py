@@ -151,6 +151,18 @@ def enrich(
     typer.echo(json.dumps(result, indent=2))
 
 
+@app.command(name="backfill-ot")
+def backfill_ot(limit: int = typer.Option(None, "--limit", help="Backfill at most N assets")) -> None:
+    """Backfill target/modality/mechanism from Open Targets for assets where the company
+    didn't disclose them. Provenance-tagged source=open_targets; never overwrites disclosed."""
+    from pipeline_intel.db import session
+    from pipeline_intel.ontology.open_targets import backfill_all
+
+    with session() as s:
+        stats = backfill_all(s, limit=limit)
+    typer.echo(json.dumps(stats.as_dict(), indent=2))
+
+
 @app.command(name="classify-ta")
 def classify_ta() -> None:
     """Assign each mapped indication a therapeutic area from the MONDO hierarchy. Uses OLS."""

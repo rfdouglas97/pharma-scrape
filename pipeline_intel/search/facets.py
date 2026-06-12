@@ -200,7 +200,7 @@ def get_asset(s: Session, asset_id: str) -> dict | None:
         select(AssetSynonym.synonym, AssetSynonym.synonym_type).where(AssetSynonym.asset_id == asset_id)
     ).all()
     targets = s.execute(
-        select(Target.name, AssetTarget.verbatim, AssetTarget.action)
+        select(Target.name, Target.hgnc_symbol, AssetTarget.verbatim, AssetTarget.action, AssetTarget.source)
         .join(AssetTarget, AssetTarget.target_id == Target.target_id)
         .where(AssetTarget.asset_id == asset_id)
     ).all()
@@ -216,9 +216,15 @@ def get_asset(s: Session, asset_id: str) -> dict | None:
         "preferred_name": asset.preferred_name,
         "modality_code": asset.modality_code,
         "modality_verbatim": asset.modality_verbatim,
+        "modality_source": asset.modality_source,
+        "chembl_id": asset.chembl_id,
         "extras": asset.extras,
         "synonyms": [{"synonym": x.synonym, "type": x.synonym_type} for x in synonyms],
-        "targets": [{"name": x.name, "verbatim": x.verbatim, "action": x.action} for x in targets],
+        "targets": [
+            {"symbol": x.hgnc_symbol, "name": x.name, "verbatim": x.verbatim,
+             "action": x.action, "source": x.source}
+            for x in targets
+        ],
         "partners": [
             {"name": x.partner_name_verbatim, "role": x.role, "territory": x.territory}
             for x in partners
