@@ -7,10 +7,12 @@ we fetch the bytes directly (httpx) rather than driving Playwright. Good-citizen
 
 from __future__ import annotations
 
+import mimetypes
 import os
 from collections.abc import Iterable
 from dataclasses import dataclass
-from urllib.parse import urlparse
+from pathlib import Path
+from urllib.parse import unquote, urlparse
 
 from pipeline_intel.config import settings
 
@@ -52,7 +54,27 @@ def _read_capped(chunks: Iterable[bytes], cap: int = MAX_DOC_BYTES) -> bytes:
     return b"".join(out)
 
 
+def _local_path(url: str) -> Path | None:
+    """Resolve a URL to a local file path when it points at one (a `file://` URL or a plain
+    relative/absolute path), else None. Lets a CompanySource point at a curated eval PDF."""
+    parsed = urlparse(url)
+    if parsed.scheme == "file":
+        candidate = Path(unquote(parsed.path))
+    elif parsed.scheme in ("", None):
+        candidate = Path(unquote(url))
+    else:
+        return None
+    return candidate if candidate.exists() else None
+
+
 def fetch_document(url: str) -> DocFetch:
+    local = _local_path(url)
+    if local is not None:
+        raw = _read_capped(iter([local.read_bytes()]))
+        ctype = mimetypes.guess_type(local.name)[0]
+        return DocFetch(url=url, http_status=200, content_type=ctype, raw_bytes=raw,
+                        ext=local.suffix.lower() or None)
+
     import httpx  # noqa: PLC0415 — defer import
 
     headers = {"User-Agent": settings().crawler_user_agent}
