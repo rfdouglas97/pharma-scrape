@@ -136,14 +136,25 @@ class ScoreReport:
         }
 
 
-def score(predicted: ExtractionResult, gold: ExtractionResult) -> ScoreReport:
+def score(
+    predicted: ExtractionResult,
+    gold: ExtractionResult,
+    scope_to_gold_categories: bool = False,
+) -> ScoreReport:
+    """Score predicted vs gold. With scope_to_gold_categories, only dimensions the gold
+    actually labels are evaluated — used for auto-reconciled goldens built from a structured
+    file (e.g. an xlsx with no target/modality columns) so the extraction's correct-but-
+    unlabeled fields aren't counted as false positives."""
     alias = _build_alias_to_canonical(gold)
     pred_facts = _facts(predicted, alias)
     gold_facts = _facts(gold, alias)
+    gold_categories = {f[0] for f in gold_facts}
 
     report = ScoreReport()
     for fact in pred_facts | gold_facts:
         category = fact[0]
+        if scope_to_gold_categories and category not in gold_categories:
+            continue  # gold didn't label this dimension -> not evaluated
         cs = report.by_category.setdefault(category, CategoryScore())
         in_pred, in_gold = fact in pred_facts, fact in gold_facts
         if in_pred and in_gold:

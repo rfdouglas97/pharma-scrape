@@ -39,6 +39,7 @@ class Fixture:
     page_text: str
     screenshots: list[bytes]
     gold: ExtractionResult
+    auto_reconciled: bool = False  # golden built from a structured file -> score covered dims only
 
 
 def load_fixtures(golden_dir: Path = GOLDEN_DIR) -> list[Fixture]:
@@ -67,6 +68,7 @@ def load_fixtures(golden_dir: Path = GOLDEN_DIR) -> list[Fixture]:
                 page_text=page_text,
                 screenshots=screenshots,
                 gold=gold,
+                auto_reconciled=bool(meta.get("auto_reconciled")),
             )
         )
     return fixtures
@@ -93,7 +95,7 @@ def run_eval(model: str | None = None, golden_dir: Path = GOLDEN_DIR) -> dict:
         predicted, _usage, _stop = run_extraction(
             fx.company, fx.url, fx.page_text, fx.screenshots, model
         )
-        report = score(predicted, fx.gold)
+        report = score(predicted, fx.gold, scope_to_gold_categories=fx.auto_reconciled)
         passed = report.overall.precision >= GATE_PRECISION and report.overall.recall >= GATE_RECALL
         results.append(FixtureResult(fx.slug, fx.fmt, report, passed))
         agg_tp += report.overall.tp

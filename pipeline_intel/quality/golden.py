@@ -91,7 +91,8 @@ def scaffold_from_snapshot(
 
 
 def save_golden_label(
-    snapshot_id: str, corrected: dict, fmt: str = "unknown", golden_dir: Path = GOLDEN_DIR
+    snapshot_id: str, corrected: dict, fmt: str = "unknown", golden_dir: Path = GOLDEN_DIR,
+    auto_reconciled: bool = False,
 ) -> dict:
     """Save a human-verified ExtractionResult as a labeled golden fixture (from the review
     UI). Writes page.txt/page.png from the snapshot, expected.json from the corrected data,
@@ -119,7 +120,8 @@ def save_golden_label(
         (out / "expected.json").write_text(json.dumps(corrected, indent=2))
         (out / "meta.json").write_text(json.dumps(
             {"company": company.name if company else "", "url": source.url if source else "",
-             "format": fmt, "snapshot_id": snapshot_id, "labeled": True}, indent=2))
+             "format": fmt, "snapshot_id": snapshot_id, "labeled": True,
+             "auto_reconciled": auto_reconciled}, indent=2))
     return {"slug": slug, "labeled": True, "dir": str(out)}
 
 
