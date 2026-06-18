@@ -88,6 +88,7 @@ def run_company_pipeline(
                 src for src in ingest.get("sources", [])
                 if src.get("status") == "ok" and src.get("changed") and src.get("snapshot_id")
             ]
+            load_failed = False
             for src in changed_sources:
                 route = _route_for_snapshot(s, src["snapshot_id"], routing)
                 result.routes.append({"snapshot_id": src["snapshot_id"], **route.as_dict()})
@@ -99,33 +100,54 @@ def run_company_pipeline(
                     "model_route": route.as_dict(),
                     **outcome.__dict__,
                 })
-                if outcome.extraction_id and outcome.status in ("ok", "needs_review"):
-                    if company:
-                        company.pipeline_status = "extraction_ok"
+                if not (outcome.extraction_id and outcome.status in ("ok", "needs_review")):
+                    continue
+                if company:
+                    company.pipeline_status = "extraction_ok"
+
+                # QA and load each run in a SAVEPOINT so a failure in either is isolated: the
+                # extraction (already flushed) always persists, and a load/QA error becomes
+                # needs_repair with the real reason — never a rolled-back, lost transaction.
+                qa = None
+                sp_qa = s.begin_nested()
+                try:
                     qa = run_quality_check(
                         s, storage, outcome.extraction_id, judge=judge, model=route.qa_model,
                     )
-                    if (
-                        escalate_opus
-                        and route.escalation_model
-                        and qa.verdict == "fail"
-                        and judge is None
-                    ):
+                    if (escalate_opus and route.escalation_model
+                            and qa.verdict == "fail" and judge is None):
                         qa = run_quality_check(
                             s, storage, outcome.extraction_id, model=route.escalation_model,
                         )
+                    sp_qa.commit()
                     result.qa.append(qa.as_dict())
-                    # The QA judge is the publish gate — not the extractor's own soft
-                    # `needs_review` self-flag (accordions/pagination notes). A needs_review
-                    # extraction that the judge passed (or warned) still loads; only a failed
-                    # extraction or a failing QA verdict blocks gold.
-                    if publish_mode == "gated" and qa.verdict not in ("pass", "warn"):
-                        continue
-                    if outcome.n_programs > 0:
+                except Exception as qa_exc:  # noqa: BLE001 — isolate QA failure, keep extraction
+                    sp_qa.rollback()
+                    load_failed = True
+                    result.error = f"{result.error or ''}qa failed ({src['snapshot_id']}): {qa_exc}; "
+                    if company:
+                        company.pipeline_status = "needs_repair"
+                    continue
+
+                # The QA judge is the publish gate — not the extractor's own soft needs_review.
+                if publish_mode == "gated" and qa.verdict not in ("pass", "warn"):
+                    continue
+                if outcome.n_programs > 0:
+                    sp_load = s.begin_nested()
+                    try:
                         loaded = load_extraction(s, outcome.extraction_id)
+                        sp_load.commit()
                         result.loaded.append(loaded.as_dict())
                         if company:
                             company.pipeline_status = "loaded_gold"
+                    except Exception as load_exc:  # noqa: BLE001 — isolate load failure
+                        sp_load.rollback()
+                        load_failed = True
+                        result.error = (
+                            f"{result.error or ''}load failed ({src['snapshot_id']}): {load_exc}; "
+                        )
+                        if company and company.pipeline_status != "loaded_gold":
+                            company.pipeline_status = "needs_repair"
 
             if not changed_sources and company:
                 company.pipeline_status = (
@@ -133,6 +155,8 @@ def run_company_pipeline(
                 )
         if result.loaded:
             result.status = "loaded_gold"
+        elif load_failed:
+            result.status = "needs_repair"
         elif result.qa and all(q["verdict"] in ("pass", "warn") for q in result.qa):
             result.status = "qa_passed"
         elif result.qa:
