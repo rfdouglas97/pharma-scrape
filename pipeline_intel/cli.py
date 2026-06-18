@@ -475,6 +475,20 @@ def onboard_cmd(
     typer.echo(json.dumps(onboard_company(company, ticker, run=run), indent=2, default=str))
 
 
+@app.command(name="onboard-universe")
+def onboard_universe_cmd(
+    floor: float = typer.Option(30_000_000, "--floor", help="Minimum market cap (USD)"),
+    limit: int = typer.Option(10, "--limit", "-n", help="How many un-attempted companies to onboard"),
+    run: bool = typer.Option(True, "--run/--no-run", help="Run the factory after registering"),
+) -> None:
+    """Onboard the next N un-attempted companies from the company DB, ascending by market cap.
+    The registry is the ledger — already-attempted companies are skipped, so this resumes."""
+    from pipeline_intel.universe import onboard_universe
+
+    typer.echo(json.dumps(onboard_universe(min_market_cap=floor, limit=limit, run=run),
+                          indent=2, default=str))
+
+
 @app.command(name="resolve-source")
 def resolve_source_cmd(
     company: str = typer.Option(..., "--company", "-c", help="Company name"),

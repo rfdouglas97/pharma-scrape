@@ -22,6 +22,8 @@ class Settings(BaseSettings):
 
     crawler_user_agent: str = "PipelineIntelBot/0.1"
     crawler_delay_seconds: float = 1.0
+    # External company-universe DB API (ticker/name + market cap) — drives the universe walk.
+    company_db_url: str = "http://127.0.0.1:8000"
     # Some sites (e.g. Lilly, Vertex) bot-block a non-browser UA at the edge. The headless
     # browser renders with a realistic UA; robots compliance + rate limiting still apply.
     browser_user_agent: str = (
