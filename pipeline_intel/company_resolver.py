@@ -16,7 +16,29 @@ import re
 
 from pipeline_intel.firecrawl_client import firecrawl_map, firecrawl_search
 from pipeline_intel.ingest.classify import classify_rendered_page, phase_hits
-from pipeline_intel.url_discovery import score_pipeline_link
+
+# Rank a site's links by how pipeline-like the URL path + title are (callers pre-filter to the
+# company's own domain, so no domain check here). Many pipelines live under /science, /programs,
+# /portfolio, not literally /pipeline.
+_PATH_SECTION_HINTS = ("science", "research", "development", "portfolio", "products",
+                       "medicines", "candidates", "innovation", "programs")
+
+
+def _score_pipeline_link(url: str, title: str) -> int:
+    from urllib.parse import urlparse
+
+    path = urlparse(url).path.lower()
+    t = (title or "").lower()
+    score = 0
+    if "pipeline" in path:
+        score += 100
+    if t == "pipeline":
+        score += 90
+    elif "pipeline" in t:
+        score += 70
+    if any(h in path for h in _PATH_SECTION_HINTS):
+        score += 20
+    return score
 
 
 def _name_token(name: str) -> str:
@@ -132,9 +154,7 @@ def resolve_company_source(
         mapper = map_fn or (lambda root: firecrawl_map(root, search="pipeline", limit=60))
         links = [ln for ln in mapper(company_root)
                  if ln.get("url") and _on_company_domain(ln["url"], name_token)]
-        ranked = sorted(
-            links, key=lambda ln: -score_pipeline_link(ln["url"], ln.get("title") or "", company_root)
-        )
+        ranked = sorted(links, key=lambda ln: -_score_pipeline_link(ln["url"], ln.get("title") or ""))
         for ln in ranked[:6]:
             if ln["url"] in seen:
                 continue

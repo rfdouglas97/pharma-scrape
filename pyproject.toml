@@ -43,7 +43,7 @@ packages = ["pipeline_intel"]
 [tool.ruff]
 line-length = 110
 target-version = "py312"
-extend-exclude = ["migrations/versions"]
+extend-exclude = ["migrations/versions", "experiments"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]

@@ -1,0 +1,113 @@
+# Scrape-completion criteria — trusted ground-truth checks per company.
+#
+# Each company has one or more `checks`. The primary check is a candidate `count`
+# we trust from an authoritative source (the company's own pipeline page, a filing,
+# an investor deck, etc.). A trusted count is a HARD gate: a scrape whose extracted
+# count is far off from `expected` should fail QA. This mirrors the existing
+# `known_expected_count` gate in pipeline_intel/quality/checker.py:deterministic_verdict
+# (trusted count far off -> verdict "fail"). Once a count here is verified, it can be
+# promoted into config/companies.seed.yaml as `known_expected_count` on the source.
+#
+# Non-count evidence (screenshot / spreadsheet / PDF) is dropped into the per-company
+# folder (evals/<slug>/) and referenced from the check's `evidence` field, so the count
+# is auditable back to where it came from.
+#
+# count `unit` semantics:
+#   candidates  - distinct pipeline entries as the COMPANY presents them (a row / card).
+#                 This is the headline number a human reads off the page. It may be
+#                 assets OR programs depending on how the company lists them; the QA
+#                 gate reconciles against both asset- and program-level counts.
+#   assets      - distinct molecules/products (one asset, many indications).
+#   programs    - distinct asset x indication rows.
+#
+# slug must match the per-company evidence folder and the tests/golden/<slug> fixture
+# folder where one exists.
+
+companies:
+  pfizer:
+    company: Pfizer
+    url: https://www.pfizer.com/science/drug-product-pipeline
+    checks:
+      - type: count
+        expected: 96
+        unit: candidates
+        trusted: true
+        evidence: evals/pfizer/        # drop screenshot/PDF/sheet here
+        captured: "2026-06-18"
+        note: "User-provided ground truth."
+
+  astrazeneca:
+    company: AstraZeneca
+    url: https://www.astrazeneca.com/our-therapy-areas/pipeline.html
+    checks:
+      - type: count
+        expected: 186
+        unit: candidates
+        trusted: true
+        evidence: evals/astrazeneca/
+        captured: "2026-06-18"
+        note: "User-provided ground truth. AZ lists at program granularity; the QA gate reconciles against program count."
+
+  merck:
+    company: Merck & Co.
+    url: https://www.merck.com/research/product-pipeline/
+    checks:
+      - type: count
+        expected: 105
+        unit: candidates
+        trusted: true
+        evidence: evals/merck/
+        captured: "2026-06-18"
+        note: "User-provided ground truth."
+
+  insmed:
+    company: Insmed
+    url: null   # not yet in config/companies.seed.yaml — needs a source URL before scraping
+    checks:
+      - type: count
+        expected: 22
+        unit: candidates
+        trusted: true
+        evidence: evals/insmed/
+        captured: "2026-06-18"
+        note: "User-provided ground truth. Insmed (INSM) is not yet in the company seed registry."
+
+  # --- Screenshot evidence (read off the image; verify before promoting to trusted) ---
+
+  cytokinetics:
+    company: Cytokinetics
+    url: null   # CYTK — not yet in config/companies.seed.yaml; needs a source URL
+    checks:
+      - type: count
+        expected: 9
+        unit: candidates           # 9 program rows shown (7 distinct assets; Aficamten x3)
+        trusted: false             # read off a table screenshot; confirm it's the full list
+        evidence: evals/cytokinetics/pipeline.png
+        captured: "2026-06-18"
+        note: "Counted from pipeline.png (full table visible). Set trusted:true once confirmed complete."
+
+  galapagos:
+    company: Galapagos
+    url: null   # GLPG — not yet in config/companies.seed.yaml; needs a source URL
+    checks:
+      - type: count
+        expected: null             # screenshot is truncated (cuts off at 4 of N rows)
+        unit: candidates
+        trusted: false
+        evidence: evals/galapagos/pipeline.png
+        captured: "2026-06-18"
+        note: "pipeline.png is cut off after 4 rows — need a full screenshot or a stated total to set a count."
+
+  # --- Verified from labeled golden fixtures (tests/golden/) ---
+
+  gsk:
+    company: GSK
+    url: https://www.gsk.com/en-gb/innovation/pipeline/
+    checks:
+      - type: count
+        expected: 57
+        unit: assets
+        trusted: true
+        evidence: tests/golden/gsk/   # labeled: true golden set (page.png + expected.json)
+        captured: "2026-06-10"
+        note: "Derived from the labeled GSK golden fixture (57 assets in expected.json)."
