@@ -127,6 +127,9 @@ def render(url: str, render_config: dict | None = None) -> RenderResult:
         context = browser.new_context(
             user_agent=s.browser_user_agent,
             extra_http_headers={"Accept-Language": "en-US,en;q=0.9"},
+            # Many legit small-cap pharma sites have expired/misconfigured certs. We only read
+            # public pages (no credentials), so render them rather than failing the company.
+            ignore_https_errors=True,
         )
         page = context.new_page()
         status: int | None = None

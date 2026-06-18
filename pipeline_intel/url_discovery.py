@@ -101,7 +101,11 @@ def discover_pipeline_url(company_name: str, homepage_url: str, render_fn=None) 
         from pipeline_intel.ingest.render import render
         render_fn = render
 
-    result = render_fn(homepage_url)
+    try:
+        result = render_fn(homepage_url)
+    except Exception as exc:  # noqa: BLE001 — a dead/bad-cert homepage just yields no candidates
+        return {"company": company_name, "homepage": homepage_url, "pipeline_url": None,
+                "confident": False, "candidates": [], "error": str(exc)[:160]}
     candidates = rank_pipeline_candidates(homepage_url, result.html)
     chosen = candidates[0].url if candidates else None
     return {

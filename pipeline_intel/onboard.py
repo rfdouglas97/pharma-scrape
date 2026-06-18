@@ -19,7 +19,11 @@ def onboard_company(
     run: bool = True, publish_mode: str = "gated", resolve_fn=None,
 ) -> dict:
     """Resolve -> register -> scrape. Returns a summary; never raises (failures are reported)."""
-    resolved = (resolve_fn or (lambda: resolve_company_source(name, ticker, model)))()
+    try:
+        resolved = (resolve_fn or (lambda: resolve_company_source(name, ticker, model)))()
+    except Exception as exc:  # noqa: BLE001 — onboarding one company must never crash a batch
+        return {"company": name, "ticker": ticker, "status": "resolve_error",
+                "pipeline_url": None, "error": str(exc)[:200]}
     out = {
         "company": name, "ticker": ticker,
         "pipeline_url": resolved.get("pipeline_url"),
