@@ -36,6 +36,9 @@ MAX_TEXT_CHARS = 120_000
 # page still hits this, the extraction is flagged needs_review (truncated).
 MAX_OUTPUT_TOKENS = 64_000
 TEXT_ONLY_MAX_OUTPUT_TOKENS = 8_000
+# A page with this many phase-vocabulary hits in its visible text carries the pipeline in
+# the DOM, not an image — extract from text and skip the slow full-page screenshot vision pass.
+_TEXT_RICH_PHASE_HITS = 12
 
 
 @dataclass
@@ -85,6 +88,16 @@ def _load_artifacts(s: Session, storage: Storage, snap: Snapshot) -> tuple[str, 
 
 def _load_html(storage: Storage, snap: Snapshot) -> str:
     return storage.get(snap.html_key).decode("utf-8", errors="replace") if snap.html_key else ""
+
+
+def is_text_rich(page_text: str, is_document: bool, linked_image_count: int) -> bool:
+    """True when the pipeline lives in the DOM text (dense phase vocabulary, no linked chart):
+    extract from text and skip the slow full-page vision pass. Documents have their own path."""
+    return (
+        not is_document
+        and not linked_image_count
+        and phase_hits(page_text) >= _TEXT_RICH_PHASE_HITS
+    )
 
 
 def _should_use_visual(source: CompanySource | None, page_text: str, linked_image_count: int) -> bool:
@@ -181,7 +194,20 @@ def extract_snapshot(
         s.flush()
         return ExtractionOutcome(ext.extraction_id, ext.status, n_assets, n_programs, ext.error)
 
-    input_mode = "document" if is_document else _input_mode(include_screenshots, linked_image_count)
+    # Text-rich pages carry the pipeline in their DOM text, not an image: extract from text
+    # via the high-ceiling streaming path and skip the slow full-page vision pass (what timed
+    # out big table pages like AstraZeneca/Merck/Roche).
+    text_rich = is_text_rich(page_text, is_document, linked_image_count)
+    if text_rich:
+        screenshots = []
+    large = is_document or text_rich
+
+    if is_document:
+        input_mode = "document"
+    elif text_rich:
+        input_mode = "text_dom"
+    else:
+        input_mode = _input_mode(include_screenshots, linked_image_count)
     ext = Extraction(
         snapshot_id=snapshot_id,
         model=model,
@@ -195,7 +221,7 @@ def extract_snapshot(
 
     try:
         result, usage, stop_reason = call_with_timeout(
-            lambda: run_extraction(company_name, url, page_text, screenshots, model, large=is_document),
+            lambda: run_extraction(company_name, url, page_text, screenshots, model, large=large),
             settings().extraction_timeout_seconds,
             "extraction",
         )

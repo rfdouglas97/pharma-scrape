@@ -115,9 +115,13 @@ def run_company_pipeline(
                             s, storage, outcome.extraction_id, model=route.escalation_model,
                         )
                     result.qa.append(qa.as_dict())
+                    # The QA judge is the publish gate — not the extractor's own soft
+                    # `needs_review` self-flag (accordions/pagination notes). A needs_review
+                    # extraction that the judge passed (or warned) still loads; only a failed
+                    # extraction or a failing QA verdict blocks gold.
                     if publish_mode == "gated" and qa.verdict not in ("pass", "warn"):
                         continue
-                    if outcome.status == "ok":
+                    if outcome.n_programs > 0:
                         loaded = load_extraction(s, outcome.extraction_id)
                         result.loaded.append(loaded.as_dict())
                         if company:

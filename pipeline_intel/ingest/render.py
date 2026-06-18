@@ -70,8 +70,8 @@ def repair_render_config(cfg: dict | None) -> dict:
     scroll to trigger lazy-load, and generic cookie/expand selectors merged with per-site ones.
     Pure + idempotent so it is unit-testable without a browser."""
     cfg = dict(cfg or {})
-    cfg["wait_until"] = cfg.get("wait_until", "networkidle")
-    cfg["wait_ms"] = max(int(cfg.get("wait_ms", 1500)), 3500)
+    cfg["wait_until"] = cfg.get("wait_until", "load")
+    cfg["wait_ms"] = max(int(cfg.get("wait_ms", 2000)), 3500)
     cfg["full_page"] = True
     cfg["scroll"] = True
     cfg["dismiss_selectors"] = _merge_selectors(cfg.get("dismiss_selectors"), GENERIC_DISMISS_SELECTORS)
@@ -115,8 +115,12 @@ def render(url: str, render_config: dict | None = None) -> RenderResult:
     if cfg.get("repair_mode"):
         cfg = repair_render_config(cfg)
     s = settings()
-    wait_until = cfg.get("wait_until", "networkidle")
-    wait_ms = int(cfg.get("wait_ms", 1500))
+    # `load` over `networkidle`: heavy pharma sites with constant analytics/beacon traffic
+    # never reach networkidle and time out with zero artifacts. `load` + a settle wait
+    # captures the DOM reliably; sites that truly need networkidle set it in render_config.
+    wait_until = cfg.get("wait_until", "load")
+    wait_ms = int(cfg.get("wait_ms", 2000))
+    goto_timeout = int(cfg.get("goto_timeout_ms", 60000))
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -124,7 +128,7 @@ def render(url: str, render_config: dict | None = None) -> RenderResult:
         page = context.new_page()
         status: int | None = None
         try:
-            response = page.goto(url, wait_until=wait_until, timeout=45000)
+            response = page.goto(url, wait_until=wait_until, timeout=goto_timeout)
             status = response.status if response else None
         except Exception as exc:  # noqa: BLE001 — record render failures, don't crash the run
             browser.close()
