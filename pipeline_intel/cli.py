@@ -462,6 +462,17 @@ def golden_scaffold(
     typer.echo(json.dumps(scaffold_from_snapshot(snapshot, fmt), indent=2))
 
 
+@app.command(name="discover-url")
+def discover_url_cmd(
+    company: str = typer.Option(..., "--company", "-c", help="Company name"),
+    website: str = typer.Option(..., "--website", "-w", help="Company homepage URL"),
+) -> None:
+    """Autonomously resolve a company's pipeline-page URL from its homepage nav."""
+    from pipeline_intel.url_discovery import discover_pipeline_url
+
+    typer.echo(json.dumps(discover_pipeline_url(company, website), indent=2))
+
+
 @app.command(name="load-eval-counts")
 def load_eval_counts_cmd() -> None:
     """Promote trusted counts from evals/expected_counts.yaml into known_expected_count on
