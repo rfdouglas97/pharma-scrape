@@ -3,6 +3,5 @@
   "url": "https://www.gsk.com/en-gb/innovation/pipeline/",
   "format": "html_table",
   "snapshot_id": "01KTS4GN04XWNWKR45P3A4XNZ8",
-  "labeled": false,
-  "seeded_from_model": true
+  "labeled": true
 }
