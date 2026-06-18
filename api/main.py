@@ -120,6 +120,16 @@ def coverage() -> list[dict]:
         return facets.coverage(s)
 
 
+@app.get("/v1/meta/factory")
+def factory() -> dict:
+    """Operational factory state: companies per pipeline_status, gold totals, per-company
+    breakdown with the source format used."""
+    from pipeline_intel.coverage import factory_status
+
+    with session() as s:
+        return factory_status(s)
+
+
 @app.get("/v1/indications")
 def indications(q: str | None = None, mapped_only: bool = True) -> list[dict]:
     with session() as s:

@@ -226,6 +226,7 @@ def batch(
     publish_mode: str = typer.Option("gated", "--publish-mode", help="gated or ungated"),
     routing: str = typer.Option("smart", "--routing", help="smart | cheap | quality"),
     escalate_opus: bool = typer.Option(True, "--escalate-opus/--no-escalate-opus"),
+    concurrency: int = typer.Option(4, "--concurrency", "-j", help="Companies to process in parallel"),
 ) -> None:
     """Run a gated scrape/extract/QA/load batch."""
     from pipeline_intel.batch import run_batch
@@ -236,6 +237,7 @@ def batch(
         publish_mode=publish_mode,
         routing=routing,
         escalate_opus=escalate_opus,
+        concurrency=concurrency,
     )
     typer.echo(json.dumps(result, indent=2, default=str))
 
@@ -458,6 +460,30 @@ def golden_scaffold(
         typer.echo("provide --snapshot or --company")
         raise typer.Exit(1)
     typer.echo(json.dumps(scaffold_from_snapshot(snapshot, fmt), indent=2))
+
+
+@app.command(name="coverage")
+def coverage_cmd() -> None:
+    """Factory coverage: companies per pipeline_status, gold totals, per-company breakdown
+    with the source format actually used."""
+    from pipeline_intel.coverage import factory_status
+    from pipeline_intel.db import session
+
+    with session() as s:
+        rep = factory_status(s)
+
+    typer.echo("=== pipeline_status ===")
+    for st, n in sorted(rep["by_status"].items(), key=lambda kv: -kv[1]):
+        typer.echo(f"  {st:18} {n}")
+    g = rep["gold"]
+    typer.echo(f"\nGOLD: {g['companies']} companies / {g['programs']} programs / {g['assets']} assets")
+    typer.echo(f"FAILURES (failed + needs_repair): {rep['failures']}\n")
+    typer.echo(f"  {'company':24} {'status':16} {'progs':>6}  {'source_type':13} input_mode")
+    for c in rep["companies"]:
+        typer.echo(
+            f"  {c['company'][:24]:24} {str(c['status']):16} {c['programs']:>6}  "
+            f"{str(c['source_type'] or '-'):13} {c['input_mode'] or '-'}"
+        )
 
 
 @app.command()

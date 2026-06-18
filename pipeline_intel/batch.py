@@ -152,6 +152,7 @@ def run_batch(
     routing: str = "smart",
     escalate_opus: bool = True,
     judge=None,
+    concurrency: int = 4,
 ) -> dict:
     from pipeline_intel.db import session
 
@@ -165,6 +166,7 @@ def run_batch(
                 "status": status,
                 "routing": routing,
                 "escalate_opus": escalate_opus,
+                "concurrency": concurrency,
             },
         )
         s.add(job)
@@ -172,16 +174,21 @@ def run_batch(
         company_names = [c.name for c in companies]
         job_id = job.run_id
 
-    results = [
-        run_company_pipeline(
-            name,
-            publish_mode=publish_mode,
-            routing=routing,
-            escalate_opus=escalate_opus,
-            judge=judge,
+    def _run(name: str) -> CompanyBatchResult:
+        # Each company is independent (own DB sessions, own Playwright context), so they run
+        # concurrently. Each worker holds at most one DB connection at a time.
+        return run_company_pipeline(
+            name, publish_mode=publish_mode, routing=routing,
+            escalate_opus=escalate_opus, judge=judge,
         )
-        for name in company_names
-    ]
+
+    if concurrency <= 1 or len(company_names) <= 1:
+        results = [_run(name) for name in company_names]
+    else:
+        from concurrent.futures import ThreadPoolExecutor
+
+        with ThreadPoolExecutor(max_workers=concurrency) as ex:
+            results = list(ex.map(_run, company_names))
 
     with session() as s:
         job = s.get(JobRun, job_id)
