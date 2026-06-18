@@ -1,0 +1,17 @@
+{
+  "phase_columns": ["Preclinical", "Phase 1/2", "Registrational", "Commercial"],
+  "rows": [
+    {"asset_name": "Vyjuvek (beremagene geperpavec-svdt)", "group": "Commercial", "indication": "Dystrophic epidermolysis bullosa (DEB)", "target": "COL7A1", "modality": null, "phase": "Commercial", "status": "Approved and launched in United States, Europe, and Japan", "phase_evidence": "Full-width bar spanning all columns with 'Approved and launched' banner", "confidence": 0.98},
+    {"asset_name": "KB407", "group": "Respiratory", "indication": "Cystic fibrosis", "target": "CFTR", "modality": null, "phase": "Phase 1/2", "status": null, "phase_evidence": "Bar ends mid 'Phase 1/2' column", "confidence": 0.95},
+    {"asset_name": "KB408", "group": "Respiratory", "indication": "Alpha-1 antitrypsin deficiency lung disease", "target": "SERPINA1", "modality": null, "phase": "Phase 1/2", "status": null, "phase_evidence": "Bar ends mid 'Phase 1/2' column", "confidence": 0.95},
+    {"asset_name": "Additional program(s) targeting respiratory indications", "group": "Respiratory", "indication": null, "target": null, "modality": null, "phase": "Preclinical", "status": null, "phase_evidence": "Short bar ends within 'Preclinical' column", "confidence": 0.93},
+    {"asset_name": "KB803", "group": "Ophthalmology", "indication": "Ocular complications of DEB", "target": "COL7A1", "modality": null, "phase": "Phase 1/2", "status": null, "phase_evidence": "Bar ends at right edge of 'Phase 1/2' column", "confidence": 0.92},
+    {"asset_name": "KB801", "group": "Ophthalmology", "indication": "Neurotrophic keratitis", "target": "NGF", "modality": null, "phase": "Phase 1/2", "status": null, "phase_evidence": "Bar ends near right edge of 'Phase 1/2' column", "confidence": 0.92},
+    {"asset_name": "Additional program(s) targeting ophthalmology indications", "group": "Ophthalmology", "indication": null, "target": null, "modality": null, "phase": "Preclinical", "status": null, "phase_evidence": "Short bar ends within 'Preclinical' column", "confidence": 0.93},
+    {"asset_name": "KB111", "group": "Dermatology", "indication": "Hailey-Hailey disease", "target": "ATP2C1", "modality": null, "phase": "Phase 1/2", "status": null, "phase_evidence": "Bar ends in early/mid 'Phase 1/2' column", "confidence": 0.92},
+    {"asset_name": "Additional program(s) targeting dermatology indications", "group": "Dermatology", "indication": null, "target": null, "modality": null, "phase": "Preclinical", "status": null, "phase_evidence": "Short bar ends within 'Preclinical' column", "confidence": 0.93},
+    {"asset_name": "Inhaled KB707", "group": "Oncology", "indication": "Non-small cell lung cancer", "target": "IL2 + IL12", "modality": null, "phase": "Phase 1/2", "status": null, "phase_evidence": "Bar ends mid 'Phase 1/2' column", "confidence": 0.93},
+    {"asset_name": "Injectable KB707", "group": "Oncology", "indication": "Solid tumors including cutaneous", "target": "IL2 + IL12", "modality": null, "phase": "Phase 1/2", "status": null, "phase_evidence": "Bar ends in early 'Phase 1/2' column", "confidence": 0.92}
+  ],
+  "chart_notes": "Payload column captured as target."
+}

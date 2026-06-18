@@ -17,8 +17,14 @@ from pipeline_intel.config import settings
 from pipeline_intel.extract.client import DEFAULT_EXTRACTION_MODEL, get_client
 from pipeline_intel.extract.deterministic import DETERMINISTIC_MODEL, extract_structured_pipeline
 from pipeline_intel.extract.prompts import v1 as prompt
-from pipeline_intel.extract.schemas import EXTRACTION_SCHEMA_VERSION, ExtractionResult
+from pipeline_intel.extract.schemas import (
+    EXTRACTION_SCHEMA_VERSION,
+    VISUAL_SCHEMA_VERSION,
+    ExtractionResult,
+)
+from pipeline_intel.extract.visual import extract_visual, resolve_visual_model
 from pipeline_intel.gold.models import CompanySource, Extraction, Snapshot
+from pipeline_intel.ingest.classify import phase_hits
 from pipeline_intel.ingest.storage import Storage
 from pipeline_intel.timeout import call_with_timeout
 
@@ -81,6 +87,15 @@ def _load_html(storage: Storage, snap: Snapshot) -> str:
     return storage.get(snap.html_key).decode("utf-8", errors="replace") if snap.html_key else ""
 
 
+def _should_use_visual(source: CompanySource | None, page_text: str, linked_image_count: int) -> bool:
+    """Route to the dedicated two-pass visual extractor when the pipeline is image-backed:
+    the source is classified `image_page`, or it links a pipeline image and the rendered text
+    carries little phase vocabulary (the data lives in the chart, not the DOM)."""
+    if source is not None and source.source_type == "image_page":
+        return True
+    return linked_image_count > 0 and phase_hits(page_text) < 3
+
+
 def extract_snapshot(
     s: Session,
     storage: Storage,
@@ -122,6 +137,49 @@ def extract_snapshot(
 
     if not include_screenshots:
         screenshots = []
+
+    # Image-backed pipelines (phase-bar charts) go through the dedicated two-pass visual
+    # extractor — generic vision degrades phase/target/modality on these.
+    if include_screenshots and screenshots and _should_use_visual(source, page_text, linked_image_count):
+        visual_model = resolve_visual_model(model)
+        ext = Extraction(
+            snapshot_id=snapshot_id,
+            model=visual_model,
+            prompt_version=f"visual/{VISUAL_SCHEMA_VERSION}",
+            status="ok",
+            usage={"input_mode": "visual_two_pass", "linked_pipeline_images": linked_image_count},
+        )
+        try:
+            outcome = call_with_timeout(
+                lambda: extract_visual(company_name, url, screenshots, visual_model),
+                settings().extraction_timeout_seconds,
+                "visual_extraction",
+            )
+        except Exception as exc:  # noqa: BLE001 — record failures, never crash the run
+            ext.status = "failed"
+            ext.error = str(exc)
+            s.add(ext)
+            s.flush()
+            return ExtractionOutcome(ext.extraction_id, "failed", 0, 0, str(exc))
+
+        ext.raw_json = outcome.result.model_dump()
+        ext.usage = {**ext.usage, **outcome.usage, "visual_transcription": outcome.transcription.model_dump()}
+        n_assets = len(outcome.result.assets)
+        n_programs = sum(len(a.programs) for a in outcome.result.assets)
+        notes = []
+        if outcome.stop_reason == "max_tokens":
+            notes.append("output truncated (max_tokens)")
+        if n_assets == 0:
+            notes.append("no rows transcribed")
+        low_conf = sum(1 for r in outcome.transcription.rows if r.confidence < 0.5)
+        if low_conf:
+            notes.append(f"{low_conf} low-confidence rows")
+        if notes:
+            ext.status = "needs_review"
+            ext.error = "; ".join(notes)
+        s.add(ext)
+        s.flush()
+        return ExtractionOutcome(ext.extraction_id, ext.status, n_assets, n_programs, ext.error)
 
     input_mode = "document" if is_document else _input_mode(include_screenshots, linked_image_count)
     ext = Extraction(

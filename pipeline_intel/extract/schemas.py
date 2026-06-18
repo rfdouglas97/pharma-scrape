@@ -100,3 +100,57 @@ class ExtractionResult(BaseModel):
             "'data continues in a linked PDF', 'table truncated'. Null if none."
         ),
     )
+
+
+# --- Visual evidence (image-backed pipeline charts) -------------------------------------
+# Image-only pipelines (phase-bar charts) encode the phase in BAR GEOMETRY, not text. The
+# two-pass visual extractor first transcribes the chart row-by-row into VisualEvidenceRows
+# (with per-row confidence + how the phase was read), then normalizes to ExtractionResult.
+# Keeping the intermediate transcription makes the phase reasoning auditable and QA-able.
+
+VISUAL_SCHEMA_VERSION = "1"
+
+
+class VisualEvidenceRow(BaseModel):
+    """One row read off a pipeline chart image, with provenance for how it was read."""
+
+    asset_name: str = Field(description="Program/asset label exactly as shown (e.g. 'KB407')")
+    group: str | None = Field(
+        default=None, description="Therapeutic-area / section grouping label if the chart groups rows"
+    )
+    indication: str | None = Field(default=None, description="Indication text in the row, verbatim")
+    target: str | None = Field(
+        default=None,
+        description="Target/payload column value if present (e.g. a 'Payload' or 'Target' column)",
+    )
+    modality: str | None = Field(
+        default=None, description="Modality if explicitly shown for the row; null if not shown"
+    )
+    phase: str = Field(
+        description="Phase the row's progress bar REACHES, named from the chart's phase-axis "
+        "column headers (e.g. 'Phase 1/2', 'Registrational', 'Commercial'). 'Unknown' if unreadable."
+    )
+    status: str | None = Field(
+        default=None,
+        description="Status distinct from phase if shown (e.g. 'Approved', 'Commercial', 'Discontinued')",
+    )
+    phase_evidence: str = Field(
+        description="How the phase was determined, e.g. \"bar ends at the right edge of the "
+        "'Phase 1/2' column\". This is the audit trail for the visual phase call."
+    )
+    confidence: float = Field(
+        ge=0.0, le=1.0, description="Confidence this row was read correctly (0-1)"
+    )
+
+
+class VisualTranscription(BaseModel):
+    """Pass-1 output: the chart reconstructed row-by-row before schema normalization."""
+
+    phase_columns: list[str] = Field(
+        description="The chart's phase-axis column headers, left to right, exactly as labeled"
+    )
+    rows: list[VisualEvidenceRow] = Field(description="One entry per row read off the chart")
+    chart_notes: str | None = Field(
+        default=None,
+        description="Caveats: ambiguous bars, unreadable cells, legend/footnote definitions used.",
+    )
