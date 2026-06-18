@@ -462,6 +462,19 @@ def golden_scaffold(
     typer.echo(json.dumps(scaffold_from_snapshot(snapshot, fmt), indent=2))
 
 
+@app.command(name="onboard")
+def onboard_cmd(
+    company: str = typer.Option(..., "--company", "-c", help="Company name"),
+    ticker: str = typer.Option(None, "--ticker", "-t", help="Stock ticker"),
+    run: bool = typer.Option(True, "--run/--no-run", help="Run the factory after registering"),
+) -> None:
+    """Autonomously onboard a company: resolve its pipeline source, register it, and run the
+    gated factory — name + ticker in, scraped pipeline out."""
+    from pipeline_intel.onboard import onboard_company
+
+    typer.echo(json.dumps(onboard_company(company, ticker, run=run), indent=2, default=str))
+
+
 @app.command(name="resolve-source")
 def resolve_source_cmd(
     company: str = typer.Option(..., "--company", "-c", help="Company name"),
