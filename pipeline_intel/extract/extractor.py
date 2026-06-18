@@ -219,18 +219,37 @@ def extract_snapshot(
         },
     )
 
+    timeout_s = settings().extraction_timeout_seconds
     try:
         result, usage, stop_reason = call_with_timeout(
             lambda: run_extraction(company_name, url, page_text, screenshots, model, large=large),
-            settings().extraction_timeout_seconds,
+            timeout_s,
             "extraction",
         )
     except Exception as exc:  # noqa: BLE001 — record extraction failures, never crash the run
-        ext.status = "failed"
-        ext.error = str(exc)
-        s.add(ext)
-        s.flush()
-        return ExtractionOutcome(ext.extraction_id, "failed", 0, 0, str(exc))
+        # No dead-ends: if a vision pass timed out/failed, retry text-only — the DOM text often
+        # still carries the pipeline. Better a flagged partial than a hard failure.
+        if screenshots:
+            try:
+                result, usage, stop_reason = call_with_timeout(
+                    lambda: run_extraction(company_name, url, page_text, [], model, large=True),
+                    timeout_s,
+                    "extraction_text_fallback",
+                )
+                ext.usage = {**(ext.usage or {}), "input_mode": "text_fallback",
+                             "fallback_reason": str(exc)[:200]}
+            except Exception as exc2:  # noqa: BLE001
+                ext.status = "failed"
+                ext.error = f"{exc}; text fallback: {exc2}"
+                s.add(ext)
+                s.flush()
+                return ExtractionOutcome(ext.extraction_id, "failed", 0, 0, ext.error)
+        else:
+            ext.status = "failed"
+            ext.error = str(exc)
+            s.add(ext)
+            s.flush()
+            return ExtractionOutcome(ext.extraction_id, "failed", 0, 0, str(exc))
 
     ext.raw_json = result.model_dump()
     # Preserve the input_mode/linked-image tags set at creation; merge in API token usage.

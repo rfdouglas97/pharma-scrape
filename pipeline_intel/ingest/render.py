@@ -124,7 +124,10 @@ def render(url: str, render_config: dict | None = None) -> RenderResult:
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        context = browser.new_context(user_agent=s.crawler_user_agent)
+        context = browser.new_context(
+            user_agent=s.browser_user_agent,
+            extra_http_headers={"Accept-Language": "en-US,en;q=0.9"},
+        )
         page = context.new_page()
         status: int | None = None
         try:
@@ -181,7 +184,7 @@ def render(url: str, render_config: dict | None = None) -> RenderResult:
         meta={
             "title": title,
             "wait_until": wait_until,
-            "user_agent": s.crawler_user_agent,
+            "user_agent": s.browser_user_agent,
             "links": links,
             "pipeline_image_urls": pipeline_image_urls,
         },

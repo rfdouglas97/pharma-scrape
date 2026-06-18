@@ -21,6 +21,12 @@ class Settings(BaseSettings):
 
     crawler_user_agent: str = "PipelineIntelBot/0.1"
     crawler_delay_seconds: float = 1.0
+    # Some sites (e.g. Lilly, Vertex) bot-block a non-browser UA at the edge. The headless
+    # browser renders with a realistic UA; robots compliance + rate limiting still apply.
+    browser_user_agent: str = (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+    )
 
 
 @lru_cache
