@@ -462,6 +462,18 @@ def golden_scaffold(
     typer.echo(json.dumps(scaffold_from_snapshot(snapshot, fmt), indent=2))
 
 
+@app.command(name="load-eval-counts")
+def load_eval_counts_cmd() -> None:
+    """Promote trusted counts from evals/expected_counts.yaml into known_expected_count on
+    company sources, so incomplete scrapes hard-fail QA."""
+    from pipeline_intel.db import session
+    from pipeline_intel.evals import load_expected_counts
+
+    with session() as s:
+        result = load_expected_counts(s)
+    typer.echo(json.dumps(result, indent=2))
+
+
 @app.command(name="coverage")
 def coverage_cmd() -> None:
     """Factory coverage: companies per pipeline_status, gold totals, per-company breakdown
