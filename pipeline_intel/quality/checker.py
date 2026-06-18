@@ -106,6 +106,7 @@ def deterministic_verdict(
 ) -> tuple[QAVerdict, int | None, int]:
     expected = infer_expected_count(page_text, known_expected_count)
     observed = observed_asset_count(result)
+    observed_programs = observed_program_count(result)
     mismatches: list[CountMismatch] = []
     verdict: Verdict = "pass"
     confidence = 0.82
@@ -120,22 +121,27 @@ def deterministic_verdict(
         ))
         action = "rerender_and_reextract"
     elif expected is not None:
-        delta = abs(expected - observed)
+        # A page's stated count may be assets OR programs/projects ("186 projects",
+        # "50 medicines"). Reconcile against whichever count is closer so we don't fail a
+        # correct extraction just because the company counts programs and we counted assets.
+        best = min((observed, observed_programs), key=lambda o: abs(expected - o))
+        delta = abs(expected - best)
         tolerance = max(2, round(expected * 0.1))
+        detail_counts = f"(assets={observed}, programs={observed_programs}, expected={expected})"
         if delta > tolerance:
             verdict = "fail"
             confidence = 0.95
             mismatches.append(CountMismatch(
-                label="asset_count", expected=expected, observed=observed,
-                detail="Extracted asset count is outside the tolerated range.",
+                label="asset_or_program_count", expected=expected, observed=best,
+                detail=f"Neither asset nor program count is within tolerance {detail_counts}.",
             ))
             action = "focused_reextract_missing_sections"
         elif delta:
             verdict = "warn"
             confidence = 0.88
             mismatches.append(CountMismatch(
-                label="asset_count", expected=expected, observed=observed,
-                detail="Extracted asset count is close but not identical to expected evidence.",
+                label="asset_or_program_count", expected=expected, observed=best,
+                detail=f"Count is close but not identical to the page total {detail_counts}.",
             ))
 
     if previous_observed_count and previous_observed_count >= 5:

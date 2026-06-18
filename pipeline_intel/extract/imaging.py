@@ -23,9 +23,15 @@ MAX_WIDTH = 2576  # downscale wider screenshots to the high-res long-edge target
 def prepare_screenshots(png_bytes: bytes) -> list[bytes]:
     """Return one or more PNG tiles, each within API dimension limits and sized for
     high-res vision. Short screenshots pass through unchanged (after any width downscale)."""
-    from PIL import Image  # noqa: PLC0415 — optional dep, only needed when extracting
+    from PIL import Image, UnidentifiedImageError  # noqa: PLC0415 — optional dep, only at extract time
 
-    img = Image.open(io.BytesIO(png_bytes))
+    try:
+        img = Image.open(io.BytesIO(png_bytes))
+        img.load()
+    except (UnidentifiedImageError, OSError):
+        # A linked "pipeline image" may actually be an SVG/HTML error page/truncated file.
+        # Skip it rather than failing the whole extraction; other images still get through.
+        return []
     if img.mode not in ("RGB", "RGBA"):
         img = img.convert("RGB")
     w, h = img.size
