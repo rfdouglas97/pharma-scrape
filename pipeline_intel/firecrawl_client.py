@@ -44,6 +44,27 @@ def firecrawl_search(query: str, limit: int = 5) -> list[dict]:
         return []
 
 
+def firecrawl_map(url: str, search: str | None = None, limit: int = 60) -> list[dict]:
+    """List a site's URLs (optionally keyword-filtered). Returns [{url, title}, ...] or []."""
+    key = _api_key()
+    if not key:
+        return []
+    import httpx  # noqa: PLC0415 — defer import
+
+    body: dict = {"url": url, "limit": limit}
+    if search:
+        body["search"] = search
+    try:
+        resp = httpx.post(
+            f"{_BASE}/map", headers={"Authorization": f"Bearer {key}"},
+            json=body, timeout=_SEARCH_TIMEOUT,
+        )
+        resp.raise_for_status()
+        return resp.json().get("links") or []
+    except Exception:  # noqa: BLE001 — optional fallback, never raise
+        return []
+
+
 def firecrawl_scrape(url: str, wait_ms: int = 4000) -> str | None:
     """Render a page (incl. JS) to markdown. Returns the markdown string, or None if no key /
     on error / empty."""

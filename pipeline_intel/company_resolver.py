@@ -1,57 +1,22 @@
 """Resolve a company's pipeline source from just its name + ticker — the front of fully
 autonomous discovery, so a list of tickers can be scraped hands-off.
 
-Chain (self-contained, no external search API):
-  1. An LLM proposes the company's official homepage (+ pipeline URL if it knows it). The
-     model reliably knows public pharma domains; this replaces a search engine.
-  2. We VALIDATE a candidate by rendering it and checking it actually looks like that
-     company's pipeline page (pipeline structure / phase text / pipeline image).
-  3. If the LLM's direct pipeline URL doesn't validate, run the homepage-nav finder
-     (`url_discovery.discover_pipeline_url`) on the proposed homepage.
+No URL guessing, no LLM — pull the pipeline page programmatically via Firecrawl, then check it:
+  (i)  search "<company> pipeline" and content-check the company's own-domain results;
+  (ii) if none check out, map the company site for "pipeline" and content-check those.
 
-Validation is what guards against LLM hallucination: a wrong/dead URL won't render as a
-pipeline page, so it's rejected and surfaced for review rather than silently scraped.
+Validation (validate_pipeline_page) is content-based — a real pipeline page carries phase
+vocabulary or a pipeline image on a real page — so traps like "/pipeline/" 301-redirecting to
+a stray .jpg are rejected and discovery moves on to the page that actually has the pipeline.
 """
 
 from __future__ import annotations
 
 import re
 
-from pydantic import BaseModel, Field
-
-from pipeline_intel.extract.client import SONNET_MODEL
+from pipeline_intel.firecrawl_client import firecrawl_map, firecrawl_search
 from pipeline_intel.ingest.classify import classify_rendered_page, phase_hits
-from pipeline_intel.url_discovery import discover_pipeline_url
-
-_PIPELINE_SOURCE_TYPES = {"html_table", "js_cards", "image_page", "pipeline_page"}
-
-
-class ResolvedSource(BaseModel):
-    homepage: str | None = Field(default=None, description="Official corporate homepage, absolute https URL")
-    pipeline_url: str | None = Field(
-        default=None, description="Drug-pipeline page URL if known, else null. Absolute https URL."
-    )
-    rationale: str | None = Field(default=None, description="Brief reason / uncertainty note")
-
-
-def llm_resolve(name: str, ticker: str | None, model: str = SONNET_MODEL) -> ResolvedSource:
-    from pipeline_intel.extract.client import get_client
-
-    client = get_client()
-    prompt = (
-        f"For the pharmaceutical/biotech company '{name}'"
-        + (f" (stock ticker {ticker})" if ticker else "")
-        + ", give its official corporate homepage URL and the URL of its drug development "
-        "pipeline page if you know it. Use the company's real current domain (account for "
-        "rebrands/mergers). If unsure of the exact pipeline path, give the homepage and leave "
-        "pipeline_url null. Return absolute https URLs only."
-    )
-    with client.messages.stream(
-        model=model, max_tokens=1024,
-        messages=[{"role": "user", "content": prompt}], output_format=ResolvedSource,
-    ) as stream:
-        resp = stream.get_final_message()
-    return resp.parsed_output or ResolvedSource(rationale="model returned no parse")
+from pipeline_intel.url_discovery import score_pipeline_link
 
 
 def _name_token(name: str) -> str:
@@ -73,71 +38,107 @@ def validate_pipeline_page(url: str, company_name: str, render_fn) -> dict:
     kind = classify_rendered_page(r.html, r.text, r.meta.get("pipeline_image_urls"))
     hits = phase_hits(r.text)
     has_image = bool(r.meta.get("pipeline_image_urls"))
-    pipeline_signal = kind in _PIPELINE_SOURCE_TYPES and (hits >= 3 or has_image or kind != "pipeline_page")
+    body_len = len((r.text or "").strip())
+    # CONTENT-based validation: a real pipeline page either carries phase vocabulary in its
+    # text, or is a genuine image-backed page (a pipeline image on a real HTML page with body
+    # text). This rejects the common trap where "/pipeline/" 301-redirects to a bare .jpg —
+    # the browser renders the image with ~no surrounding text, so it fails both conditions and
+    # the resolver falls through to search, which finds the real page (e.g. /science/...).
+    pipeline_signal = hits >= 3 or (has_image and body_len >= 200)
     return {
         "ok": bool(pipeline_signal),
         "source_type": kind,
         "phase_hits": hits,
         "has_pipeline_image": has_image,
+        "body_text_len": body_len,
         "name_match": _name_token(company_name) in (r.text or "").lower(),
         "http_status": r.http_status,
     }
 
 
+# Third-party domains that show up in a "<company> pipeline" search but are not the company's
+# own pipeline page (news/aggregators/filings). We only trust the company's OWN domain.
+_AGGREGATOR_DOMAINS = (
+    "sec.gov", "biopharmadive", "fiercebiotech", "patsnap", "synapse", "globenewswire",
+    "prnewswire", "businesswire", "wikipedia", "bloomberg", "reuters", "marketwatch",
+    "yahoo", "linkedin", "crunchbase", "stockanalysis", "nasdaq", "endpts", "drugs.com",
+    "clinicaltrials.gov", "investing.com", "stocktitan",
+)
+
+
+def _on_company_domain(url: str, name_token: str) -> bool:
+    """True when the URL is on the company's OWN domain (not a news/aggregator site)."""
+    from urllib.parse import urlparse
+
+    netloc = urlparse(url).netloc.lower()
+    if any(agg in netloc for agg in _AGGREGATOR_DOMAINS):
+        return False
+    registrable = ".".join(netloc.replace("www.", "").split(".")[-2:])
+    return name_token in registrable or name_token in netloc
+
+
+def _root_url(url: str) -> str:
+    """The company's registrable-domain root, e.g. .../science/x on aligos.com -> https://aligos.com."""
+    from urllib.parse import urlparse
+
+    netloc = urlparse(url).netloc.lower().replace("www.", "")
+    registrable = ".".join(netloc.split(".")[-2:])
+    return f"https://{registrable}"
+
+
 def resolve_company_source(
-    name: str, ticker: str | None = None, model: str = SONNET_MODEL,
-    render_fn=None, llm_fn=None,
+    name: str, ticker: str | None = None,
+    render_fn=None, search_fn=None, map_fn=None,
 ) -> dict:
-    """Resolve a scrapable pipeline URL for a company from its name + ticker. Returns the
-    chosen url + method + validation signal + audit trail (never raises)."""
+    """Resolve a scrapable pipeline URL by SEARCH then CRAWL — no URL guessing, no LLM:
+      (i)  search "<company> pipeline" and content-check the company's own-domain results;
+      (ii) if none check out, map the company site for "pipeline" and content-check those.
+    Every candidate is content-checked (validate_pipeline_page). Never raises."""
     if render_fn is None:
         from pipeline_intel.ingest.render import render
         render_fn = render
-    guess = (llm_fn or (lambda: llm_resolve(name, ticker, model)))()
+    search = search_fn or (lambda q: firecrawl_search(q, limit=8))
+    name_token = _name_token(name)
 
     out = {
         "company": name, "ticker": ticker,
-        "homepage": guess.homepage, "llm_pipeline_guess": guess.pipeline_url,
-        "rationale": guess.rationale,
         "pipeline_url": None, "method": None, "validated": False,
         "signal": None, "candidates": [],
     }
 
-    # 1) trust-but-verify the LLM's direct pipeline URL
-    if guess.pipeline_url:
-        sig = validate_pipeline_page(guess.pipeline_url, name, render_fn)
+    def _accept(url: str, via: str) -> bool:
+        sig = validate_pipeline_page(url, name, render_fn)
+        out["candidates"].append({"url": url, "ok": sig["ok"], "via": via})
         if sig["ok"]:
-            out.update(pipeline_url=guess.pipeline_url, method="llm_direct", validated=True, signal=sig)
-            return out
+            out.update(pipeline_url=url, method=via, validated=True, signal=sig)
+            return True
+        return False
 
-    # 2) homepage-nav finder on the proposed homepage
-    if guess.homepage:
-        disc = discover_pipeline_url(name, guess.homepage, render_fn=render_fn)
-        out["candidates"] = disc.get("candidates", [])
-        if disc.get("pipeline_url"):
-            sig = validate_pipeline_page(disc["pipeline_url"], name, render_fn)
-            if sig["ok"]:
-                out.update(pipeline_url=disc["pipeline_url"], method="homepage_nav",
-                           validated=True, signal=sig)
+    # (i) search "<company> pipeline" -> content-check the company's own-domain results.
+    company_root: str | None = None
+    seen: set[str] = set()
+    for query in (f"{name} pipeline", f"{name} drug development pipeline"):
+        for res in search(query):
+            url = res.get("url")
+            if not url or url in seen or not _on_company_domain(url, name_token):
+                continue
+            seen.add(url)
+            company_root = company_root or _root_url(url)
+            if _accept(url, "firecrawl_search"):
                 return out
 
-    # 3) Firecrawl web-search fallback — closes LLM coverage gaps on obscure names (e.g. the
-    #    model doesn't know boundlessbio.com). Validate each result; nav-find if it's a homepage.
-    from pipeline_intel.firecrawl_client import firecrawl_search
-
-    for res in firecrawl_search(f"{name} drug development pipeline", limit=4):
-        url = res.get("url")
-        if not url:
-            continue
-        sig = validate_pipeline_page(url, name, render_fn)
-        if sig["ok"]:
-            out.update(pipeline_url=url, method="firecrawl_search", validated=True, signal=sig)
-            return out
-        disc = discover_pipeline_url(name, url, render_fn=render_fn)
-        if disc.get("pipeline_url"):
-            sig2 = validate_pipeline_page(disc["pipeline_url"], name, render_fn)
-            if sig2["ok"]:
-                out.update(pipeline_url=disc["pipeline_url"], method="firecrawl_nav",
-                           validated=True, signal=sig2, candidates=disc.get("candidates", []))
+    # (ii) map the company site for "pipeline" -> content-check the ranked candidates.
+    if company_root:
+        mapper = map_fn or (lambda root: firecrawl_map(root, search="pipeline", limit=60))
+        links = [ln for ln in mapper(company_root)
+                 if ln.get("url") and _on_company_domain(ln["url"], name_token)]
+        ranked = sorted(
+            links, key=lambda ln: -score_pipeline_link(ln["url"], ln.get("title") or "", company_root)
+        )
+        for ln in ranked[:6]:
+            if ln["url"] in seen:
+                continue
+            seen.add(ln["url"])
+            if _accept(ln["url"], "firecrawl_map"):
                 return out
     return out
