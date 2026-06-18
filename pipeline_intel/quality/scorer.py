@@ -57,14 +57,29 @@ def _asset_keys(asset) -> set[str]:
     return {k for k in keys if k}
 
 
-def _facts_for_asset(asset_key: str, asset) -> set[tuple]:
+# A program is inactive (removed/discontinued) if its status or phase says so. Active-only
+# scoring compares the active pipeline against active ground truth — a company's "Pipeline
+# changes / Removed" section is real page content but is not part of an active-pipeline xlsx.
+_INACTIVE_RE = re.compile(r"discontinu|removed|terminat|withdraw|inactiv|no longer|delist", re.I)
+
+
+def _is_active_program(program) -> bool:
+    if program.status and _INACTIVE_RE.search(program.status):
+        return False
+    return _norm_phase(program.phase_verbatim) != "discontinued"
+
+
+def _facts_for_asset(asset_key: str, asset, active_only: bool = False) -> set[tuple]:
     """Decompose one asset into category-tagged facts keyed by the matched asset_key."""
+    programs = [p for p in asset.programs if not active_only or _is_active_program(p)]
+    if active_only and not programs:
+        return set()  # asset is entirely removed/discontinued -> not part of the active pipeline
     facts: set[tuple] = {("asset", asset_key)}
     if asset.modality_verbatim:
         facts.add(("modality", asset_key, _norm(asset.modality_verbatim)))
     if asset.target_verbatim:
         facts.add(("target", asset_key, _norm(asset.target_verbatim)))
-    for p in asset.programs:
+    for p in programs:
         ind = _norm(p.indication_verbatim)
         facts.add(("program", asset_key, ind))
         facts.add(("phase", asset_key, ind, _norm_phase(p.phase_verbatim)))
@@ -83,13 +98,15 @@ def _build_alias_to_canonical(result: ExtractionResult) -> dict[str, str]:
     return mapping
 
 
-def _facts(result: ExtractionResult, alias_to_canonical: dict[str, str]) -> set[tuple]:
+def _facts(
+    result: ExtractionResult, alias_to_canonical: dict[str, str], active_only: bool = False
+) -> set[tuple]:
     """Build the fact set, mapping each asset to its canonical key (gold's if matched)."""
     facts: set[tuple] = set()
     for a in result.assets:
         match = next((alias_to_canonical[k] for k in _asset_keys(a) if k in alias_to_canonical), None)
         asset_key = match or _norm(a.preferred_name)
-        facts |= _facts_for_asset(asset_key, a)
+        facts |= _facts_for_asset(asset_key, a, active_only=active_only)
     return facts
 
 
@@ -140,14 +157,17 @@ def score(
     predicted: ExtractionResult,
     gold: ExtractionResult,
     scope_to_gold_categories: bool = False,
+    active_only: bool = False,
 ) -> ScoreReport:
     """Score predicted vs gold. With scope_to_gold_categories, only dimensions the gold
-    actually labels are evaluated — used for auto-reconciled goldens built from a structured
-    file (e.g. an xlsx with no target/modality columns) so the extraction's correct-but-
-    unlabeled fields aren't counted as false positives."""
+    actually labels are evaluated. With active_only, removed/discontinued programs are
+    dropped from both sides — both used for auto-reconciled goldens built from an active-
+    pipeline structured file (e.g. an xlsx with no target/modality columns and no Removed
+    section) so the extraction's correct-but-unlabeled fields and correctly-captured Removed
+    items aren't counted as false positives."""
     alias = _build_alias_to_canonical(gold)
-    pred_facts = _facts(predicted, alias)
-    gold_facts = _facts(gold, alias)
+    pred_facts = _facts(predicted, alias, active_only=active_only)
+    gold_facts = _facts(gold, alias, active_only=active_only)
     gold_categories = {f[0] for f in gold_facts}
 
     report = ScoreReport()

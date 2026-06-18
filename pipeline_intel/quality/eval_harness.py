@@ -95,7 +95,11 @@ def run_eval(model: str | None = None, golden_dir: Path = GOLDEN_DIR) -> dict:
         predicted, _usage, _stop = run_extraction(
             fx.company, fx.url, fx.page_text, fx.screenshots, model
         )
-        report = score(predicted, fx.gold, scope_to_gold_categories=fx.auto_reconciled)
+        report = score(
+            predicted, fx.gold,
+            scope_to_gold_categories=fx.auto_reconciled,
+            active_only=fx.auto_reconciled,
+        )
         passed = report.overall.precision >= GATE_PRECISION and report.overall.recall >= GATE_RECALL
         results.append(FixtureResult(fx.slug, fx.fmt, report, passed))
         agg_tp += report.overall.tp
