@@ -131,6 +131,17 @@ def extract_snapshot(
     url = source.url if source else ""
 
     page_text, screenshots, linked_image_count = _load_artifacts(s, storage, snap)
+    # JS/canvas pages can render with ~no DOM text (Playwright can't read a canvas/iframe).
+    # When the rendered text is empty, fall back to Firecrawl's JS render -> markdown; if it
+    # yields real pipeline text, extract from that and skip the (often empty/wrong) image path.
+    force_text = False
+    if not is_document and len(page_text.strip()) < 200:
+        from pipeline_intel.firecrawl_client import firecrawl_scrape
+
+        md = firecrawl_scrape(url)
+        if md and phase_hits(md) >= 3 and len(md.strip()) > len(page_text.strip()):
+            page_text, force_text = md, True
+
     html_text = _load_html(storage, snap)
     deterministic = extract_structured_pipeline(html_text, page_text)
     if deterministic is not None:
@@ -152,8 +163,10 @@ def extract_snapshot(
         screenshots = []
 
     # Image-backed pipelines (phase-bar charts) go through the dedicated two-pass visual
-    # extractor — generic vision degrades phase/target/modality on these.
-    if include_screenshots and screenshots and _should_use_visual(source, page_text, linked_image_count):
+    # extractor — generic vision degrades phase/target/modality on these. (Skip it when
+    # Firecrawl recovered real page text — that's the more reliable source.)
+    if (include_screenshots and screenshots and not force_text
+            and _should_use_visual(source, page_text, linked_image_count)):
         visual_model = resolve_visual_model(model)
         ext = Extraction(
             snapshot_id=snapshot_id,
@@ -197,7 +210,7 @@ def extract_snapshot(
     # Text-rich pages carry the pipeline in their DOM text, not an image: extract from text
     # via the high-ceiling streaming path and skip the slow full-page vision pass (what timed
     # out big table pages like AstraZeneca/Merck/Roche).
-    text_rich = is_text_rich(page_text, is_document, linked_image_count)
+    text_rich = force_text or is_text_rich(page_text, is_document, linked_image_count)
     if text_rich:
         screenshots = []
     large = is_document or text_rich

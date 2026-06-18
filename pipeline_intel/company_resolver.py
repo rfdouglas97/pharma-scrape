@@ -116,6 +116,28 @@ def resolve_company_source(
         out["candidates"] = disc.get("candidates", [])
         if disc.get("pipeline_url"):
             sig = validate_pipeline_page(disc["pipeline_url"], name, render_fn)
-            out.update(pipeline_url=disc["pipeline_url"], method="homepage_nav",
-                       validated=sig["ok"], signal=sig)
+            if sig["ok"]:
+                out.update(pipeline_url=disc["pipeline_url"], method="homepage_nav",
+                           validated=True, signal=sig)
+                return out
+
+    # 3) Firecrawl web-search fallback — closes LLM coverage gaps on obscure names (e.g. the
+    #    model doesn't know boundlessbio.com). Validate each result; nav-find if it's a homepage.
+    from pipeline_intel.firecrawl_client import firecrawl_search
+
+    for res in firecrawl_search(f"{name} drug development pipeline", limit=4):
+        url = res.get("url")
+        if not url:
+            continue
+        sig = validate_pipeline_page(url, name, render_fn)
+        if sig["ok"]:
+            out.update(pipeline_url=url, method="firecrawl_search", validated=True, signal=sig)
+            return out
+        disc = discover_pipeline_url(name, url, render_fn=render_fn)
+        if disc.get("pipeline_url"):
+            sig2 = validate_pipeline_page(disc["pipeline_url"], name, render_fn)
+            if sig2["ok"]:
+                out.update(pipeline_url=disc["pipeline_url"], method="firecrawl_nav",
+                           validated=True, signal=sig2, candidates=disc.get("candidates", []))
+                return out
     return out
