@@ -36,8 +36,30 @@ FILE_TYPE_BY_EXT = {
 HREF_RE = re.compile(r"""href=["']([^"']+)["']""", re.I)
 
 
+DOC_SOURCE_TYPES = ("csv_doc", "xlsx_doc", "pdf_doc")
+# A file is only promoted over the rendered page if its URL looks like pipeline content —
+# avoids promoting an unrelated PDF (annual report, prescribing info) linked on the page.
+PIPELINE_FILE_HINTS = (
+    "pipeline", "product", "candidate", "portfolio", "development", "rd", "r-d", "clinical",
+)
+
+
 def rank_for_source_type(source_type: str) -> int:
     return SOURCE_RANK.get(source_type, 50)
+
+
+def select_promotable_file(candidates: list[dict], page_source_type: str) -> dict | None:
+    """Pick the best-ranked downloadable file (csv/xlsx/pdf) that outranks the rendered page
+    AND looks like a pipeline file. The cleaner structured file becomes the authoritative
+    source. Returns the candidate dict or None if the page is the best available source."""
+    page_rank = rank_for_source_type(page_source_type)
+    promotable = [
+        c for c in candidates
+        if c["source_type"] in DOC_SOURCE_TYPES
+        and c["preferred_source_rank"] < page_rank
+        and any(hint in c["url"].lower() for hint in PIPELINE_FILE_HINTS)
+    ]
+    return min(promotable, key=lambda c: c["preferred_source_rank"], default=None)
 
 
 def classify_url(url: str, default: str = "pipeline_page") -> str:

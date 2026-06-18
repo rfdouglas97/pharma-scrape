@@ -19,9 +19,28 @@ from pipeline_intel.ingest.fetch_doc import DocFetchError, fetch_document
 from pipeline_intel.ingest.parse_doc import parse_document
 from pipeline_intel.ingest.render import RenderError, render, robots_allows
 from pipeline_intel.ingest.snapshot import write_doc_snapshot, write_snapshot
-from pipeline_intel.ingest.storage import get_storage
+from pipeline_intel.ingest.storage import Storage, get_storage
+from pipeline_intel.source_discovery import discover_from_html, select_promotable_file
 
 DOC_SOURCE_TYPES = {"csv_doc", "xlsx_doc", "pdf_doc"}
+
+
+def _try_promote_file(s, storage: Storage, source_id: str, slug: str, base_url: str,
+                      html: str, page_kind: str):
+    """If the rendered page links a better-ranked pipeline file (xlsx/pdf/csv), ingest THAT
+    via the document path and return (snapshot, changed, source_type, url). Else None.
+    The page is rendered every run (for discovery + change detection); when a file wins we
+    persist only the cleaner doc snapshot under this source."""
+    choice = select_promotable_file(discover_from_html(base_url, html), page_kind)
+    if choice is None:
+        return None
+    try:
+        doc = fetch_document(choice["url"])
+        parsed = parse_document(doc.raw_bytes, content_type=doc.content_type, ext=doc.ext)
+    except (DocFetchError, ValueError):
+        return None  # fall back to the page on any fetch/parse failure
+    snap, changed = write_doc_snapshot(s, storage, source_id, slug, doc, parsed)
+    return snap, changed, choice["source_type"], choice["url"]
 
 
 def _slug(name: str) -> str:
@@ -75,12 +94,20 @@ def run_company(company_query: str) -> dict:
                     kind = doc_type
                 else:
                     result = render(src.url, src.render_config)
-                    snap, did_change = write_snapshot(s, storage, src.source_id, slug, result)
-                    # Classify the rendered page from real evidence so model routing reacts
-                    # (image-backed pipelines escalate). Reflects the latest render.
-                    kind = classify_rendered_page(
+                    # Classify the rendered page from real evidence so model routing reacts.
+                    page_kind = classify_rendered_page(
                         result.html, result.text, result.meta.get("pipeline_image_urls")
                     )
+                    # Format selection: if the page links a cleaner pipeline file, ingest that.
+                    promoted = _try_promote_file(
+                        s, storage, src.source_id, slug, result.url, result.html, page_kind
+                    )
+                    if promoted is not None:
+                        snap, did_change, kind, promoted_url = promoted
+                        entry["promoted_to_file"] = promoted_url
+                    else:
+                        snap, did_change = write_snapshot(s, storage, src.source_id, slug, result)
+                        kind = page_kind
                     src.source_type = kind
                 company.pipeline_status = "render_ok"
                 entry |= {
