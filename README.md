@@ -1,114 +1,121 @@
 # Pharma Pipeline Intelligence
 
-A continuously-maintained dataset of the development pipelines of the world's largest
-pharma/biotech companies, scraped from their public pipeline disclosures, normalized
-into an ID-anchored schema, and exposed for biology-aware search — built for commercial
-biopharma investing.
+An **autonomous factory** that builds and maintains a structured database of pharma/biotech
+development pipelines — scraped from each company's own public disclosures, normalized into an
+ID-anchored schema, quality-gated, and exposed for biology-aware search. Built to scale from a
+**ticker list to hundreds of companies, hands-off.**
 
-See [`pharma-pipeline-intelligence-brief.md`](pharma-pipeline-intelligence-brief.md) for scope
-and [`ENGINEERING_PLAN.md`](ENGINEERING_PLAN.md) for the full architecture and milestones.
+Give it a name + ticker and it resolves the company's pipeline page, scrapes it (whatever the
+format), extracts the programs, QA-gates them, and loads them to gold — quarantining anything
+it can't verify instead of publishing bad data.
 
-## Status
+> Historical design docs (the original engineering plan, the Codex factory plan, the Wayback
+> backfill, the product brief) live in [`docs/`](docs/).
 
-**M0 (Foundations) — complete.** Repo + env, local Postgres+pgvector, full schema v1
-(bronze/silver/gold with SCD2 program history), vocab + company-registry seeds, and an
-end-to-end ingest stage (fetch → render → snapshot) with content-hash skip and provenance
-artifacts.
+## The autonomous flow (per company)
 
-**M1 (Extraction core) — built; pending live validation.** Canonical extraction schema,
-versioned vision prompt, Claude Opus 4.8 structured-output extractor (`messages.parse` +
-adaptive thinking, screenshot-authoritative), and the golden-set eval harness with a
-field-level precision/recall scorer. The M1 **gate** (field precision ≥0.95, recall ≥0.90
-on a format-diverse golden set) is enforced by `pipeline eval`. Running live extraction and
-the eval needs `ANTHROPIC_API_KEY`. Next: label the golden set, clear the gate, then **M2
-(normalize / resolve / enrich)**.
+```
+name + ticker
+  └─ resolve  : firecrawl search "<company> pipeline" → content-check the own-domain result
+                (fallback: firecrawl map the site for "pipeline"). No URL guessing.
+  └─ ingest   : Playwright render (+ Firecrawl scrape fallback, ignore-cert); if the page links
+                a cleaner pipeline FILE (xlsx/pdf/csv), promote and ingest that instead.
+  └─ classify : html_table | js_cards | image_page | pipeline_page | {csv,xlsx,pdf}_doc
+  └─ extract  : route to the right extractor —
+                  • document  → parse the file to a table, extract from text
+                  • image     → two-pass vision (transcribe chart rows → normalize → vision QA)
+                  • text-rich → text-only extraction (fast)
+                  • else      → text + vision
+  └─ QA       : LLM-as-judge + deterministic checks + trusted-count completeness gate
+  └─ load     : gated upsert to gold (SCD2 program history). Failures → needs_repair, not gold.
+```
+
+Every gold value traces back to an immutable bronze snapshot (HTML / screenshot / file).
 
 ## Quickstart
 
 Prereqs: [`uv`](https://docs.astral.sh/uv/), Docker.
 
 ```bash
-uv sync                          # install Python deps (manages Python 3.12)
+uv sync
 uv run playwright install chromium
-cp .env.example .env             # local defaults match docker-compose
-docker compose up -d             # Postgres 16 + pgvector on :5433
-
-uv run alembic upgrade head      # apply schema
-uv run pipeline seed             # load vocab + company registry (idempotent)
-uv run pipeline companies        # list the registry
-
-uv run pipeline run --company Moderna   # ingest one company (fetch→render→snapshot)
+cp .env.example .env                 # set ANTHROPIC_API_KEY (and FIRECRAWL_API_KEY for discovery)
+docker compose up -d                 # Postgres 16 + pgvector on :5433
+uv run alembic upgrade head          # schema
+uv run pipeline seed                 # controlled vocab + company registry (idempotent)
 ```
 
-Run it twice: the second run records an `unchanged` snapshot via content-hash skip and
-writes no new artifacts — the mechanism that keeps weekly re-scraping cheap.
-
-### Extraction & the golden-set gate (M1)
-
-Set `ANTHROPIC_API_KEY` in `.env`, then:
+### Onboard a company autonomously (the headline)
 
 ```bash
-uv run pipeline run --company Moderna --extract   # ingest + extract changed snapshots
-uv run pipeline extract --company Moderna         # extract latest snapshot only
-
-# Build the golden set: scaffold a fixture from a real snapshot, label it, then evaluate
-uv run pipeline golden-scaffold --company Moderna --format image  # copies text+screenshot
-#   -> edit tests/golden/moderna/expected.json with the hand-labeled pipeline
-uv run pipeline eval                              # scores extraction, applies the gate
+uv run pipeline onboard --company "Insmed" --ticker INSM
+#   resolve pipeline URL → register → render → extract → QA → gated load → loaded_gold
 ```
 
-`pipeline eval` exits non-zero unless field precision ≥0.95 and recall ≥0.90 across the
-golden set — the rule that keeps us from scaling extraction past the pilot on bad data.
-Cover format-diverse pages (static table, JS dashboard, PDF, image-only chart). Pass
-`--model claude-sonnet-4-6` to compare a cheaper tier against the gate.
-
-### Load gold + run the explorer / review UI (M2)
+Feed a ticker list and the factory fills gold, quarantining the hard cases:
 
 ```bash
-uv run pipeline load --all          # silver extractions -> gold (company/asset/program + SCD2)
-
-# API (terminal 1)
-uv run uvicorn api.main:app --port 8000
-
-# Web app (terminal 2)
-cd web && npm install && npm run dev    # http://localhost:3000
+uv run pipeline batch --limit 20 --concurrency 4    # run the gated factory over the registry
+uv run pipeline coverage                            # who loaded, who needs_repair, by source format
 ```
 
-The explorer (`/`) is faceted program search; `/companies/[id]` is a phase-grouped pipeline;
-`/assets/[id]` is asset detail with provenance. **`/review`** shows each extraction beside
-its source screenshot — correct it and "Save as labeled golden" to produce eval ground
-truth (this is how the M3 gate gets labeled, no JSON hand-editing).
+### Completeness gate (trusted counts)
+
+`evals/expected_counts.yaml` holds human-curated "this company has N programs" checks. Promote
+them into the QA gate so an incomplete scrape hard-fails instead of silently passing:
+
+```bash
+uv run pipeline load-eval-counts        # evals/ counts → known_expected_count on sources
+```
+
+### Extraction quality gate (golden set)
+
+```bash
+uv run pipeline eval                    # score live extraction vs labeled goldens; ≥0.95P / ≥0.90R
+```
+
+`pipeline eval` certifies extraction accuracy before scaling — golden fixtures can be
+auto-reconciled from a company's own downloadable file (scored on the dimensions that file covers).
+
+### Browse it
+
+```bash
+uv run uvicorn api.main:app --port 8000          # read + review API
+cd web && npm install && npm run dev             # Next.js explorer at http://localhost:3000
+```
+
+The explorer is faceted, biology-aware program search; `/review` shows each extraction beside its
+source screenshot for labeling golden fixtures.
 
 ## Layout
 
 | Path | What |
 |---|---|
-| `pipeline_intel/gold/models.py` | Full medallion schema (SQLAlchemy) |
-| `pipeline_intel/ingest/` | Render (Playwright), hashing, storage, snapshot writer, per-company runner |
-| `pipeline_intel/extract/` | Extraction schema, versioned prompt, Claude vision extractor |
-| `pipeline_intel/quality/` | Golden-set eval harness, field-level scorer, fixture scaffolder |
-| `pipeline_intel/normalize/` | Phase/modality vocab normalizer (dictionary + preclean) |
-| `pipeline_intel/gold/upsert.py` | Thin silver→gold loader (SCD2, asset dedup, provenance) |
-| `pipeline_intel/search/` | Shared query layer over gold (facets, drill-down) |
-| `api/` | FastAPI read + review service |
-| `web/` | Next.js explorer + review UI |
-| `pipeline_intel/registry/` | Vocab + company-registry seed loaders |
-| `config/` | `companies.seed.yaml`, `vocab/phase.yaml`, `vocab/modality.yaml` |
-| `migrations/` | Alembic |
-| `tests/` | Unit + DB-backed tests |
+| `pipeline_intel/onboard.py` | Capstone: name+ticker → resolve → register → scrape |
+| `pipeline_intel/company_resolver.py` | Search-then-crawl pipeline-URL resolver (Firecrawl) + content validation |
+| `pipeline_intel/firecrawl_client.py` | Firecrawl search / map / scrape (REST, optional) |
+| `pipeline_intel/batch.py` | Concurrent gated factory: render→extract→QA→load state machine |
+| `pipeline_intel/ingest/` | Render (Playwright), document fetch+parse, source classification, snapshots, storage |
+| `pipeline_intel/extract/` | Extraction schema, text/document extractor, two-pass visual extractor, batch API |
+| `pipeline_intel/quality/` | LLM-as-judge QA, golden-set scorer + eval gate, fixture labeling |
+| `pipeline_intel/evals.py` + `evals/` | Trusted-count completeness gate (curated ground truth) |
+| `pipeline_intel/coverage.py` | Factory observability report |
+| `pipeline_intel/gold/` | Medallion schema (SQLAlchemy) + thin silver→gold loader (SCD2) |
+| `pipeline_intel/normalize/`, `ontology/`, `search/` | Vocab normalization, EFO/MONDO mapping + adjacency, query layer |
+| `pipeline_intel/history/` | Longitudinal change-event feed (program_version diffs) |
+| `api/`, `web/` | FastAPI read+review service; Next.js explorer/review UI |
+| `config/`, `migrations/` | Registry + vocab seeds; Alembic |
+
+## Configuration (`.env`)
+
+- `DATABASE_URL` — Postgres (local default matches `docker-compose.yml`).
+- `ANTHROPIC_API_KEY` — extraction + QA (Claude). `FIRECRAWL_API_KEY` — discovery + JS-page fallback (optional; those paths no-op without it).
+- `ARTIFACT_BACKEND` — `local` (dev) or `s3` (Supabase Storage / R2), same key scheme.
+- Good-citizen scraping: robots respected, rate-limited; certs ignored for scrappy small-cap sites (public pages only).
 
 ## Tests / lint
 
 ```bash
-uv run ruff check .
+uv run ruff check pipeline_intel/ api/ tests/
 uv run pytest -q          # DB-backed tests skip if no Postgres is reachable
 ```
-
-## Notes
-
-- **Storage** is local filesystem in dev (`./artifacts`), swappable to S3-compatible
-  (Supabase Storage / R2) by setting `ARTIFACT_BACKEND=s3` — same key scheme.
-- **Registry URLs** in the seed are best-effort anchors for the top-cap pharma and are
-  verified/corrected during M1 rendering (the DB is the source of truth at runtime).
-- **Good-citizen scraping**: robots.txt is respected, requests are rate-limited and
-  identify the crawler (see `.env.example`).
