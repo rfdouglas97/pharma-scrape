@@ -16,9 +16,13 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from pipeline_intel.gold.models import Snapshot
+from pipeline_intel.ingest.fetch_doc import DocFetch
 from pipeline_intel.ingest.hashing import content_hash
+from pipeline_intel.ingest.parse_doc import ParsedDoc
 from pipeline_intel.ingest.render import RenderResult
 from pipeline_intel.ingest.storage import Storage
+
+_DOC_EXT = {"csv": ".csv", "xlsx": ".xlsx", "pdf": ".pdf"}
 
 
 def _artifact_prefix(company_slug: str, source_id: str, h: str) -> str:
@@ -83,6 +87,62 @@ def write_snapshot(
             "pipeline_image_keys": image_keys,
             "pipeline_image_errors": image_errors,
         },
+        unchanged=False,
+    )
+    s.add(snap)
+    s.flush()
+    return snap, True
+
+
+def write_doc_snapshot(
+    s: Session,
+    storage: Storage,
+    source_id: str,
+    company_slug: str,
+    doc: DocFetch,
+    parsed: ParsedDoc,
+) -> tuple[Snapshot, bool]:
+    """Bronze snapshot for the document-ingestion path. Hash is over the parsed text so a
+    re-export with identical content (different bytes) is still detected as unchanged. Stores
+    the raw document bytes + parsed text; no screenshot/html. Returns (snapshot, changed)."""
+    h = content_hash(parsed.text)
+    prev = latest_hash(s, source_id)
+    changed = h != prev
+
+    base_meta = {
+        "source_kind": "document",
+        "doc_url": doc.url,
+        "doc_content_type": doc.content_type,
+        "doc_kind": parsed.kind,
+        "n_pages": parsed.n_pages,
+    }
+    if not changed:
+        snap = Snapshot(
+            source_id=source_id,
+            http_status=doc.http_status,
+            content_hash=h,
+            render_meta=base_meta,
+            unchanged=True,
+        )
+        s.add(snap)
+        s.flush()
+        return snap, False
+
+    prefix = _artifact_prefix(company_slug, source_id, h)
+    ext = doc.ext or _DOC_EXT.get(parsed.kind, ".bin")
+    doc_key = storage.put(
+        f"{prefix}/source{ext}", doc.raw_bytes, doc.content_type or "application/octet-stream"
+    )
+    text_key = storage.put(f"{prefix}/page.txt", parsed.text.encode("utf-8"), "text/plain")
+
+    snap = Snapshot(
+        source_id=source_id,
+        http_status=doc.http_status,
+        content_hash=h,
+        html_key=None,
+        screenshot_keys=[],
+        pdf_keys=[doc_key] if parsed.kind == "pdf" else [],
+        render_meta={**base_meta, "doc_key": doc_key, "text_key": text_key},
         unchanged=False,
     )
     s.add(snap)

@@ -14,9 +14,14 @@ from sqlalchemy import or_, select
 from pipeline_intel.config import settings
 from pipeline_intel.db import session
 from pipeline_intel.gold.models import Company, CompanySource, JobRun
+from pipeline_intel.ingest.classify import classify_rendered_page, sniff_url_type
+from pipeline_intel.ingest.fetch_doc import DocFetchError, fetch_document
+from pipeline_intel.ingest.parse_doc import parse_document
 from pipeline_intel.ingest.render import RenderError, render, robots_allows
-from pipeline_intel.ingest.snapshot import write_snapshot
+from pipeline_intel.ingest.snapshot import write_doc_snapshot, write_snapshot
 from pipeline_intel.ingest.storage import get_storage
+
+DOC_SOURCE_TYPES = {"csv_doc", "xlsx_doc", "pdf_doc"}
 
 
 def _slug(name: str) -> str:
@@ -59,12 +64,28 @@ def run_company(company_query: str) -> dict:
                 failed += 1
                 per_source.append(entry)
                 continue
+            doc_type = src.source_type if src.source_type in DOC_SOURCE_TYPES else sniff_url_type(src.url)
             try:
-                result = render(src.url, src.render_config)
-                snap, did_change = write_snapshot(s, storage, src.source_id, slug, result)
+                if doc_type:
+                    doc = fetch_document(src.url)
+                    parsed = parse_document(doc.raw_bytes, content_type=doc.content_type, ext=doc.ext)
+                    snap, did_change = write_doc_snapshot(s, storage, src.source_id, slug, doc, parsed)
+                    if not src.source_type:
+                        src.source_type = doc_type
+                    kind = doc_type
+                else:
+                    result = render(src.url, src.render_config)
+                    snap, did_change = write_snapshot(s, storage, src.source_id, slug, result)
+                    # Classify the rendered page from real evidence so model routing reacts
+                    # (image-backed pipelines escalate). Reflects the latest render.
+                    kind = classify_rendered_page(
+                        result.html, result.text, result.meta.get("pipeline_image_urls")
+                    )
+                    src.source_type = kind
                 company.pipeline_status = "render_ok"
                 entry |= {
                     "status": "ok",
+                    "source_type": kind,
                     "snapshot_id": snap.snapshot_id,
                     "http_status": snap.http_status,
                     "content_hash": snap.content_hash[:12],
@@ -73,7 +94,7 @@ def run_company(company_query: str) -> dict:
                 ok += 1
                 changed += int(did_change)
                 unchanged += int(not did_change)
-            except RenderError as exc:
+            except (RenderError, DocFetchError, ValueError) as exc:
                 entry |= {"status": "render_failed", "error": str(exc)}
                 company.pipeline_status = "failed"
                 failed += 1

@@ -28,6 +28,25 @@ PIPELINE_IMAGE_HINTS = (
 )
 
 
+# Generic escalation applied when render_config.repair_mode is set: a re-render that tries
+# harder to surface lazily-loaded or collapsed pipeline content, without per-site config.
+GENERIC_DISMISS_SELECTORS = (
+    "#onetrust-accept-btn-handler",
+    "[aria-label='Accept all']",
+    "button:has-text('Accept All')",
+    "button:has-text('Accept')",
+    "button:has-text('I Agree')",
+    ".cookie-accept",
+)
+GENERIC_EXPAND_SELECTORS = (
+    "button:has-text('Show more')",
+    "button:has-text('Load more')",
+    "button:has-text('View all')",
+    "[aria-expanded='false']",
+    ".accordion__button",
+)
+
+
 @dataclass
 class RenderResult:
     url: str
@@ -36,6 +55,28 @@ class RenderResult:
     text: str
     screenshot: bytes
     meta: dict = field(default_factory=dict)
+
+
+def _merge_selectors(site: list[str] | None, generic: tuple[str, ...]) -> list[str]:
+    out = list(site or [])
+    for sel in generic:
+        if sel not in out:
+            out.append(sel)
+    return out
+
+
+def repair_render_config(cfg: dict | None) -> dict:
+    """Escalated render config for repair-mode re-rendering: longer settle, full-page shot,
+    scroll to trigger lazy-load, and generic cookie/expand selectors merged with per-site ones.
+    Pure + idempotent so it is unit-testable without a browser."""
+    cfg = dict(cfg or {})
+    cfg["wait_until"] = cfg.get("wait_until", "networkidle")
+    cfg["wait_ms"] = max(int(cfg.get("wait_ms", 1500)), 3500)
+    cfg["full_page"] = True
+    cfg["scroll"] = True
+    cfg["dismiss_selectors"] = _merge_selectors(cfg.get("dismiss_selectors"), GENERIC_DISMISS_SELECTORS)
+    cfg["expand_selectors"] = _merge_selectors(cfg.get("expand_selectors"), GENERIC_EXPAND_SELECTORS)
+    return cfg
 
 
 def robots_allows(url: str, user_agent: str) -> bool:
@@ -71,6 +112,8 @@ def render(url: str, render_config: dict | None = None) -> RenderResult:
     from playwright.sync_api import sync_playwright  # noqa: PLC0415 — heavy import, defer
 
     cfg = render_config or {}
+    if cfg.get("repair_mode"):
+        cfg = repair_render_config(cfg)
     s = settings()
     wait_until = cfg.get("wait_until", "networkidle")
     wait_ms = int(cfg.get("wait_ms", 1500))
@@ -99,6 +142,21 @@ def render(url: str, render_config: dict | None = None) -> RenderResult:
                     el.click(timeout=1500)
                 except Exception:
                     pass
+
+        if cfg.get("scroll"):
+            # Scroll to the bottom in steps to trigger lazy-loaded pipeline rows, then reset.
+            try:
+                prev_height = -1
+                for _ in range(20):
+                    page.mouse.wheel(0, 4000)
+                    page.wait_for_timeout(400)
+                    height = page.evaluate("document.body.scrollHeight")
+                    if height == prev_height:
+                        break
+                    prev_height = height
+                page.evaluate("window.scrollTo(0, 0)")
+            except Exception:
+                pass
 
         page.wait_for_timeout(wait_ms)
 

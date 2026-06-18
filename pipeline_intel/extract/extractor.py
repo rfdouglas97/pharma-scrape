@@ -91,7 +91,10 @@ def extract_snapshot(
     snap = s.get(Snapshot, snapshot_id)
     if snap is None:
         return ExtractionOutcome(None, "failed", 0, 0, "snapshot not found")
-    if snap.unchanged or not snap.html_key:
+    meta = snap.render_meta or {}
+    is_document = meta.get("source_kind") == "document"
+    has_artifact = bool(snap.html_key or meta.get("text_key") or snap.screenshot_keys)
+    if snap.unchanged or not has_artifact:
         # Unchanged snapshots carry no artifacts and need no re-extraction.
         return ExtractionOutcome(None, "skipped", 0, 0, "unchanged snapshot — nothing to extract")
 
@@ -120,20 +123,21 @@ def extract_snapshot(
     if not include_screenshots:
         screenshots = []
 
+    input_mode = "document" if is_document else _input_mode(include_screenshots, linked_image_count)
     ext = Extraction(
         snapshot_id=snapshot_id,
         model=model,
         prompt_version=f"{prompt.PROMPT_VERSION}/{EXTRACTION_SCHEMA_VERSION}",
         status="ok",
         usage={
-            "input_mode": _input_mode(include_screenshots, linked_image_count),
+            "input_mode": input_mode,
             "linked_pipeline_images": linked_image_count,
         },
     )
 
     try:
         result, usage, stop_reason = call_with_timeout(
-            lambda: run_extraction(company_name, url, page_text, screenshots, model),
+            lambda: run_extraction(company_name, url, page_text, screenshots, model, large=is_document),
             settings().extraction_timeout_seconds,
             "extraction",
         )
@@ -145,7 +149,8 @@ def extract_snapshot(
         return ExtractionOutcome(ext.extraction_id, "failed", 0, 0, str(exc))
 
     ext.raw_json = result.model_dump()
-    ext.usage = usage
+    # Preserve the input_mode/linked-image tags set at creation; merge in API token usage.
+    ext.usage = {**(ext.usage or {}), **usage}
     n_assets = len(result.assets)
     n_programs = sum(len(a.programs) for a in result.assets)
 
@@ -172,11 +177,16 @@ def run_extraction(
     page_text: str,
     screenshots: list[bytes],
     model: str = DEFAULT_EXTRACTION_MODEL,
+    large: bool = False,
 ) -> tuple[ExtractionResult, dict, str | None]:
-    """Pure LLM call: messages -> validated ExtractionResult. No DB. Reused by the eval harness."""
+    """Pure LLM call: messages -> validated ExtractionResult. No DB. Reused by the eval harness.
+
+    `large` forces the high-ceiling streaming path even with no screenshots — used for
+    document sources (parsed spreadsheets/PDFs) whose pipelines can exceed the cheap
+    text-only output budget."""
     client = get_client()
     messages = build_messages(company_name, url, page_text, screenshots)
-    if not screenshots:
+    if not screenshots and not large:
         from pipeline_intel.extract.batch_api import extraction_output_config
 
         response = client.messages.create(
@@ -190,20 +200,25 @@ def run_extraction(
         text = _message_text(response)
         result = ExtractionResult.model_validate_json(text)
         return result, _usage_dict(response), response.stop_reason
-    with client.messages.stream(
-        model=model,
-        max_tokens=MAX_OUTPUT_TOKENS,
-        thinking={"type": "adaptive"},
-        system=[
+    # Documents (large text, no screenshots) are clean structured tables -> transcription, not
+    # reasoning. Skipping adaptive thinking roughly halves latency and avoids timeouts on big
+    # pipelines; vision pages keep thinking for chart/phase-bar interpretation.
+    stream_kwargs: dict = {
+        "model": model,
+        "max_tokens": MAX_OUTPUT_TOKENS,
+        "system": [
             {
                 "type": "text",
                 "text": prompt.SYSTEM_PROMPT,
                 "cache_control": {"type": "ephemeral"},
             }
         ],
-        messages=messages,
-        output_format=ExtractionResult,
-    ) as stream:
+        "messages": messages,
+        "output_format": ExtractionResult,
+    }
+    if screenshots:
+        stream_kwargs["thinking"] = {"type": "adaptive"}
+    with client.messages.stream(**stream_kwargs) as stream:
         response = stream.get_final_message()
     usage = {
         "input_tokens": response.usage.input_tokens,
