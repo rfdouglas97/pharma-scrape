@@ -27,7 +27,17 @@ def test_passes_when_stated_count_matches_asset_count():
     assert verdict.verdict == "pass"
 
 
-def test_fails_when_neither_count_is_close():
+def test_fails_when_known_count_far_off():
+    # a TRUSTED registry count that's far off hard-fails
     result = _result(n_assets=3, programs_per_asset=1)  # 3 assets, 3 programs
     verdict, _, _ = deterministic_verdict(result, "", known_expected_count=50)
     assert verdict.verdict == "fail"
+
+
+def test_inferred_count_mismatch_only_warns():
+    # a count scraped from page/PDF text is a soft signal (e.g. it grabbed a per-phase
+    # subtotal) -> warn and let it load, do not block on it.
+    result = _result(n_assets=3, programs_per_asset=1)  # 3
+    verdict, expected, _ = deterministic_verdict(result, "Our pipeline includes 50 programs.")
+    assert expected == 50
+    assert verdict.verdict == "warn"

@@ -40,9 +40,11 @@ def test_deterministic_verdict_passes_close_count():
 
 
 def test_deterministic_verdict_fails_large_count_mismatch():
+    # Only a TRUSTED registry count hard-fails on a large mismatch; inferred page counts warn.
     verdict, expected, observed = deterministic_verdict(
         _result(40),
         "Our pipeline includes 57 assets across phases.",
+        known_expected_count=57,
     )
     assert verdict.verdict == "fail"
     assert expected == 57

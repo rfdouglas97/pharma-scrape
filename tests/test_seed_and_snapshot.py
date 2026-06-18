@@ -29,29 +29,29 @@ def test_seed_is_idempotent():
         assert s.get(PhaseVocab, "phase_2") is not None
 
 
-def test_hash_skip(tmp_path):
+def test_hash_skip(tx, tmp_path):
+    # `tx` is rolled back, so the snapshots written here never pollute the dev DB.
     seed_all()
     store = LocalStorage(str(tmp_path))
-    with session() as s:
-        src = s.execute(select(CompanySource).limit(1)).scalar_one()
-        source_id = src.source_id
+    src = tx.execute(select(CompanySource).limit(1)).scalar_one()
+    source_id = src.source_id
 
-        rr = RenderResult(
-            url=src.url, http_status=200,
-            html="<html>Phase 2 NSCLC</html>", text="Phase 2 NSCLC",
-            screenshot=b"\x89PNG-fake", meta={},
-        )
-        snap1, changed1 = write_snapshot(s, store, source_id, "testco", rr)
-        assert changed1 is True
-        assert snap1.html_key is not None  # artifacts written on change
+    rr = RenderResult(
+        url=src.url, http_status=200,
+        html="<html>Phase 2 NSCLC</html>", text="Phase 2 NSCLC",
+        screenshot=b"\x89PNG-fake", meta={},
+    )
+    snap1, changed1 = write_snapshot(tx, store, source_id, "testco", rr)
+    assert changed1 is True
+    assert snap1.html_key is not None  # artifacts written on change
 
-        # Identical content -> unchanged, no artifacts
-        snap2, changed2 = write_snapshot(s, store, source_id, "testco", rr)
-        assert changed2 is False
-        assert snap2.html_key is None
+    # Identical content -> unchanged, no artifacts
+    snap2, changed2 = write_snapshot(tx, store, source_id, "testco", rr)
+    assert changed2 is False
+    assert snap2.html_key is None
 
-        # Different content -> changed again
-        rr.text = "Phase 3 NSCLC"
-        snap3, changed3 = write_snapshot(s, store, source_id, "testco", rr)
-        assert changed3 is True
-        assert snap3.html_key is not None
+    # Different content -> changed again
+    rr.text = "Phase 3 NSCLC"
+    snap3, changed3 = write_snapshot(tx, store, source_id, "testco", rr)
+    assert changed3 is True
+    assert snap3.html_key is not None

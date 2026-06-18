@@ -105,6 +105,7 @@ def deterministic_verdict(
     previous_observed_count: int | None = None,
 ) -> tuple[QAVerdict, int | None, int]:
     expected = infer_expected_count(page_text, known_expected_count)
+    is_known_count = known_expected_count is not None
     observed = observed_asset_count(result)
     observed_programs = observed_program_count(result)
     mismatches: list[CountMismatch] = []
@@ -128,14 +129,23 @@ def deterministic_verdict(
         delta = abs(expected - best)
         tolerance = max(2, round(expected * 0.1))
         detail_counts = f"(assets={observed}, programs={observed_programs}, expected={expected})"
-        if delta > tolerance:
+        if delta > tolerance and is_known_count:
+            # Only a TRUSTED registry count hard-fails. Counts scraped from page/PDF text are
+            # too noisy to block on (they pick up per-phase subtotals like "7 NMEs").
             verdict = "fail"
             confidence = 0.95
             mismatches.append(CountMismatch(
                 label="asset_or_program_count", expected=expected, observed=best,
-                detail=f"Neither asset nor program count is within tolerance {detail_counts}.",
+                detail=f"Neither asset nor program count is within tolerance of known total {detail_counts}.",
             ))
             action = "focused_reextract_missing_sections"
+        elif delta > tolerance:
+            verdict = "warn"
+            confidence = 0.80
+            mismatches.append(CountMismatch(
+                label="asset_or_program_count", expected=expected, observed=best,
+                detail=f"Inferred page count differs from extraction (soft signal) {detail_counts}.",
+            ))
         elif delta:
             verdict = "warn"
             confidence = 0.88
