@@ -462,6 +462,18 @@ def golden_scaffold(
     typer.echo(json.dumps(scaffold_from_snapshot(snapshot, fmt), indent=2))
 
 
+@app.command(name="resolve-source")
+def resolve_source_cmd(
+    company: str = typer.Option(..., "--company", "-c", help="Company name"),
+    ticker: str = typer.Option(None, "--ticker", "-t", help="Stock ticker (helps disambiguation)"),
+) -> None:
+    """Autonomously resolve a company's pipeline URL from just its name + ticker (LLM homepage
+    proposal -> render-validate -> homepage-nav finder). The front of hands-off discovery."""
+    from pipeline_intel.company_resolver import resolve_company_source
+
+    typer.echo(json.dumps(resolve_company_source(company, ticker), indent=2, default=str))
+
+
 @app.command(name="discover-url")
 def discover_url_cmd(
     company: str = typer.Option(..., "--company", "-c", help="Company name"),
