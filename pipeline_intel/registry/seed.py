@@ -20,6 +20,7 @@ from pipeline_intel.gold.models import (
     PhaseVocab,
     VocabMapping,
 )
+from pipeline_intel.source_discovery import rank_for_source_type
 
 CONFIG_DIR = Path(__file__).resolve().parents[2] / "config"
 
@@ -116,17 +117,30 @@ def seed_companies(s: Session) -> dict:
                 )
             ).scalar_one_or_none()
             if existing is None:
+                source_type = src.get("source_type", "pipeline_page")
                 s.add(
                     CompanySource(
                         company_id=company.company_id,
                         url=src["url"],
-                        source_type=src.get("source_type", "pipeline_page"),
+                        source_type=source_type,
+                        preferred_source_rank=src.get(
+                            "preferred_source_rank",
+                            rank_for_source_type(source_type),
+                        ),
+                        known_expected_count=src.get("known_expected_count"),
                         render_config=src.get("render_config", {}),
                     )
                 )
                 sources += 1
             else:
-                existing.source_type = src.get("source_type", "pipeline_page")
+                source_type = src.get("source_type", "pipeline_page")
+                existing.source_type = source_type
+                existing.preferred_source_rank = src.get(
+                    "preferred_source_rank",
+                    rank_for_source_type(source_type),
+                )
+                if "known_expected_count" in src:
+                    existing.known_expected_count = src["known_expected_count"]
                 if "render_config" in src:
                     existing.render_config = src["render_config"]
     return {"companies": companies, "sources": sources}

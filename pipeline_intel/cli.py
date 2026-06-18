@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import subprocess
+import sys
 
 import typer
 
@@ -11,7 +12,7 @@ app = typer.Typer(help="Pharma pipeline intelligence — ingestion & data CLI", 
 @app.command()
 def db_upgrade() -> None:
     """Apply Alembic migrations up to head."""
-    subprocess.run(["alembic", "upgrade", "head"], check=True)
+    subprocess.run([sys.executable, "-m", "alembic", "upgrade", "head"], check=True)
 
 
 @app.command()
@@ -56,6 +57,7 @@ def extract(
     snapshot: str = typer.Option(None, "--snapshot", "-s", help="Snapshot ID to extract"),
     company: str = typer.Option(None, "--company", "-c", help="Extract latest snapshot for company"),
     model: str = typer.Option(None, "--model", "-m", help="Override extraction model"),
+    text_only: bool = typer.Option(False, "--text-only", help="Do not send screenshots to the extractor"),
 ) -> None:
     """Run LLM extraction (silver) on a snapshot's artifacts. Needs ANTHROPIC_API_KEY."""
     from pipeline_intel.db import session
@@ -75,8 +77,59 @@ def extract(
 
     storage = get_storage()
     with session() as s:
-        outcome = extract_snapshot(s, storage, snapshot, model or DEFAULT_EXTRACTION_MODEL)
+        outcome = extract_snapshot(
+            s,
+            storage,
+            snapshot,
+            model or DEFAULT_EXTRACTION_MODEL,
+            include_screenshots=not text_only,
+        )
     typer.echo(json.dumps(outcome.__dict__, indent=2, default=str))
+
+
+batch_app = typer.Typer(help="Anthropic Message Batch workflows")
+app.add_typer(batch_app, name="model-batch")
+
+
+@batch_app.command(name="submit-extractions")
+def model_batch_submit_extractions(
+    limit: int = typer.Option(10, "--limit", "-n", help="Changed snapshots to submit"),
+    company: str = typer.Option(None, "--company", "-c", help="Optional company/ticker filter"),
+) -> None:
+    """Submit pending changed snapshots to Anthropic Message Batches for 50%-discount extraction."""
+    from pipeline_intel.db import session
+    from pipeline_intel.extract.batch_api import submit_extraction_batch
+    from pipeline_intel.ingest.storage import get_storage
+
+    with session() as s:
+        result = submit_extraction_batch(s, get_storage(), limit=limit, company=company)
+    typer.echo(json.dumps(result, indent=2, default=str))
+
+
+@batch_app.command(name="status")
+def model_batch_status(
+    batch_id: str = typer.Argument(..., help="Local model_batch_id or Anthropic provider batch id"),
+) -> None:
+    """Refresh and show an Anthropic Message Batch status."""
+    from pipeline_intel.db import session
+    from pipeline_intel.extract.batch_api import refresh_batch_status
+
+    with session() as s:
+        result = refresh_batch_status(s, batch_id)
+    typer.echo(json.dumps(result, indent=2, default=str))
+
+
+@batch_app.command(name="collect-extractions")
+def model_batch_collect_extractions(
+    batch_id: str = typer.Argument(..., help="Local model_batch_id or Anthropic provider batch id"),
+) -> None:
+    """Collect ended batch extraction results into silver extraction rows."""
+    from pipeline_intel.db import session
+    from pipeline_intel.extract.batch_api import collect_extraction_batch
+
+    with session() as s:
+        result = collect_extraction_batch(s, batch_id)
+    typer.echo(json.dumps(result, indent=2, default=str))
 
 
 @app.command()
@@ -126,6 +179,161 @@ def load(
 
         results = [load_extraction(s, eid).as_dict() for eid in ext_ids if eid]
     typer.echo(json.dumps({"loaded": len(results), "results": results}, indent=2))
+
+
+@app.command()
+def qa(
+    company: str = typer.Option(None, "--company", "-c", help="Company name/ticker to QA"),
+    extraction: str = typer.Option(None, "--extraction", "-e", help="Extraction ID to QA"),
+    model: str = typer.Option(None, "--model", "-m", help="Override QA judge model"),
+) -> None:
+    """Run autonomous QA for an extraction. Needs ANTHROPIC_API_KEY unless deterministic checks fail first."""
+    from sqlalchemy import select
+
+    from pipeline_intel.batch import resolve_company
+    from pipeline_intel.db import session
+    from pipeline_intel.gold.models import CompanySource, Extraction, Snapshot
+    from pipeline_intel.ingest.storage import get_storage
+    from pipeline_intel.quality.checker import QA_JUDGE_MODEL, run_quality_check
+
+    storage = get_storage()
+    with session() as s:
+        extraction_id = extraction
+        if not extraction_id and company:
+            c = resolve_company(s, company)
+            if c is None:
+                typer.echo(f"no company matching {company!r}")
+                raise typer.Exit(1)
+            extraction_id = s.execute(
+                select(Extraction.extraction_id)
+                .join(Snapshot, Snapshot.snapshot_id == Extraction.snapshot_id)
+                .join(CompanySource, CompanySource.source_id == Snapshot.source_id)
+                .where(CompanySource.company_id == c.company_id, Extraction.raw_json.isnot(None))
+                .order_by(Extraction.extracted_at.desc())
+                .limit(1)
+            ).scalar_one_or_none()
+        if not extraction_id:
+            typer.echo("provide --extraction or --company")
+            raise typer.Exit(1)
+        outcome = run_quality_check(s, storage, extraction_id, model=model or QA_JUDGE_MODEL)
+    typer.echo(json.dumps(outcome.as_dict(), indent=2, default=str))
+
+
+@app.command()
+def batch(
+    limit: int = typer.Option(10, "--limit", "-n", help="Number of companies to process"),
+    status: str = typer.Option("ready", "--status", help="pipeline_status to select, or ready"),
+    publish_mode: str = typer.Option("gated", "--publish-mode", help="gated or ungated"),
+    routing: str = typer.Option("smart", "--routing", help="smart | cheap | quality"),
+    escalate_opus: bool = typer.Option(True, "--escalate-opus/--no-escalate-opus"),
+) -> None:
+    """Run a gated scrape/extract/QA/load batch."""
+    from pipeline_intel.batch import run_batch
+
+    result = run_batch(
+        limit=limit,
+        status=status,
+        publish_mode=publish_mode,
+        routing=routing,
+        escalate_opus=escalate_opus,
+    )
+    typer.echo(json.dumps(result, indent=2, default=str))
+
+
+@app.command(name="cost-estimate")
+def cost_estimate(
+    companies: int = typer.Option(600, "--companies", "-n", help="Number of companies"),
+    batch_api: bool = typer.Option(True, "--batch-api/--no-batch-api"),
+    small_share: float = typer.Option(0.50, "--small-share", help="Tiny/simple company share"),
+    normal_share: float = typer.Option(0.35, "--normal-share", help="Normal company share"),
+    high_value_share: float = typer.Option(0.10, "--high-value-share", help="High-value company share"),
+    complex_share: float = typer.Option(0.05, "--complex-share", help="Large/complex company share"),
+) -> None:
+    """Estimate routed token cost for a company universe."""
+    from pipeline_intel.extract.client import HAIKU_MODEL, OPUS_MODEL, SONNET_MODEL
+    from pipeline_intel.model_routing import ModelRoute, estimate_company_cost
+
+    routes = {
+        "small": ModelRoute(
+            extraction_model=SONNET_MODEL,
+            qa_model=HAIKU_MODEL,
+            escalation_model=SONNET_MODEL,
+            complexity="small",
+            reason="small pipeline",
+        ),
+        "normal": ModelRoute(
+            extraction_model=SONNET_MODEL,
+            qa_model=SONNET_MODEL,
+            escalation_model=OPUS_MODEL,
+            complexity="normal",
+            reason="normal pipeline",
+        ),
+        "high_value": ModelRoute(
+            extraction_model=SONNET_MODEL,
+            qa_model=SONNET_MODEL,
+            escalation_model=OPUS_MODEL,
+            complexity="high_value",
+            reason="high-value appellate QA",
+        ),
+        "complex": ModelRoute(
+            extraction_model=OPUS_MODEL,
+            qa_model=SONNET_MODEL,
+            escalation_model=OPUS_MODEL,
+            complexity="complex",
+            reason="large/image-heavy pipeline",
+        ),
+    }
+    shares = {
+        "small": small_share,
+        "normal": normal_share,
+        "high_value": high_value_share,
+        "complex": complex_share,
+    }
+    total_share = sum(shares.values())
+    if abs(total_share - 1.0) > 0.001:
+        typer.echo(f"shares must sum to 1.0, got {total_share:.3f}")
+        raise typer.Exit(1)
+
+    estimates = {}
+    total = 0.0
+    for name, route in routes.items():
+        est = estimate_company_cost(route, batch=batch_api)
+        count = round(companies * shares[name])
+        subtotal = count * est["total_cost_usd"]
+        estimates[name] = {"companies": count, **est, "subtotal_usd": round(subtotal, 2)}
+        total += subtotal
+    typer.echo(json.dumps({
+        "companies": companies,
+        "batch_api": batch_api,
+        "segments": estimates,
+        "total_usd": round(total, 2),
+    }, indent=2, default=str))
+
+
+@app.command(name="repair")
+def repair(
+    company: str = typer.Option(..., "--company", "-c", help="Company name/ticker to mark for repair"),
+) -> None:
+    """Prepare a company for repair-mode rerendering on the next batch."""
+    from pipeline_intel.batch import repair_company
+
+    result = repair_company(company)
+    typer.echo(json.dumps(result, indent=2, default=str))
+
+
+@app.command(name="source-discover")
+def source_discover(
+    company: str = typer.Option(..., "--company", "-c", help="Company name/ticker to inspect"),
+    persist: bool = typer.Option(False, "--persist", help="Insert discovered candidate sources"),
+) -> None:
+    """Discover candidate pipeline files/URLs from already-captured artifacts."""
+    from pipeline_intel.db import session
+    from pipeline_intel.ingest.storage import get_storage
+    from pipeline_intel.source_discovery import discover_company_sources
+
+    with session() as s:
+        result = discover_company_sources(s, get_storage(), company, persist=persist)
+    typer.echo(json.dumps(result, indent=2, default=str))
 
 
 @app.command(name="rebuild-history")

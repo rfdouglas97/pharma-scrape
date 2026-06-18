@@ -56,6 +56,7 @@ class Company(Base):
     website: Mapped[str | None] = mapped_column(Text)
     parent_company_id: Mapped[str | None] = mapped_column(ForeignKey("company.company_id"))
     status: Mapped[str] = mapped_column(String(32), default="active")
+    pipeline_status: Mapped[str] = mapped_column(String(32), default="unverified_source")
     market_cap_usd: Mapped[int | None] = mapped_column(BigInteger)
     created_at: Mapped[datetime] = ts_now()
 
@@ -69,8 +70,10 @@ class CompanySource(Base):
     source_id: Mapped[str] = pk()
     company_id: Mapped[str] = mapped_column(ForeignKey("company.company_id"), nullable=False)
     url: Mapped[str] = mapped_column(Text, nullable=False)
-    source_type: Mapped[str] = mapped_column(String(32), default="pipeline_page")  # pipeline_page | pdf_doc
+    source_type: Mapped[str] = mapped_column(String(32), default="pipeline_page")
     render_config: Mapped[dict] = mapped_column(JSONB, default=dict)  # waits, click-to-expand, pagination
+    preferred_source_rank: Mapped[int] = mapped_column(Integer, default=50)
+    known_expected_count: Mapped[int | None] = mapped_column(Integer)
     active: Mapped[bool] = mapped_column(Boolean, default=True)
     added_at: Mapped[datetime] = ts_now()
 
@@ -120,6 +123,55 @@ class Extraction(Base):
     status: Mapped[str] = mapped_column(String(32), default="ok")  # ok | failed | needs_review
     usage: Mapped[dict] = mapped_column(JSONB, default=dict)
     error: Mapped[str | None] = mapped_column(Text)
+    qa_status: Mapped[str | None] = mapped_column(String(32))
+    qa_confidence: Mapped[float | None] = mapped_column(Numeric(4, 3))
+    qa_report: Mapped[dict] = mapped_column(JSONB, default=dict)
+    expected_count: Mapped[int | None] = mapped_column(Integer)
+    observed_count: Mapped[int | None] = mapped_column(Integer)
+    repair_attempts: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class QAReport(Base):
+    """Autonomous extraction quality verdict from deterministic checks plus an LLM judge."""
+
+    __tablename__ = "qa_report"
+    qa_report_id: Mapped[str] = pk()
+    extraction_id: Mapped[str] = mapped_column(ForeignKey("extraction.extraction_id"), nullable=False)
+    model: Mapped[str | None] = mapped_column(String(64))
+    verdict: Mapped[str] = mapped_column(String(16))  # pass | warn | fail
+    confidence: Mapped[float | None] = mapped_column(Numeric(4, 3))
+    expected_count: Mapped[int | None] = mapped_column(Integer)
+    observed_count: Mapped[int | None] = mapped_column(Integer)
+    missing_assets: Mapped[list] = mapped_column(JSONB, default=list)
+    extra_assets: Mapped[list] = mapped_column(JSONB, default=list)
+    suspicious_fields: Mapped[list] = mapped_column(JSONB, default=list)
+    count_mismatches: Mapped[list] = mapped_column(JSONB, default=list)
+    recommended_action: Mapped[str | None] = mapped_column(Text)
+    report: Mapped[dict] = mapped_column(JSONB, default=dict)
+    created_at: Mapped[datetime] = ts_now()
+
+    __table_args__ = (
+        Index("ix_qa_report_extraction_created", "extraction_id", "created_at"),
+    )
+
+
+class ModelBatch(Base):
+    """Durable Anthropic Message Batch submission metadata."""
+
+    __tablename__ = "model_batch"
+    model_batch_id: Mapped[str] = pk()
+    provider_batch_id: Mapped[str] = mapped_column(String(96), nullable=False, unique=True)
+    kind: Mapped[str] = mapped_column(String(32), nullable=False)  # extraction | qa
+    status: Mapped[str] = mapped_column(String(32), default="submitted")
+    request_count: Mapped[int] = mapped_column(Integer, default=0)
+    items: Mapped[dict] = mapped_column(JSONB, default=dict)
+    provider_response: Mapped[dict] = mapped_column(JSONB, default=dict)
+    created_at: Mapped[datetime] = ts_now()
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    __table_args__ = (
+        Index("ix_model_batch_kind_status", "kind", "status"),
+    )
 
 
 # --------------------------------------------------------------------------

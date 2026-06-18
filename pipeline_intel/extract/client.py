@@ -6,9 +6,13 @@ from functools import lru_cache
 
 from pipeline_intel.config import settings
 
-# Production extraction model (per ENGINEERING_PLAN). The golden-set eval can compare
-# this against cheaper tiers (Sonnet 4.6, Haiku 4.5) to pick the cheapest that holds the bar.
-DEFAULT_EXTRACTION_MODEL = "claude-opus-4-8"
+HAIKU_MODEL = "claude-haiku-4-5"
+SONNET_MODEL = "claude-sonnet-4-6"
+OPUS_MODEL = "claude-opus-4-8"
+
+# Cost-aware production default: Sonnet handles normal extraction; Opus is reserved for
+# routing/escalation when the QA gate or source complexity says frontier reasoning matters.
+DEFAULT_EXTRACTION_MODEL = SONNET_MODEL
 
 
 @lru_cache

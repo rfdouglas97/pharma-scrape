@@ -40,7 +40,7 @@ def run_company(company_query: str) -> dict:
             select(CompanySource).where(
                 CompanySource.company_id == company.company_id,
                 CompanySource.active.is_(True),
-            )
+            ).order_by(CompanySource.preferred_source_rank, CompanySource.added_at)
         ).scalars().all()
 
         job = JobRun(kind="ingest", company_id=company.company_id, status="running")
@@ -62,6 +62,7 @@ def run_company(company_query: str) -> dict:
             try:
                 result = render(src.url, src.render_config)
                 snap, did_change = write_snapshot(s, storage, src.source_id, slug, result)
+                company.pipeline_status = "render_ok"
                 entry |= {
                     "status": "ok",
                     "snapshot_id": snap.snapshot_id,
@@ -74,6 +75,7 @@ def run_company(company_query: str) -> dict:
                 unchanged += int(not did_change)
             except RenderError as exc:
                 entry |= {"status": "render_failed", "error": str(exc)}
+                company.pipeline_status = "failed"
                 failed += 1
             time.sleep(s_settings.crawler_delay_seconds)
             per_source.append(entry)

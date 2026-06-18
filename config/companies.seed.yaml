@@ -170,3 +170,19 @@ companies:
     website: https://www.biontech.com
     sources:
       - url: https://www.biontech.com/int/en/home/pipeline-and-products/pipeline.html
+
+  - name: MeiraGTx
+    ticker: MGTX
+    exchange: NASDAQ
+    country: UK
+    website: https://meiragtx.com
+    sources:
+      - url: https://meiragtx.com/programs-pipeline/pipeline/
+
+  - name: Krystal Biotech
+    ticker: KRYS
+    exchange: NASDAQ
+    country: USA
+    website: https://www.krystalbio.com
+    sources:
+      - url: https://www.krystalbio.com/science/pipeline/

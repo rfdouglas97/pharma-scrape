@@ -16,6 +16,8 @@ class Settings(BaseSettings):
     artifact_s3_secret_key: str | None = None
 
     anthropic_api_key: str | None = None
+    extraction_timeout_seconds: int = 240
+    qa_timeout_seconds: int = 120
 
     crawler_user_agent: str = "PipelineIntelBot/0.1"
     crawler_delay_seconds: float = 1.0
