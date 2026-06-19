@@ -1,4 +1,5 @@
 from pipeline_intel.company_resolver import (
+    _is_news_url,
     _name_token,
     _on_company_domain,
     resolve_company_source,
@@ -35,6 +36,24 @@ def test_on_company_domain_matches_ticker_domain():
     assert _on_company_domain("https://www.dwtx.com/pipeline", "dogwood", "DWTX") is True
     assert _on_company_domain("https://ir.dwtx.com/news", "dogwood", "DWTX") is True
     assert _on_company_domain("https://www.dwtx.com/pipeline", "dogwood", None) is False
+
+
+def test_is_news_url_blocks_press_releases():
+    assert _is_news_url("https://ir.x.com/news/press-releases/detail/1/foo") is True
+    assert _is_news_url("https://x.com/index.php/investors/news-center/press-releases/1") is True
+    assert _is_news_url("https://x.com/media/2025/announcement") is True
+    # real pipeline pages (incl. on an investor subdomain) are NOT news
+    assert _is_news_url("https://x.com/pipeline/pipeline-oncology") is False
+    assert _is_news_url("https://investor.jnj.com/pipeline/default.aspx") is False
+
+
+def test_resolver_never_sources_from_news():
+    # a press release that WOULD content-validate must still be skipped -> unresolved.
+    def search(_q):
+        return [{"url": "https://acme.com/news/press-releases/123-acme-phase-2-data"}]
+    out = resolve_company_source("Acme", "ACME", render_fn=_rr(PIPE_HTML, PIPE_TEXT),
+                                 search_fn=search, map_fn=lambda _r: [])
+    assert out["pipeline_url"] is None and out["validated"] is False
 
 
 def test_validate_accepts_phase_rich_page():

@@ -104,6 +104,17 @@ def _on_company_domain(url: str, name_token: str, ticker: str | None = None) -> 
     return bool(ticker) and ticker.lower() == registrable.split(".")[0]
 
 
+# A pipeline source must never be a news / press-release / blog page (a financing or
+# clinical-update press release can mention phases and otherwise pass the content check).
+_NEWS_PATH_HINTS = ("news", "press", "/media", "/blog", "announce", "/pr/")
+
+
+def _is_news_url(url: str) -> bool:
+    from urllib.parse import urlparse
+
+    return any(h in urlparse(url).path.lower() for h in _NEWS_PATH_HINTS)
+
+
 def _root_url(url: str) -> str:
     """The company's registrable-domain root, e.g. .../science/x on aligos.com -> https://aligos.com."""
     from urllib.parse import urlparse
@@ -155,6 +166,8 @@ def resolve_company_source(
                     continue
                 seen.add(url)
                 company_root = company_root or _root_url(url)
+                if _is_news_url(url):
+                    continue  # never source a pipeline from a news/press page
                 own_results.append((url, res.get("title") or ""))
     except FirecrawlError as exc:
         # transient (rate limit / network) — retryable, NOT a genuine "unresolved".
@@ -174,7 +187,8 @@ def resolve_company_source(
             out.update(transient=True, error=str(exc)[:160])
             return out
         links = [ln for ln in mapped
-                 if ln.get("url") and _on_company_domain(ln["url"], name_token, ticker)]
+                 if ln.get("url") and _on_company_domain(ln["url"], name_token, ticker)
+                 and not _is_news_url(ln["url"])]
         ranked = sorted(links, key=lambda ln: -_score_pipeline_link(ln["url"], ln.get("title") or ""))
         for ln in ranked[:6]:
             if ln["url"] in seen:
