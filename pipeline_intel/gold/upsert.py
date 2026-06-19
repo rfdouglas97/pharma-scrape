@@ -168,6 +168,15 @@ def _link_target(s: Session, asset_id: str, verbatim: str, extraction_id: str) -
                           source_extraction_id=extraction_id))
 
 
+def _clamp(value: str | None, maxlen: int) -> str | None:
+    """Truncate a model-provided string to its DB column length. The model sometimes drops a
+    verbose value into a short column (e.g. a full deal description into `role` (varchar 64)),
+    which would otherwise crash the whole gold load with StringDataRightTruncation."""
+    if value is None:
+        return None
+    return value if len(value) <= maxlen else value[: maxlen - 1] + "…"
+
+
 def _link_partner(s: Session, asset_id: str, name: str, role, territory, extraction_id: str) -> None:
     exists = s.execute(
         select(Partnership).where(
@@ -176,7 +185,7 @@ def _link_partner(s: Session, asset_id: str, name: str, role, territory, extract
         )
     ).scalar_one_or_none()
     if exists is None:
-        s.add(Partnership(asset_id=asset_id, partner_name_verbatim=name, role=role,
+        s.add(Partnership(asset_id=asset_id, partner_name_verbatim=name, role=_clamp(role, 64),
                           territory=territory, source_extraction_id=extraction_id))
 
 
