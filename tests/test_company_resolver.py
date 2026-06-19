@@ -29,6 +29,14 @@ def test_on_company_domain_filters_aggregators():
     assert _on_company_domain("https://sec.gov/filing", "acme") is False
 
 
+def test_on_company_domain_matches_ticker_domain():
+    # many biotechs use a ticker domain (Dogwood Therapeutics -> dwtx.com), which the
+    # name token wouldn't match.
+    assert _on_company_domain("https://www.dwtx.com/pipeline", "dogwood", "DWTX") is True
+    assert _on_company_domain("https://ir.dwtx.com/news", "dogwood", "DWTX") is True
+    assert _on_company_domain("https://www.dwtx.com/pipeline", "dogwood", None) is False
+
+
 def test_validate_accepts_phase_rich_page():
     sig = validate_pipeline_page("https://acme.com/pipeline", "Acme", _rr(PIPE_HTML, PIPE_TEXT))
     assert sig["ok"] is True

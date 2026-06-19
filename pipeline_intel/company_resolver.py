@@ -88,15 +88,20 @@ _AGGREGATOR_DOMAINS = (
 )
 
 
-def _on_company_domain(url: str, name_token: str) -> bool:
-    """True when the URL is on the company's OWN domain (not a news/aggregator site)."""
+def _on_company_domain(url: str, name_token: str, ticker: str | None = None) -> bool:
+    """True when the URL is on the company's OWN domain (not a news/aggregator site). Matches
+    the company name OR the ticker as the domain — many biotechs use a ticker domain (Dogwood
+    Therapeutics -> dwtx.com)."""
     from urllib.parse import urlparse
 
     netloc = urlparse(url).netloc.lower()
     if any(agg in netloc for agg in _AGGREGATOR_DOMAINS):
         return False
     registrable = ".".join(netloc.replace("www.", "").split(".")[-2:])
-    return name_token in registrable or name_token in netloc
+    if name_token in registrable or name_token in netloc:
+        return True
+    # ticker as the domain's primary label, e.g. dwtx.com / ir.dwtx.com for DWTX.
+    return bool(ticker) and ticker.lower() == registrable.split(".")[0]
 
 
 def _root_url(url: str) -> str:
@@ -136,23 +141,29 @@ def resolve_company_source(
             return True
         return False
 
-    # (i) search "<company> pipeline" -> content-check the company's own-domain results.
+    # (i) search "<company> pipeline" -> gather the company's own-domain results, then content-
+    # check them PIPELINE-PATH FIRST (so a /pipeline page is preferred over a /news press release
+    # that merely mentions phases).
     company_root: str | None = None
     seen: set[str] = set()
+    own_results: list[tuple[str, str]] = []
     try:
         for query in (f"{name} pipeline", f"{name} drug development pipeline"):
             for res in search(query):
                 url = res.get("url")
-                if not url or url in seen or not _on_company_domain(url, name_token):
+                if not url or url in seen or not _on_company_domain(url, name_token, ticker):
                     continue
                 seen.add(url)
                 company_root = company_root or _root_url(url)
-                if _accept(url, "firecrawl_search"):
-                    return out
+                own_results.append((url, res.get("title") or ""))
     except FirecrawlError as exc:
         # transient (rate limit / network) — retryable, NOT a genuine "unresolved".
         out.update(transient=True, error=str(exc)[:160])
         return out
+
+    for url, _title in sorted(own_results, key=lambda r: -_score_pipeline_link(r[0], r[1])):
+        if _accept(url, "firecrawl_search"):
+            return out
 
     # (ii) map the company site for "pipeline" -> content-check the ranked candidates.
     if company_root:
@@ -163,7 +174,7 @@ def resolve_company_source(
             out.update(transient=True, error=str(exc)[:160])
             return out
         links = [ln for ln in mapped
-                 if ln.get("url") and _on_company_domain(ln["url"], name_token)]
+                 if ln.get("url") and _on_company_domain(ln["url"], name_token, ticker)]
         ranked = sorted(links, key=lambda ln: -_score_pipeline_link(ln["url"], ln.get("title") or ""))
         for ln in ranked[:6]:
             if ln["url"] in seen:
