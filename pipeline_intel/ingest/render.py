@@ -227,13 +227,21 @@ def _firecrawl_render(url: str, wait_ms: int) -> RenderResult | None:
     )
 
 
+# HTTP statuses where the site is BLOCKING the scraper (bot-wall / rate limit / edge throttle),
+# not where the page is genuinely missing — worth retrying through Firecrawl, which renders from
+# its own infrastructure and often gets past edge bot-blocks (e.g. Vertex 403s a datacenter UA).
+_BOT_BLOCK_STATUSES = (401, 403, 429, 503)
+
+
 def render_with_fallback(
     url: str, render_config: dict | None = None, *, allow_firecrawl: bool = True
 ) -> RenderResult:
-    """Render via Playwright, falling back to Firecrawl when Playwright errors or returns a
-    JS-empty page. This single wrapper hardens BOTH discovery (resolver validation) and ingest:
-      - on RenderError -> Firecrawl markdown (instead of a terminal failure);
-      - on a poor render -> Firecrawl, kept only if it surfaces more pipeline text.
+    """Render via Playwright, falling back to Firecrawl when Playwright errors, is bot-blocked, or
+    returns a JS-empty page. This single wrapper hardens BOTH discovery (resolver validation) and
+    ingest:
+      - on RenderError              -> Firecrawl markdown (instead of a terminal failure);
+      - on a bot-block (403/429/…)  -> Firecrawl outright (the body is a challenge page, not data);
+      - on a poor render            -> Firecrawl, kept only if it surfaces more pipeline text.
     No-ops to plain `render` when the fallback is disabled or no Firecrawl key is configured."""
     from pipeline_intel.ingest.classify import phase_hits  # noqa: PLC0415 — avoid import cycle
 
@@ -250,10 +258,14 @@ def render_with_fallback(
                 return fb
         raise
 
-    if use_fc and _is_poor_render(r):
-        fb = _firecrawl_render(url, wait_ms)
-        if fb is not None and phase_hits(fb.text) > phase_hits(r.text):
-            return fb
+    if use_fc:
+        blocked = r.http_status in _BOT_BLOCK_STATUSES
+        if blocked or _is_poor_render(r):
+            fb = _firecrawl_render(url, wait_ms)
+            # On a bot-block the Playwright body is a challenge/blocked page with no pipeline, so
+            # take Firecrawl's render outright; on a merely-poor render keep it only if richer.
+            if fb is not None and (blocked or phase_hits(fb.text) > phase_hits(r.text)):
+                return fb
     return r
 
 

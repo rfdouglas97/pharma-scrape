@@ -58,6 +58,17 @@ def test_rich_render_does_not_call_firecrawl(monkeypatch):
     assert calls["n"] == 0  # guard held — no API call
 
 
+def test_bot_block_403_falls_back_to_firecrawl(monkeypatch):
+    # A 403 bot-block returns a short challenge page; Firecrawl renders past it. Taken outright
+    # even though the block page might coincidentally trip a phase word.
+    blocked = RenderResult(url="https://acme.com/pipeline", http_status=403,
+                           html="Access Denied", text="Access Denied. Phase out bots.",
+                           screenshot=b"x", meta={"pipeline_image_urls": []})
+    _wire(monkeypatch, playwright=blocked, firecrawl=PHASE_RICH)
+    r = render_with_fallback("https://acme.com/pipeline")
+    assert r.meta.get("render_via") == "firecrawl" and "Phase 1" in r.text
+
+
 def test_fallback_disabled_is_passthrough(monkeypatch):
     calls = _wire(monkeypatch, playwright=_rr(EMPTY), firecrawl=PHASE_RICH,
                   settings=_FakeSettings(enabled=False))
