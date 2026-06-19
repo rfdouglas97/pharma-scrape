@@ -41,7 +41,7 @@ def onboard_company(
         resolved = (resolve_fn or (lambda: resolve_company_source(name, ticker)))()
     except Exception as exc:  # noqa: BLE001 — one company must never crash a batch
         resolved = {"pipeline_url": None, "method": None, "validated": False,
-                    "rationale": f"resolve_error: {str(exc)[:160]}"}
+                    "transient": True, "rationale": f"resolve_error: {str(exc)[:160]}"}
 
     out = {
         "company": name, "ticker": ticker,
@@ -54,10 +54,11 @@ def onboard_company(
         company = _get_or_create_company(s, name, ticker, market_cap)
         company_name = company.name
         if not resolved.get("pipeline_url"):
-            # Record the attempt so the universe walk doesn't retry it endlessly.
-            company.pipeline_status = "unresolved"
-            out["status"] = "unresolved"
-            out["rationale"] = resolved.get("rationale")
+            # A transient firecrawl failure (rate limit) is retryable; a genuine "no pipeline
+            # page found" is terminal. The universe walk skips terminal, retries resolve_failed.
+            company.pipeline_status = "resolve_failed" if resolved.get("transient") else "unresolved"
+            out["status"] = company.pipeline_status
+            out["rationale"] = resolved.get("rationale") or resolved.get("error")
             return out
         existing = s.execute(
             select(CompanySource).where(CompanySource.company_id == company.company_id,

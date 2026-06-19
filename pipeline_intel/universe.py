@@ -24,9 +24,18 @@ def fetch_universe(api_base: str, min_market_cap: float = 0.0, limit: int = 5000
     return sorted((c for c in rows if c.get("market_cap")), key=lambda c: c["market_cap"])
 
 
+# Terminal outcomes — don't re-attempt. (resolve_failed is transient -> retried; partial
+# statuses like unverified_source/render_ok are also re-attempted.)
+_TERMINAL_STATUSES = ("loaded_gold", "qa_passed", "needs_repair", "unresolved", "failed")
+
+
 def attempted_tickers(s) -> set[str]:
-    """Tickers already in our registry (= already attempted)."""
-    return {t for (t,) in s.execute(select(Company.ticker).where(Company.ticker.isnot(None)))}
+    """Tickers we've reached a terminal conclusion on (skip these; resolve_failed is retried)."""
+    return {t for (t,) in s.execute(
+        select(Company.ticker).where(
+            Company.ticker.isnot(None), Company.pipeline_status.in_(_TERMINAL_STATUSES)
+        )
+    )}
 
 
 def onboard_universe(
@@ -42,8 +51,12 @@ def onboard_universe(
         already = attempted_tickers(s)
     batch = [c for c in universe if c.get("ticker") not in already][:limit]
 
+    import time
+
     results: list[dict] = []
-    for c in batch:
+    for i, c in enumerate(batch):
+        if i:
+            time.sleep(3)  # space out Firecrawl/render calls to respect rate limits
         out = onboard_company(c["name"], c.get("ticker"), market_cap=c.get("market_cap"),
                               run=run, publish_mode=publish_mode)
         results.append({

@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import re
 
-from pipeline_intel.firecrawl_client import firecrawl_map, firecrawl_search
+from pipeline_intel.firecrawl_client import FirecrawlError, firecrawl_map, firecrawl_search
 from pipeline_intel.ingest.classify import classify_rendered_page, phase_hits
 
 # Rank a site's links by how pipeline-like the URL path + title are (callers pre-filter to the
@@ -139,20 +139,30 @@ def resolve_company_source(
     # (i) search "<company> pipeline" -> content-check the company's own-domain results.
     company_root: str | None = None
     seen: set[str] = set()
-    for query in (f"{name} pipeline", f"{name} drug development pipeline"):
-        for res in search(query):
-            url = res.get("url")
-            if not url or url in seen or not _on_company_domain(url, name_token):
-                continue
-            seen.add(url)
-            company_root = company_root or _root_url(url)
-            if _accept(url, "firecrawl_search"):
-                return out
+    try:
+        for query in (f"{name} pipeline", f"{name} drug development pipeline"):
+            for res in search(query):
+                url = res.get("url")
+                if not url or url in seen or not _on_company_domain(url, name_token):
+                    continue
+                seen.add(url)
+                company_root = company_root or _root_url(url)
+                if _accept(url, "firecrawl_search"):
+                    return out
+    except FirecrawlError as exc:
+        # transient (rate limit / network) — retryable, NOT a genuine "unresolved".
+        out.update(transient=True, error=str(exc)[:160])
+        return out
 
     # (ii) map the company site for "pipeline" -> content-check the ranked candidates.
     if company_root:
         mapper = map_fn or (lambda root: firecrawl_map(root, search="pipeline", limit=60))
-        links = [ln for ln in mapper(company_root)
+        try:
+            mapped = mapper(company_root)
+        except FirecrawlError as exc:
+            out.update(transient=True, error=str(exc)[:160])
+            return out
+        links = [ln for ln in mapped
                  if ln.get("url") and _on_company_domain(ln["url"], name_token)]
         ranked = sorted(links, key=lambda ln: -_score_pipeline_link(ln["url"], ln.get("title") or ""))
         for ln in ranked[:6]:
