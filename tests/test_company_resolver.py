@@ -47,8 +47,15 @@ def test_is_news_url_blocks_non_pipeline_pages():
     assert _is_news_url("https://ir.x.com/resources/faq") is True
     assert _is_news_url("https://ir.x.com/sec-filings/all/content/x_ex99-1.htm") is True
     assert _is_news_url("https://x.com/careers") is True
-    # real pipeline pages (incl. on an investor subdomain) are NOT excluded
+    # bio / people pages (a scientist's bio is not a pipeline)
+    assert _is_news_url("https://imagenebio.com/team/weiguo-su-ph-d") is True
+    assert _is_news_url("https://x.com/leadership/jane-doe") is True
+    # press-release / article slug (many-hyphen headline) even without a /news/ path
+    assert _is_news_url("https://x.com/beyondspring-receives-nasdaq-notice-regarding-bid-price-3") is True
+    # real pipeline pages (incl. investor subdomain, short hyphenated paths) are NOT excluded
     assert _is_news_url("https://x.com/pipeline/pipeline-oncology") is False
+    assert _is_news_url("https://x.com/clinical-pipeline/") is False
+    assert _is_news_url("https://x.com/product-portfolio/pipeline") is False
     assert _is_news_url("https://investor.jnj.com/pipeline/default.aspx") is False
 
 
@@ -64,6 +71,15 @@ def test_resolver_never_sources_from_news():
 def test_validate_accepts_phase_rich_page():
     sig = validate_pipeline_page("https://acme.com/pipeline", "Acme", _rr(PIPE_HTML, PIPE_TEXT))
     assert sig["ok"] is True
+
+
+def test_validate_rejects_press_release_by_body_markers():
+    # an opaque permalink (/2259-2) the URL guardrail can't see — caught by newswire markers
+    # in the body even though it mentions Phase 1/2/3.
+    pr = "BeyondSpring Phase 1 Phase 2 Phase 3 ... NEW YORK (GLOBE NEWSWIRE) -- the company..."
+    sig = validate_pipeline_page("https://beyondspringpharma.com/2259-2", "BeyondSpring",
+                                 _rr("<p>x</p>", pr))
+    assert sig["ok"] is False and sig["source_type"] == "press_release"
 
 
 def test_validate_rejects_redirect_to_bare_image_trap():

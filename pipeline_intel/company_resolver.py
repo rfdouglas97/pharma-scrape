@@ -48,6 +48,18 @@ def _name_token(name: str) -> str:
     return words[0] if words else name.lower()
 
 
+# Markers in a press release body that never appear on a clean pipeline page. Catches
+# press releases with opaque permalinks (e.g. /2259-2) that the URL guardrail can't see.
+_PRESS_BODY_MARKERS = (
+    "globenewswire", "globe newswire", "prnewswire", "pr newswire", "business wire",
+    "businesswire", "for immediate release", "accesswire", "/source:",
+)
+
+
+def _looks_like_press_release(text: str | None) -> bool:
+    return any(m in (text or "").lower() for m in _PRESS_BODY_MARKERS)
+
+
 def validate_pipeline_page(url: str, company_name: str, render_fn) -> dict:
     """Render a candidate URL and judge whether it's a real pipeline page. ok=True when it
     shows pipeline structure / phase text / a pipeline image."""
@@ -61,6 +73,14 @@ def validate_pipeline_page(url: str, company_name: str, render_fn) -> dict:
     hits = phase_hits(r.text)
     has_image = bool(r.meta.get("pipeline_image_urls"))
     body_len = len((r.text or "").strip())
+    # A press release mentions phases in prose and so passes the phase check — but it is never a
+    # pipeline source. Catch the ones the URL guardrail misses (opaque permalinks like /2259-2)
+    # by their content: newswire distributor markers appear in a press release body, never on a
+    # clean pipeline page.
+    if _looks_like_press_release(r.text):
+        return {"ok": False, "source_type": "press_release", "phase_hits": hits,
+                "has_pipeline_image": has_image, "body_text_len": body_len,
+                "http_status": r.http_status}
     # CONTENT-based validation: a real pipeline page either carries phase vocabulary in its
     # text, or is a genuine image-backed page (a pipeline image on a real HTML page with body
     # text). This rejects the common trap where "/pipeline/" 301-redirects to a bare .jpg —
@@ -111,14 +131,24 @@ _EXCLUDED_PATH_HINTS = (
     "news", "press", "/media", "/blog", "announce", "/pr/",          # news / press releases
     "faq", "sec-filing", "/filings", "/resources", "/investor-faq",  # FAQ / SEC / resources
     "/legal", "/terms", "/privacy", "/careers", "/contact",          # admin / boilerplate
+    "/team", "/leadership", "/our-people", "/people", "/management",  # people / bio pages —
+    "/board", "/governance", "/executive", "/advisor", "/our-team",   # a scientist's bio is not a pipeline
 )
 
 
 def _is_news_url(url: str) -> bool:
-    """True for pages that must never be accepted as a pipeline source (news, FAQ, SEC, admin)."""
+    """True for pages that must never be accepted as a pipeline source — news, FAQ, SEC, admin,
+    a person's bio, or a press-release/article slug. Phase-mention counting is loose, so these
+    categorically-not-a-pipeline pages would otherwise pass the content check."""
     from urllib.parse import urlparse
 
-    return any(h in urlparse(url).path.lower() for h in _EXCLUDED_PATH_HINTS)
+    path = urlparse(url).path.lower()
+    if any(h in path for h in _EXCLUDED_PATH_HINTS):
+        return True
+    # A path segment with many hyphenated words is a headline slug (e.g. a press release
+    # ".../beyondspring-receives-nasdaq-notice-regarding-minimum-bid-price-requirements-3"),
+    # never a pipeline page — real pipeline paths are short (/pipeline, /clinical-pipeline).
+    return any(seg.count("-") >= 4 for seg in path.split("/"))
 
 
 def _root_url(url: str) -> str:
