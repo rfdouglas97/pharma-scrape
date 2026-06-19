@@ -160,6 +160,23 @@ def _root_url(url: str) -> str:
     return f"https://{registrable}"
 
 
+def _budgeted_render_fn(budget: int = 3):
+    """Default render for validation: Playwright with a Firecrawl fallback for JS-rendered pages,
+    but only the first `budget` candidates may escalate to Firecrawl — so a company where nothing
+    validates doesn't fan out an (API-credit) Firecrawl call across every candidate. Candidates are
+    tried in pipeline-score order, so the budget is spent on the most likely real pipeline pages."""
+    from pipeline_intel.ingest.render import render_with_fallback
+
+    state = {"n": 0}
+
+    def _render(url: str):
+        allow = state["n"] < budget
+        state["n"] += 1
+        return render_with_fallback(url, allow_firecrawl=allow)
+
+    return _render
+
+
 def resolve_company_source(
     name: str, ticker: str | None = None,
     render_fn=None, search_fn=None, map_fn=None,
@@ -169,8 +186,7 @@ def resolve_company_source(
       (ii) if none check out, map the company site for "pipeline" and content-check those.
     Every candidate is content-checked (validate_pipeline_page). Never raises."""
     if render_fn is None:
-        from pipeline_intel.ingest.render import render
-        render_fn = render
+        render_fn = _budgeted_render_fn()
     search = search_fn or (lambda q: firecrawl_search(q, limit=8))
     name_token = _name_token(name)
 

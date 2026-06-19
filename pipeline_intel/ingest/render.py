@@ -198,6 +198,65 @@ class RenderError(RuntimeError):
     pass
 
 
+def _is_poor_render(result: RenderResult) -> bool:
+    """A render is 'poor' when there's no readable pipeline evidence — no phase vocabulary in the
+    text and no pipeline image. Mirrors the signal in `validate_pipeline_page`; the usual cause is
+    a client-side-rendered (JS) pipeline that Playwright captured before it hydrated."""
+    from pipeline_intel.ingest.classify import phase_hits  # noqa: PLC0415 — avoid import cycle
+
+    return phase_hits(result.text) < 3 and not result.meta.get("pipeline_image_urls")
+
+
+def _firecrawl_render(url: str, wait_ms: int) -> RenderResult | None:
+    """Re-render a page via Firecrawl (renders client-side JS to markdown). Returns a text-backed
+    RenderResult (no screenshot → routes to text extraction, correct for JS table pages) or None
+    when Firecrawl yields nothing (no API key / error / empty)."""
+    from pipeline_intel.firecrawl_client import firecrawl_scrape  # noqa: PLC0415 — defer
+
+    md = firecrawl_scrape(url, wait_ms=wait_ms)
+    if not md or not md.strip():
+        return None
+    return RenderResult(
+        url=url,
+        http_status=200,
+        html=md,
+        text=md,
+        screenshot=b"",
+        meta={"render_via": "firecrawl", "title": "", "links": [],
+              "pipeline_image_urls": [], "wait_until": "firecrawl"},
+    )
+
+
+def render_with_fallback(
+    url: str, render_config: dict | None = None, *, allow_firecrawl: bool = True
+) -> RenderResult:
+    """Render via Playwright, falling back to Firecrawl when Playwright errors or returns a
+    JS-empty page. This single wrapper hardens BOTH discovery (resolver validation) and ingest:
+      - on RenderError -> Firecrawl markdown (instead of a terminal failure);
+      - on a poor render -> Firecrawl, kept only if it surfaces more pipeline text.
+    No-ops to plain `render` when the fallback is disabled or no Firecrawl key is configured."""
+    from pipeline_intel.ingest.classify import phase_hits  # noqa: PLC0415 — avoid import cycle
+
+    s = settings()
+    use_fc = allow_firecrawl and s.firecrawl_render_fallback and bool(s.firecrawl_api_key)
+    wait_ms = s.firecrawl_fallback_wait_ms
+
+    try:
+        r = render(url, render_config)
+    except RenderError:
+        if use_fc:
+            fb = _firecrawl_render(url, wait_ms)
+            if fb is not None:
+                return fb
+        raise
+
+    if use_fc and _is_poor_render(r):
+        fb = _firecrawl_render(url, wait_ms)
+        if fb is not None and phase_hits(fb.text) > phase_hits(r.text):
+            return fb
+    return r
+
+
 def extract_pipeline_image_urls(base_url: str, html: str) -> list[str]:
     """Return likely pipeline/chart image URLs from generic image metadata.
 

@@ -17,7 +17,7 @@ from pipeline_intel.gold.models import Company, CompanySource, JobRun
 from pipeline_intel.ingest.classify import classify_rendered_page, sniff_url_type
 from pipeline_intel.ingest.fetch_doc import DocFetchError, fetch_document
 from pipeline_intel.ingest.parse_doc import parse_document
-from pipeline_intel.ingest.render import RenderError, render, robots_allows
+from pipeline_intel.ingest.render import RenderError, render_with_fallback, robots_allows
 from pipeline_intel.ingest.snapshot import write_doc_snapshot, write_snapshot
 from pipeline_intel.ingest.storage import Storage, get_storage
 from pipeline_intel.source_discovery import discover_from_html, select_promotable_file
@@ -93,7 +93,7 @@ def run_company(company_query: str) -> dict:
                         src.source_type = doc_type
                     kind = doc_type
                 else:
-                    result = render(src.url, src.render_config)
+                    result = render_with_fallback(src.url, src.render_config)
                     # Classify the rendered page from real evidence so model routing reacts.
                     page_kind = classify_rendered_page(
                         result.html, result.text, result.meta.get("pipeline_image_urls")

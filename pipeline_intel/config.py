@@ -19,6 +19,11 @@ class Settings(BaseSettings):
     firecrawl_api_key: str | None = None
     extraction_timeout_seconds: int = 240
     qa_timeout_seconds: int = 120
+    # Firecrawl render fallback: when Playwright errors or returns a JS-empty page, re-render via
+    # Firecrawl (renders client-side JS to markdown). Longer wait than the extractor's 4s default
+    # because JS pipeline tables hydrate slowly. Kill-switch for cost control.
+    firecrawl_render_fallback: bool = True
+    firecrawl_fallback_wait_ms: int = 8000
 
     crawler_user_agent: str = "PipelineIntelBot/0.1"
     crawler_delay_seconds: float = 1.0
