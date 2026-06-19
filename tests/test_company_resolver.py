@@ -38,11 +38,16 @@ def test_on_company_domain_matches_ticker_domain():
     assert _on_company_domain("https://www.dwtx.com/pipeline", "dogwood", None) is False
 
 
-def test_is_news_url_blocks_press_releases():
+def test_is_news_url_blocks_non_pipeline_pages():
+    # news / press releases
     assert _is_news_url("https://ir.x.com/news/press-releases/detail/1/foo") is True
     assert _is_news_url("https://x.com/index.php/investors/news-center/press-releases/1") is True
     assert _is_news_url("https://x.com/media/2025/announcement") is True
-    # real pipeline pages (incl. on an investor subdomain) are NOT news
+    # FAQ / SEC filings / admin — all say "Phase 1/2/3" but are not pipeline pages
+    assert _is_news_url("https://ir.x.com/resources/faq") is True
+    assert _is_news_url("https://ir.x.com/sec-filings/all/content/x_ex99-1.htm") is True
+    assert _is_news_url("https://x.com/careers") is True
+    # real pipeline pages (incl. on an investor subdomain) are NOT excluded
     assert _is_news_url("https://x.com/pipeline/pipeline-oncology") is False
     assert _is_news_url("https://investor.jnj.com/pipeline/default.aspx") is False
 
