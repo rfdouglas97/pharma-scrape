@@ -38,6 +38,35 @@ def attempted_tickers(s) -> set[str]:
     )}
 
 
+def universe_status(api_base: str | None = None, min_market_cap: float = 30_000_000) -> dict:
+    """Progress through the universe: how many companies (>= floor) are done, by status, and
+    the frontier of what's next. The 'don't get lost' dashboard."""
+    from collections import Counter
+
+    api_base = api_base or settings().company_db_url
+    universe = fetch_universe(api_base, min_market_cap)
+    by_ticker = {c.get("ticker"): c for c in universe if c.get("ticker")}
+
+    with session() as s:
+        rows = s.execute(
+            select(Company.ticker, Company.pipeline_status).where(Company.ticker.in_(by_ticker))
+        ).all()
+    status_by_ticker = {tk: st for tk, st in rows}
+    by_status = Counter(status_by_ticker.get(tk) or "not_attempted" for tk in by_ticker)
+
+    terminal = {tk for tk, st in status_by_ticker.items() if st in _TERMINAL_STATUSES}
+    remaining = sorted((c for tk, c in by_ticker.items() if tk not in terminal),
+                       key=lambda c: c["market_cap"])
+    return {
+        "universe_total": len(by_ticker),
+        "done_terminal": len(terminal),
+        "remaining": len(remaining),
+        "by_status": dict(by_status),
+        "next_up": [{"ticker": c["ticker"], "market_cap_m": round(c["market_cap"] / 1e6, 1),
+                     "name": c["name"]} for c in remaining[:8]],
+    }
+
+
 def onboard_universe(
     api_base: str | None = None, min_market_cap: float = 30_000_000, limit: int = 10,
     run: bool = True, publish_mode: str = "gated",

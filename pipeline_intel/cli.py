@@ -489,6 +489,16 @@ def onboard_universe_cmd(
                           indent=2, default=str))
 
 
+@app.command(name="universe-status")
+def universe_status_cmd(
+    floor: float = typer.Option(30_000_000, "--floor", help="Minimum market cap (USD)"),
+) -> None:
+    """Progress dashboard: how far we've walked the company universe, by status + what's next."""
+    from pipeline_intel.universe import universe_status
+
+    typer.echo(json.dumps(universe_status(min_market_cap=floor), indent=2, default=str))
+
+
 @app.command(name="resolve-source")
 def resolve_source_cmd(
     company: str = typer.Option(..., "--company", "-c", help="Company name"),
