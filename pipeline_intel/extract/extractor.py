@@ -188,24 +188,29 @@ def extract_snapshot(
             s.flush()
             return ExtractionOutcome(ext.extraction_id, "failed", 0, 0, str(exc))
 
-        ext.raw_json = outcome.result.model_dump()
-        ext.usage = {**ext.usage, **outcome.usage, "visual_transcription": outcome.transcription.model_dump()}
         n_assets = len(outcome.result.assets)
         n_programs = sum(len(a.programs) for a in outcome.result.assets)
-        notes = []
-        if outcome.stop_reason == "max_tokens":
-            notes.append("output truncated (max_tokens)")
-        if n_assets == 0:
-            notes.append("no rows transcribed")
-        low_conf = sum(1 for r in outcome.transcription.rows if r.confidence < 0.5)
-        if low_conf:
-            notes.append(f"{low_conf} low-confidence rows")
-        if notes:
-            ext.status = "needs_review"
-            ext.error = "; ".join(notes)
-        s.add(ext)
-        s.flush()
-        return ExtractionOutcome(ext.extraction_id, ext.status, n_assets, n_programs, ext.error)
+        # If the visual pass transcribed nothing, the matched "pipeline image" was almost certainly
+        # decorative — a stock photo/banner whose filename tripped the image heuristic (e.g.
+        # XBiotech's "pipeline image.webp" is a photo of a doctor). Don't dead-end at 0: fall
+        # through to the generic text + full-page-screenshot path below, which may carry the real
+        # pipeline. (Drop the empty visual extraction — never persisted.)
+        if n_assets > 0:
+            ext.raw_json = outcome.result.model_dump()
+            ext.usage = {**ext.usage, **outcome.usage,
+                         "visual_transcription": outcome.transcription.model_dump()}
+            notes = []
+            if outcome.stop_reason == "max_tokens":
+                notes.append("output truncated (max_tokens)")
+            low_conf = sum(1 for r in outcome.transcription.rows if r.confidence < 0.5)
+            if low_conf:
+                notes.append(f"{low_conf} low-confidence rows")
+            if notes:
+                ext.status = "needs_review"
+                ext.error = "; ".join(notes)
+            s.add(ext)
+            s.flush()
+            return ExtractionOutcome(ext.extraction_id, ext.status, n_assets, n_programs, ext.error)
 
     # Text-rich pages carry the pipeline in their DOM text, not an image: extract from text
     # via the high-ceiling streaming path and skip the slow full-page vision pass (what timed
