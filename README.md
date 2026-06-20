@@ -28,6 +28,8 @@ name + ticker
                   • else      → text + vision
   └─ QA       : LLM-as-judge + deterministic checks + trusted-count completeness gate
   └─ load     : gated upsert to gold (SCD2 program history). Failures → needs_repair, not gold.
+  └─ enrich   : map indications → EFO/MONDO (OLS) + Open Targets, build adjacency closure for
+                biology-aware search. Authority-validated, never overwrites scraped values.
 ```
 
 Every gold value traces back to an immutable bronze snapshot (HTML / screenshot / file).
@@ -57,6 +59,23 @@ Feed a ticker list and the factory fills gold, quarantining the hard cases:
 ```bash
 uv run pipeline batch --limit 20 --concurrency 4    # run the gated factory over the registry
 uv run pipeline coverage                            # who loaded, who needs_repair, by source format
+uv run pipeline repair --company "Insmed"           # reset a company sourced from the wrong page, re-onboard clean
+```
+
+### Walk the universe (market-cap order)
+
+Onboard companies straight from the external company DB, ascending by market cap, resuming where
+it left off — every attempt (including `unresolved`) is recorded so nothing is re-tried blindly:
+
+```bash
+uv run pipeline onboard-universe --limit 50         # systematic walk via the registry
+uv run pipeline universe-status                     # resolved / unresolved / loaded progress
+```
+
+### Biology-aware enrichment
+
+```bash
+uv run pipeline enrich                               # indications → EFO/MONDO + Open Targets, adjacency closure
 ```
 
 ### Completeness gate (trusted counts)
@@ -92,9 +111,13 @@ source screenshot for labeling golden fixtures.
 | Path | What |
 |---|---|
 | `pipeline_intel/onboard.py` | Capstone: name+ticker → resolve → register → scrape |
+| `pipeline_intel/universe.py` | Systematic market-cap-ordered walk over the external company DB, resumable |
 | `pipeline_intel/company_resolver.py` | Search-then-crawl pipeline-URL resolver (Firecrawl) + content validation |
+| `pipeline_intel/source_discovery.py` | Find a cleaner pipeline FILE (xlsx/pdf/csv) linked off the page |
 | `pipeline_intel/firecrawl_client.py` | Firecrawl search / map / scrape (REST, optional) |
 | `pipeline_intel/batch.py` | Concurrent gated factory: render→extract→QA→load state machine |
+| `pipeline_intel/model_routing.py` | Pick the extraction model per source format / size |
+| `pipeline_intel/maintenance.py` | Reset a company's bad data (wrong source page) for a clean re-onboard |
 | `pipeline_intel/ingest/` | Render (Playwright), document fetch+parse, source classification, snapshots, storage |
 | `pipeline_intel/extract/` | Extraction schema, text/document extractor, two-pass visual extractor, batch API |
 | `pipeline_intel/quality/` | LLM-as-judge QA, golden-set scorer + eval gate, fixture labeling |
