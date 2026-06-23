@@ -99,6 +99,42 @@ def programs(
         )
 
 
+@app.get("/v1/search")
+def search(
+    q: str | None = None,
+    target: str | None = None,
+    indication: str | None = None,
+    phase: str | None = None,
+    modality: str | None = None,
+    therapeutic_area: str | None = None,
+    company_id: str | None = None,
+    status: str | None = None,
+    active_only: bool = True,
+    as_of: str | None = None,
+    semantic: bool = True,
+    limit: int = 50,
+) -> dict:
+    """Hybrid search (structured + lexical + vector), deterministic. `as_of` (ISO date/datetime)
+    gives point-in-time results for backtests."""
+    from pipeline_intel.search import hybrid
+
+    with session() as s:
+        return hybrid.search(
+            s, q, target=target, indication=indication, phase=phase, modality=modality,
+            therapeutic_area=therapeutic_area, company_id=company_id, status=status,
+            active_only=active_only, as_of=as_of, semantic=semantic, limit=min(limit, 500),
+        )
+
+
+@app.get("/v1/assets/by-target/{gene}")
+def assets_by_target(gene: str, limit: int = 100, as_of: str | None = None) -> dict:
+    """All programs hitting a gene/target (HGNC symbol or disclosed verbatim, e.g. KRAS)."""
+    from pipeline_intel.search import hybrid
+
+    with session() as s:
+        return hybrid.find_by_target(s, gene, limit=min(limit, 500), as_of=as_of)
+
+
 @app.get("/v1/assets/{asset_id}")
 def asset(asset_id: str) -> dict:
     with session() as s:
