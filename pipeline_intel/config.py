@@ -24,6 +24,9 @@ class Settings(BaseSettings):
     # because JS pipeline tables hydrate slowly. Kill-switch for cost control.
     firecrawl_render_fallback: bool = True
     firecrawl_fallback_wait_ms: int = 8000
+    # Semantic-search embedding model (1024-dim to match program_embedding). Local fastembed by
+    # default — self-contained + deterministic; override to a hosted 1024-dim model if desired.
+    embed_model: str = "BAAI/bge-large-en-v1.5"
 
     crawler_user_agent: str = "PipelineIntelBot/0.1"
     crawler_delay_seconds: float = 1.0

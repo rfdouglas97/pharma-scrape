@@ -547,6 +547,19 @@ def coverage_cmd() -> None:
         )
 
 
+@app.command(name="embed")
+def embed_cmd(force: bool = typer.Option(False, "--force", help="Re-embed all (ignore text_hash)")) -> None:
+    """Generate semantic embeddings for current programs into program_embedding (pgvector), for
+    hybrid search. Local fastembed model; idempotent via text_hash. Run after `enrich`."""
+    from pipeline_intel.db import session
+    from pipeline_intel.search.embed import embed_all, ensure_vector_index
+
+    with session() as s:
+        ensure_vector_index(s)
+        stats = embed_all(s, force=force)
+    typer.echo(json.dumps(stats.as_dict(), indent=2))
+
+
 @app.command()
 def companies() -> None:
     """List companies in the registry with their source URLs."""

@@ -30,9 +30,12 @@ from pipeline_intel.gold.models import (
 )
 
 
-def _current_program_query() -> Select:
-    """Base join: one row per program at its CURRENT version (valid_to IS NULL), with
-    asset, indication, company, and provenance (last-seen snapshot)."""
+def _current_program_query(as_of=None) -> Select:
+    """Base join: one row per program at its version that was current AS OF `as_of` (default:
+    now → valid_to IS NULL), with asset, indication, company, and provenance (last-seen snapshot).
+
+    Passing a datetime selects the version that was open at that instant
+    (valid_from <= as_of < valid_to) — point-in-time reads with no lookahead, for backtests."""
     # Correlated subqueries for the asset's enriched target gene(s) — used in the MoA column
     # when the company didn't disclose a mechanism (the genes are Open-Targets-sourced).
     target_syms = (
@@ -49,7 +52,7 @@ def _current_program_query() -> Select:
         .correlate(Asset)
         .scalar_subquery()
     )
-    return (
+    base = (
         select(
             Program.program_id,
             Asset.asset_id,
@@ -88,7 +91,12 @@ def _current_program_query() -> Select:
         )
         .outerjoin(Snapshot, Snapshot.snapshot_id == ProgramVersion.last_seen_snapshot_id)
         .outerjoin(CompanySource, CompanySource.source_id == Snapshot.source_id)
-        .where(ProgramVersion.valid_to.is_(None))
+    )
+    if as_of is None:
+        return base.where(ProgramVersion.valid_to.is_(None))
+    return base.where(
+        ProgramVersion.valid_from <= as_of,
+        or_(ProgramVersion.valid_to.is_(None), ProgramVersion.valid_to > as_of),
     )
 
 
