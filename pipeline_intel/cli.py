@@ -406,6 +406,25 @@ def enrich(
     typer.echo(json.dumps(result, indent=2))
 
 
+@app.command()
+def publish(
+    init: bool = typer.Option(
+        False, "--init", help="(Re)create the published schema, views, matviews, and read-only role"
+    ),
+) -> None:
+    """Build/refresh the `published` contract schema the Project Rand trading system reads
+    over a read-only Postgres connection (role: rand_reader). `--init` (re)creates the schema
+    from current definitions; default refreshes the born_on + edge materialized views so the
+    live read surface reflects the latest ingest/enrich cycle."""
+    from pipeline_intel.publish import init_published, refresh
+
+    if init:
+        result = {"action": "init", "counts": init_published()}
+    else:
+        result = {"action": "refresh", "counts": refresh()}
+    typer.echo(json.dumps(result, indent=2, default=str))
+
+
 @app.command(name="backfill-ot")
 def backfill_ot(limit: int = typer.Option(None, "--limit", help="Backfill at most N assets")) -> None:
     """Backfill target/modality/mechanism from Open Targets for assets where the company

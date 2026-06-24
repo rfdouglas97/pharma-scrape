@@ -2,8 +2,9 @@
 
 An **autonomous factory** that builds and maintains a structured database of pharma/biotech
 development pipelines — scraped from each company's own public disclosures, normalized into an
-ID-anchored schema, quality-gated, and exposed for biology-aware search. Built to scale from a
-**ticker list to hundreds of companies, hands-off.**
+ID-anchored schema, quality-gated, and exposed for biology-aware search **and as a live read-only
+SQL surface for downstream systems** (e.g. the Project Rand quant trading engine). Built to scale
+from a **ticker list to hundreds of companies, hands-off.**
 
 Give it a name + ticker and it resolves the company's pipeline page, scrapes it (whatever the
 format), extracts the programs, QA-gates them, and loads them to gold — quarantining anything
@@ -30,6 +31,8 @@ name + ticker
   └─ load     : gated upsert to gold (SCD2 program history). Failures → needs_repair, not gold.
   └─ enrich   : map indications → EFO/MONDO (OLS) + Open Targets, build adjacency closure for
                 biology-aware search. Authority-validated, never overwrites scraped values.
+  └─ publish  : refresh the `published` contract schema (born-on-dated nodes + mechanism/
+                competitive edges) the trading system reads over a live read-only connection.
 ```
 
 Every gold value traces back to an immutable bronze snapshot (HTML / screenshot / file).
@@ -106,6 +109,22 @@ cd web && npm install && npm run dev             # Next.js explorer at http://lo
 The explorer is faceted, biology-aware program search; `/review` shows each extraction beside its
 source screenshot for labeling golden fixtures.
 
+### Share with a downstream system (the trading DB)
+
+Expose the drug-level knowledge graph to an external consumer (the Project Rand quant engine) as a
+**live, read-only SQL surface** — a `published` schema of spec-shaped views + born-on-dated
+mechanism/competitive edges, behind a least-privilege role (`rand_reader`). Direct SQL, not the
+REST API: a per-lookup HTTP round-trip is too slow for a backtest, and SCD2 history + `born_on`
+let the *live* DB answer both "what's true now" and "what did we know as-of date X" (no look-ahead).
+
+```bash
+uv run pipeline publish --init    # (re)create the published schema, views, matviews, reader role
+uv run pipeline publish           # refresh born_on + edges (run after each batch/enrich cycle)
+```
+
+Consumers attach over Postgres read-only (DuckDB `ATTACH` example, full schema, and a drop-in
+point-in-time graph client in [`docs/PUBLISHED_DB.md`](docs/PUBLISHED_DB.md)).
+
 ## Layout
 
 | Path | What |
@@ -126,6 +145,7 @@ source screenshot for labeling golden fixtures.
 | `pipeline_intel/gold/` | Medallion schema (SQLAlchemy) + thin silver→gold loader (SCD2) |
 | `pipeline_intel/normalize/`, `ontology/`, `search/` | Vocab normalization, EFO/MONDO mapping + adjacency, query layer |
 | `pipeline_intel/history/` | Longitudinal change-event feed (program_version diffs) |
+| `pipeline_intel/publish/` | `published` contract schema (spec-shaped views + born-on/edge matviews + reader role) for the trading DB |
 | `api/`, `web/` | FastAPI read+review service; Next.js explorer/review UI |
 | `config/`, `migrations/` | Registry + vocab seeds; Alembic |
 
